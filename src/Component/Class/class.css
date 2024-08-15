@@ -1,0 +1,67 @@
+:root {
+     --primary-font: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+     --primary-color: rgba(118, 177, 247, 1);
+     --secondary-color: #ffffff;
+     --danger-color: rgb(200, 34, 34);
+   }
+
+
+/* ********************************CREATE CLASS*************************** */
+.create-class-nav{
+     width: 58%;
+     display: flex;
+     padding: 15px;
+     border-radius: 20px;
+     gap: 20px;
+}
+.class-name {
+     border-top-left-radius: 10px;
+     border-bottom-left-radius: 10px;
+}
+.class-name  input{
+     all: unset;
+     width: 30em;
+     height: 2.5em;
+     display: flex;
+     justify-content: start;
+     text-align: left;
+     padding-left: 20px;
+     font-weight: bold;
+     color: var(--primary-color)
+}
+.add-button {
+     border-top-right-radius: 10px;
+     border-bottom-right-radius: 10px;
+     display: flex;
+     text-align: center;
+}
+.add-button input{
+     all: unset;
+     width: 4em;
+}
+
+/* ********************************LIST ALL CLASS*************************** */
+.all-class-table{
+     margin-top: 20px;
+     width: 80%;
+     border-radius: 7px;
+     border-spacing: 0;
+     border: none;
+}
+.all-class-table thead tr th:nth-child(1){
+     border-top-left-radius: 10px;
+}
+.all-class-table thead tr th:nth-child(3){
+     border-top-right-radius: 10px;
+}
+.all-class-table thead{
+     height: 3em;
+     text-align: left;
+}
+.all-class-table thead tr th{
+     padding-left: 10px;
+}
+.all-class-table tbody tr td{
+     text-align: left;
+     padding: 10px;
+}
