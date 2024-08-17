@@ -54,6 +54,21 @@ const Auth = (set, get) => ({
                 },
             }));
         }
+    },
+    logout: async () => {
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('user');
+        set((state) => ({
+            ...state,
+            auth: {
+                ...state.auth,
+                isAuthenticated: false,
+                token: null,
+                user: null,
+                loading: false,
+            },
+        }));
+        window.location.reload();
     }
 });
 
