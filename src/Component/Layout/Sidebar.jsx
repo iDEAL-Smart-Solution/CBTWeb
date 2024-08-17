@@ -1,5 +1,5 @@
 import { useAuth } from "../../Zustand/auth";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const navLinksItem = [
      { link: "/dashboard", name: "DashBoard" },
@@ -17,21 +17,20 @@ export default function Sidebar() {
      const allowedRoutes = roleRoutes[user?.role] || [];
 
      return (
-          <>
-               <div className="">
-                    <ul className="">
-                         {navLinksItem.map(({ link, name }, index) => (
-                              allowedRoutes.includes(link) && (
-                                   <Link end key={index} className={`text-dec-none color-primary bold`} to={link}>
+          <div className="">
+               <ul className="">
+                    {navLinksItem.map(({ link, name }, index) => 
+                         allowedRoutes.includes(link) ? (
+                              <li key={index} className="li">
+                                   <NavLink className={`text-dec-none bold`} to={link} end>
                                         <div className="">
-                                             {/* <span className='text-prim'>{icon}</span> */}
                                              <span className=''>{name}</span>
                                         </div>
-                                   </Link>
-                              )
-                         ))}
-                    </ul>
-               </div>
-          </>
+                                   </NavLink>
+                              </li>
+                         ) : null
+                    )}
+               </ul>
+          </div>
      )
 }

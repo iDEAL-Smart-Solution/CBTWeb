@@ -6,6 +6,7 @@ import Admin from './Pages/Admin';
 import Staff from './Pages/Staff';
 import Dev from './Pages/Dev';
 import Class from './Pages/Class';
+import SingleClass from './Pages/Class/singleClass';
 
 
 
@@ -40,6 +41,7 @@ function App() {
       children: [
        { path: "/dashboard", element: <ComponentToRender /> }, 
        { path: "/class", element: <Class /> },
+       { path: "/class/:id", element: <SingleClass /> },
         
       ],
     },

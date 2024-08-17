@@ -65,3 +65,32 @@
      text-align: left;
      padding: 10px;
 }
+
+
+/* *******************************SINGLE CLASS *********************************** */
+.single-class-container{
+     padding: 20px;
+     max-height: 82vh;
+     overflow: scroll;
+}
+.single-class-box{
+     height: 30vh;
+     border-radius: 10px;
+     margin-bottom: 30px;
+     overflow: scroll;
+     padding: 20px;
+
+}
+.single-class-name{
+     font-size: 30px;
+     font-weight: bolder;
+}
+.list-in-single-class-box{
+     width: 100%;
+}
+.list-in-single-class{
+     width: 100%;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+}

@@ -18,6 +18,9 @@ body{
 .color-light{
   color: var(--secondary-color);
 }
+.color-dark {
+  color: black;
+}
 .color-danger{
   color: var(--danger-color);
 }
@@ -42,11 +45,25 @@ body{
 .bold{
   font-weight: bold;
 }
+.bolder{
+  font-weight: bolder;
+}
 
 .text-dec-none{
   text-decoration: none;
 }
-
+.link{
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+.text-center{
+  text-align: center;
+}
+.li{
+  list-style: none;
+  margin-bottom: 20px;
+}
 /* ***************************USER LOGIN FORM *************************** */
 
 .page-center{
@@ -57,13 +74,22 @@ body{
     place-content: center;
 }
 .login-box{
-  height: 40%;
-  width: 30%;
+  height: 60%;
+  width: 40%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 20px;
+}
+.login-box-inner{
+  width: 100%;
+  
 }
 .login-box div input{
-  width: 80%;
+  all: unset;
+  width: 90%;
   height: 2em;
   font-size: large;
   padding: 20px;
@@ -73,7 +99,7 @@ body{
 }
 
 .login-box button{
-  width: 86%;
+  width: 97%;
   height: 3em;
   font-size: large;
   margin-bottom: 30px;
@@ -92,4 +118,11 @@ body{
 
 .login-box div a{
   text-align: left;
+}
+
+@media screen and (min-width: 1440px) {
+  .login-box{
+    width: 30%;
+    height: 40%;
+  }
 }
