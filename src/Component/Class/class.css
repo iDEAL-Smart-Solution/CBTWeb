@@ -48,12 +48,12 @@
      border-spacing: 0;
      border: none;
 }
-.all-class-table thead tr th:nth-child(1){
+/* .all-class-table thead tr th:nth-child(1){
      border-top-left-radius: 10px;
 }
 .all-class-table thead tr th:nth-child(3){
      border-top-right-radius: 10px;
-}
+} */
 .all-class-table thead{
      height: 3em;
      text-align: left;

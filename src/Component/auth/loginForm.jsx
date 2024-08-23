@@ -45,10 +45,10 @@ export default function LoginForm() {
                          </p>}
                          <h1 className="font-primary color-primary text-center">Welcome Back</h1>
                          <div>
-                              <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} />
+                              <input type="email" className="login-field" name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} />
                          </div>
                          <div>
-                              <input type="password" name="password" placeholder="password" value={formData.password} onChange={handleInputChange} />
+                              <input type="password" className="login-field" name="password" placeholder="password" value={formData.password} onChange={handleInputChange} />
                          </div>
                          <button type="submit" loading={loading.toString()}>
                               {!loading ? "Login" : "please wait..."}

@@ -30,6 +30,9 @@ body{
 .bg-color-prim{
   background-color: var(--primary-color);
 }
+.bg-color-mute{
+  background-color: rgba(200, 199, 199, 0.844);
+}
 .color-primary{
   color: var(--primary-color);
 }
@@ -64,6 +67,13 @@ body{
   list-style: none;
   margin-bottom: 20px;
 }
+.b-r-r{
+  border-top-right-radius: 10px;
+}
+.b-r-l{
+  border-top-left-radius: 10px;
+
+}
 /* ***************************USER LOGIN FORM *************************** */
 
 .page-center{
@@ -73,6 +83,7 @@ body{
     place-items: center;
     place-content: center;
 }
+
 .login-box{
   height: 60%;
   width: 40%;
@@ -87,7 +98,7 @@ body{
   width: 100%;
   
 }
-.login-box div input{
+.login-field{
   all: unset;
   width: 90%;
   height: 2em;
