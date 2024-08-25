@@ -6,9 +6,9 @@ export default function ListClass({ classes, loading }) {
     <table className="all-class-table box-shadow-2">
       <thead className="bg-color-prim color-light">
         <tr>
-          <th>Class Name</th>
+          <th className="b-r-l">Class Name</th>
           <th>Number of Subjects</th>
-          <th>Number of Students</th>
+          <th className="b-r-r">Number of Students</th>
         </tr>
       </thead>
       <tbody>

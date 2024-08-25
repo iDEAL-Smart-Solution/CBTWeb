@@ -1,0 +1,60 @@
+.register-box {
+     all: unset;
+     display: flex;
+     width: 70%;
+     height: 60%;
+     overflow: scroll;
+     justify-content: center;
+     padding-top: 20px;
+     margin-top: -10%;
+}
+
+.register-field {
+     all: unset;
+     width: 100%;
+     height: 42px;
+     outline: none;
+     border: 1px solid rgba(200, 200, 200, 0.588);
+     border-radius: 5px;
+     padding: 0px 10px;
+     transition: all 200ms ease-in-out;
+     margin-bottom: 15px;
+}
+.register-field::placeholder {
+     color: rgba(200, 200, 200, 1);
+}
+
+.register-long-field {
+     all: unset;
+     width: 96%;
+     height: 42px;
+     outline: none;
+     border: 1px solid rgba(200, 200, 200, 0.588);
+     border-radius: 5px;
+     padding: 0px 10px;
+     transition: all 200ms ease-in-out;
+     margin-bottom: 15px;
+}
+.register-long-field::placeholder {
+     color: rgba(200, 200, 200, 1);
+}
+.form-grouping {
+     display: flex;
+     width: 100%;
+     gap: 20px;
+     justify-content: space-between;
+}
+.form-grouping-buttom{
+     margin-left: 68%;
+     width: 50%;
+     display: flex;
+     gap: 20px;
+     margin-top: 5%;
+}
+.submit-button{
+     all: unset;
+     width: 20%;
+     background-color: var(--primary-color);
+     padding: 10px;
+     border-radius: 10px;
+}
