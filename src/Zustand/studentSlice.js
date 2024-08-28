@@ -48,7 +48,7 @@ const Student = (set, get) => ({
                     uin: list.uin,
                     studentName: list.studentName,
                     gender: list.gender,
-                    imageUrl: list.imageUrl,
+                    profilePicture: list.imageUrl,
                }));
                setStudents(fetchedStudents);
           } catch (error) {

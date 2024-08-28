@@ -41,7 +41,7 @@ const Staff = (set, get) => ({
           const { setLoading, setStaffs, setErrorMessage } = get().staff;
           setLoading(true);
           try {
-               const res = await axios.get(`${BASE_URL}/Staff/GetAll`);
+               const res = await axios.get(`${BASE_URL}/Staff/get-all`);
                const allStaffs = res.data.map((list) => ({
                     userId: list.userId,
                     userName: list.userName,
