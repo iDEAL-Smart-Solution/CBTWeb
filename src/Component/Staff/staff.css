@@ -6,7 +6,8 @@
      overflow: scroll;
      justify-content: center;
      padding-top: 20px;
-     margin-top: -10%;
+     /* margin-top: -10%; */
+     padding: 20px;
 }
 
 .register-field {

@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { SearchField } from "../../Component/UI/input";
-import { useStudent } from "../../Zustand/studentSlice";
-import StudentListTemplate from "../../Component/student/studentListTemplate";
-
-export default function StudentList() {
-    const { student, fetchStudents } = useStudent();
-    const { students, loading } = student;
+import { useSubject } from "../../Zustand/subjectSlice";
+import SubjectListTemplate from "../../Component/Subject/subjectListTemplate";
+export default function SubjectList() {
+    const { subject, fetchSubjectsLight, filterList} = useSubject();
+    const { subjects, loading } = subject;
 
     useEffect(() => {
-        fetchStudents();
-    }, [fetchStudents]);
+     fetchSubjectsLight();
+    }, [fetchSubjectsLight]);
 
     const [filterKey, setFilterKey] = useState('');
 
@@ -18,22 +17,23 @@ export default function StudentList() {
     };
 
     const handleSubmit = () => {
-        fetchStudents(filterKey);
+          filterList(filterKey);
     };
 
     return (
         <div>
+
             <div style={{ width: "50%" }}>
                 <SearchField
                     type="search"
-                    placeholder="class name | subject name"
+                    placeholder="user name"
                     className="search register-field"
                     handleChange={handleInputChange}
                     handleSubmit={handleSubmit}
                 />
             </div>
             <div>
-                <StudentListTemplate data={students} loading={loading} />
+                <SubjectListTemplate data={subjects} loading={loading} />
             </div>
         </div>
     );

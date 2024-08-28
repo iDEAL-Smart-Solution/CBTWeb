@@ -50,7 +50,7 @@ const Class = (set, get) => ({
                          studentName: list.studentName,
                          uin: list.uin,
                          gender: list.gender,
-                         imageUrl: list.imageUrl
+                         profilePicture: list.imageUrl
                     })),
                };
                setSingleClass(data);

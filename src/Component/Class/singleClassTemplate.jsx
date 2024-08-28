@@ -24,13 +24,13 @@ export default function SingleClassTemplate({ students }) {
                          ))
                     }
                </div>
-               <div className="box-shadow single-class-box">
+               {/* <div className="box-shadow single-class-box">
                     {
                          students.listOfSubjects.map((sub, index) => (
                               <ListOfSubjectForClass key={sub.id} id={sub.id} data={sub} index={index} />
                          ))
                     }
-               </div>
+               </div> */}
           </div>
      )
 }

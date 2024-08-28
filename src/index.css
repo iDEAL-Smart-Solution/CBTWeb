@@ -74,6 +74,23 @@ body{
   border-top-left-radius: 10px;
 
 }
+.loader-cell {
+    text-align: center; 
+}
+.loader {
+  border: 8px solid #f3f3f3; 
+  border-top: 8px solid var(--primary-color); 
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 /* ***************************USER LOGIN FORM *************************** */
 
 .page-center{
@@ -83,6 +100,16 @@ body{
     place-items: center;
     place-content: center;
 }
+
+.page-center-2{
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  place-items: center;
+  place-content: center;
+  margin-top: -10%;
+}
+
 
 .login-box{
   height: 60%;
@@ -137,3 +164,5 @@ body{
     height: 40%;
   }
 }
+
+

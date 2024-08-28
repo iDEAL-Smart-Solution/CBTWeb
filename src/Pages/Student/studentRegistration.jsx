@@ -5,6 +5,8 @@ import StudentRegistrationForm from "../../Component/student/studentRegistration
 export default function StudentRegistration() {
      return(
           <div>
+                    <h1 className="text-center color-primary">Student</h1>
+
                <StudentRegistrationForm />
           </div>
      )

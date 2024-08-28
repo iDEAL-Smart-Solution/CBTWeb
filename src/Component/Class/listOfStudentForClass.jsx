@@ -18,7 +18,7 @@ export default function ListOFStudentForClass({ data, index }) {
                               <td>{data.uin}</td>
                               <td>{gender[data.gender]}</td>
                               <td>
-                                   <img src={`${BASE_URL}/ProfilePictures/${data.imageUrl}`} width="50em" alt="image" />
+                                   <img src={`${BASE_URL}/ProfilePictures/${data.profilePicture}`} width="50em" alt="image" />
                               </td>
                          </tr>
                     </tbody>

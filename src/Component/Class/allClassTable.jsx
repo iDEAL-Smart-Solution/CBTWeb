@@ -14,11 +14,13 @@ export default function ListClass({ classes, loading }) {
       <tbody>
         {loading ? (
           <tr>
-            <td colSpan="3" className="text-center">Loading...</td>
+            <td colSpan="6" className="loader-cell">
+              <div className="loader"></div>
+            </td>
           </tr>
         ) : !classes || classes.length === 0 ? (
           <tr>
-            <td colSpan="3" className="text-center">You have no classes</td>
+            <td colSpan="3" style={{ textAlign: "center" }}>You have no class</td>
           </tr>
         ) : (
           classes.map((item) => (

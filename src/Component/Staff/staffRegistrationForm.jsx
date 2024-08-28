@@ -78,7 +78,7 @@ export default function StaffRegistrationForm() {
           setErrorMessage("");
      }
      return (
-          <div className="page-center ">
+          <div className="page-center-2 ">
                <div className="register-box box-shadow">
                     <form onSubmit={handleSubmit} >
                          <div style={{ height: "5vh" }}>

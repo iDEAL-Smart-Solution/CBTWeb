@@ -11,6 +11,8 @@ import StaffRegistration from './Pages/Staff/staffRegistration';
 import StaffList from './Pages/Staff/StaffList';
 import StudentRegistration from './Pages/Student/studentRegistration';
 import StudentList from './Pages/Student/studentList';
+import SubjectCreation from './Pages/Subject/subjectCreation';
+import SubjectList from './Pages/Subject/subjectList';
 
 
 
@@ -50,6 +52,8 @@ function App() {
         { path: "/staff/list", element: <StaffList /> },
         { path: "/student/registration", element: <StudentRegistration /> },
         { path: "/student/list", element: <StudentList /> },
+        { path: "/subject/create", element: <SubjectCreation /> },
+        { path: "/subject/list", element: <SubjectList /> },
 
       ],
     },
