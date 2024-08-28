@@ -1,7 +1,6 @@
 import axios from "axios";
 import { BASE_URL } from '../Constant/index';
 import { create } from "zustand";
-import SingleClass from "../Component/Class/singleClassTemplate";
 
 const Class = (set, get) => ({
      schClass: {
@@ -18,7 +17,7 @@ const Class = (set, get) => ({
           const { setLoading, setAllschClass } = get().schClass;
           setLoading(true);
           try {
-               const res = await axios.get(`${BASE_URL}/Class/GetAll`);
+               const res = await axios.get(`${BASE_URL}/Class/get-all`);
                const schClassList = res.data.map((list) => ({
                     className: list.cLassName,
                     classId: list.classId,

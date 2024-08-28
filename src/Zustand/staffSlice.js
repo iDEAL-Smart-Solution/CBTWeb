@@ -38,7 +38,7 @@ const Staff = (set, get) => ({
           }
      },
      fetchAllStaffs: async () => {
-          const { setLoading, setStaffs } = get().staff;
+          const { setLoading, setStaffs, setErrorMessage } = get().staff;
           setLoading(true);
           try {
                const res = await axios.get(`${BASE_URL}/Staff/GetAll`);

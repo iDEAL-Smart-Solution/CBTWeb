@@ -7,8 +7,10 @@ import Staff from './Pages/Staff';
 import Dev from './Pages/Dev';
 import Class from './Pages/Class';
 import SingleClass from './Pages/Class/singleClass';
-import CreateStaff from './Pages/Staff/createStaff';
+import StaffRegistration from './Pages/Staff/staffRegistration';
 import StaffList from './Pages/Staff/StaffList';
+import StudentRegistration from './Pages/Student/studentRegistration';
+import StudentList from './Pages/Student/studentList';
 
 
 
@@ -44,8 +46,10 @@ function App() {
         { path: "/dashboard", element: <ComponentToRender /> },
         { path: "/class", element: <Class /> },
         { path: "/class/:id", element: <SingleClass /> },
-        { path: "/staff/create", element: <CreateStaff /> },
+        { path: "/staff/registration", element: <StaffRegistration /> },
         { path: "/staff/list", element: <StaffList /> },
+        { path: "/student/registration", element: <StudentRegistration /> },
+        { path: "/student/list", element: <StudentList /> },
 
       ],
     },

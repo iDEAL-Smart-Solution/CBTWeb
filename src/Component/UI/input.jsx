@@ -14,7 +14,7 @@ export function SingleFileUploader({ className, name, value, style, handleChange
 
 export function Submit({ name, loading, isloading, isNotLoading, className }) {
      return (
-          <input type="submit" value={loading ? isloading : isNotLoading} name={name} loading={loading} className={className} />
+          <input type="submit" value={loading ? isloading : isNotLoading} name={name} loading={loading.toString()} className={className} />
      )
 }
 

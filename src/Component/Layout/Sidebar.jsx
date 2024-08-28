@@ -8,20 +8,27 @@ const navLinksItem = [
     {
         name: "Staff",
         subLinks: [
-            { link: "/staff/create", name: "Register" },
+            { link: "/staff/registration", name: "Register" },
             { link: "/staff/edit", name: "Edit" },
             { link: "/staff/list", name: "List" },
         ],
     },
+    {
+        name: "Student",
+        subLinks: [
+            { link: "/student/registration", name: "register"},
+            { link: "/student/list", name: "list"},
+        ]
+    }
 ];
 
 export default function Sidebar() {
     const { auth } = useAuth();
     const { user } = auth;
     const roleRoutes = {
-        4: ["/dashboard", "/class", "/staff/create", "/staff/edit", "/staff/list"],
-        2: ["/dashboard", "/class", "/staff/create", "/staff/edit", "/staff/list"],
-        1: ["/dashboard", "/class"],
+        4: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list" ],
+        2: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list"],
+        1: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list"],
     };
     const allowedRoutes = roleRoutes[user?.role] || [];
 
