@@ -1,7 +1,7 @@
 import { useSubject } from "../../Zustand/subjectSlice";
 import { useClass } from "../../Zustand/classSlice";
 import { useState, useEffect } from "react";
-import { InputField, Submit } from "../UI/input";
+import { InputField, Submit } from "../ReUsableComponents/input";
 
 export default function SubjectCreationForm() {
      const { subject, createSubject } = useSubject();

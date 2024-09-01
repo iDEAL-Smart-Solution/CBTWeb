@@ -26,6 +26,13 @@ const navLinksItem = [
             { link: "/subject/create", name: "create"},
             { link: "/subject/list", name: "list" },
         ]
+    },
+    {
+        name: "Exam",
+        subLinks: [
+            { link: "/exam/create", name: "create"},
+            { link: "/exam/list", name: "list"}
+        ]
     }
 ];
 
@@ -33,9 +40,9 @@ export default function Sidebar() {
     const { auth } = useAuth();
     const { user } = auth;
     const roleRoutes = {
-        4: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list"],
-        2: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list"],
-        1: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list"],
+        4: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list"],
+        2: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list"],
+        1: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list"],
     };
     const allowedRoutes = roleRoutes[user?.role] || [];
 

@@ -1,6 +1,5 @@
 
-import { InputField, SingleFileUploader, Submit } from "../UI/input"
-import '../Staff/staff.css';
+import { InputField, SingleFileUploader, Submit } from "../ReUsableComponents/input"
 import genderOptions from "../../lib/genderOptions";
 import { useStudent } from "../../Zustand/studentSlice";
 import { useClass } from "../../Zustand/classSlice";

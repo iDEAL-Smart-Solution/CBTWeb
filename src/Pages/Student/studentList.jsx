@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SearchField } from "../../Component/UI/input";
+import { SearchField } from "../../Component/ReUsableComponents/input";
 import { useStudent } from "../../Zustand/studentSlice";
 import StudentListTemplate from "../../Component/student/studentListTemplate";
 

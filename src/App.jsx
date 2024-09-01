@@ -13,6 +13,9 @@ import StudentRegistration from './Pages/Student/studentRegistration';
 import StudentList from './Pages/Student/studentList';
 import SubjectCreation from './Pages/Subject/subjectCreation';
 import SubjectList from './Pages/Subject/subjectList';
+import ExamCreation from './Pages/Exam/examCreation';
+import ExamList from './Pages/Exam/examList';
+import SingleExam from './Pages/Exam/singleExam';
 
 
 
@@ -54,6 +57,11 @@ function App() {
         { path: "/student/list", element: <StudentList /> },
         { path: "/subject/create", element: <SubjectCreation /> },
         { path: "/subject/list", element: <SubjectList /> },
+        { path: "/exam/create", element: <ExamCreation /> },
+        { path: "/exam/list", element: <ExamList /> },
+        { path: "/exam/:id", element: <SingleExam /> },
+
+
 
       ],
     },

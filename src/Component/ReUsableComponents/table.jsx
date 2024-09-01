@@ -1,22 +1,46 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { BASE_URL } from '../../Constant';
 
-
-export function Table({ data, loading, columns, onMoreClick, genderMap, emptyText })  {
+export function Table({ 
+  data, 
+  loading, 
+  columns, 
+  onMoreClick, 
+  genderMap, 
+  emptyText, 
+  termMap, 
+  availability, 
+  typeMap,
+  linkPath
+}) {
   const renderCell = (item, column) => {
+    let cellContent;
+
     switch (column.key) {
       case 'profilePicture':
-        return (
+        cellContent = (
           <img 
             src={`${BASE_URL}/ProfilePictures/${item[column.key]}`} 
             alt="Profile" 
             style={{ width: '50px', height: '50px', borderRadius: '50%' }} 
           />
         );
+        break;
       case 'gender':
-        return genderMap ? genderMap[item[column.key]] : item[column.key];
+        cellContent = genderMap ? genderMap[item[column.key]] : item[column.key];
+        break;
+      case 'term':
+        cellContent = termMap ? termMap[item[column.key]] : item[column.key];
+        break;
+      case 'isAvailable':
+        cellContent = availability ? availability[item[column.key]] : item[column.key];
+        break;
+      case 'examType':
+        cellContent = typeMap ? typeMap[item[column.key]] : item[column.key];
+        break;
       case 'more':
-        return (
+        cellContent = (
           <button
             className="link text-dec-none"
             onClick={() => onMoreClick(item.id)}
@@ -24,9 +48,21 @@ export function Table({ data, loading, columns, onMoreClick, genderMap, emptyTex
             more
           </button>
         );
+        break;
       default:
-        return item[column.key];
+        cellContent = item[column.key];
     }
+
+    if (linkPath) {
+      const dynamicLink = typeof linkPath === 'function' ? linkPath(item) : '#';
+      return (
+        <Link to={dynamicLink} className="link text-dec-none">
+          {cellContent}
+        </Link>
+      );
+    }
+
+    return cellContent;
   };
 
   return (
@@ -72,4 +108,4 @@ export function Table({ data, loading, columns, onMoreClick, genderMap, emptyTex
       </table>
     </div>
   );
-};
+}

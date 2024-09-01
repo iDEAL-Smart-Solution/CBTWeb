@@ -1,6 +1,8 @@
 // import { BASE_URL } from "../../Constant";
 // import { Link } from "react-router-dom";
-import { Table } from "../UI/table";
+// import { Table } from "../UI/table";
+import { InputField, Submit } from "../ReUsableComponents/input";
+
 import { useNavigate } from 'react-router-dom'; 
 
 

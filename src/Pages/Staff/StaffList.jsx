@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import StaffListTemplate from "../../Component/Staff/StaffListTemplate";
 import { useStaff } from "../../Zustand/staffSlice";
-import { SearchField } from "../../Component/UI/input";
+import { SearchField } from "../../Component/ReUsableComponents/input";
 
 export default function StaffList() {
     const { staff, fetchAllStaffs, filterAllStaff } = useStaff();
