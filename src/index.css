@@ -74,6 +74,9 @@ body{
   border-top-left-radius: 10px;
 
 }
+.display-1{
+  font-size: 100px;
+}
 .loader-cell {
     text-align: center; 
 }

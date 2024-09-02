@@ -22,7 +22,7 @@ const Subject = (set, get) => ({
                Object.entries(formData).forEach(([key, value]) => {
                     formDataToSend.append(key, value);
                });
-               var res = await axios.post(`${BASE_URL}/Subject/create`, formDataToSend);
+               var res = await axios.post(`${BASE_URL}/api/v1/Subject/create`, formDataToSend);
                const messg = res.data.message;
                console.log(messg)
                setMessage(messg);
@@ -38,7 +38,7 @@ const Subject = (set, get) => ({
           const { setLoading, setErrorMessage, setSubjects } = get().subject;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/Subject/get-all`);
+               var res = await axios.get(`${BASE_URL}/api/v1/Subject/get-all`);
                const fetchedSubjects = res.data.map((list) => ({
                     id: list.id,
                     name: list.name,
@@ -59,7 +59,7 @@ const Subject = (set, get) => ({
           setLoading(true);
 
           try {
-               var res = await axios.get(`${BASE_URL}/Subject/get-by-class?className=${param}`);
+               var res = await axios.get(`${BASE_URL}/api/v1/Subject/get-by-class?className=${param}`);
                const fetchedSubjects = res.data.map((list) => ({
                     id: list.id,
                     name: list.name,

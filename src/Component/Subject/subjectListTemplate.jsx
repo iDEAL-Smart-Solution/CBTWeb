@@ -1,7 +1,6 @@
-// import { Link } from "react-router-dom";
+
 import { useNavigate } from 'react-router-dom'; 
-// import { Table } from "../UI/table";
-import { InputField, Submit } from "../ReUsableComponents/input";
+import { Table } from "../ReUsableComponents/table";
 
 
 export default function SubjectListTemplate({ data, loading }) {

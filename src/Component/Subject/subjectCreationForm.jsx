@@ -20,10 +20,10 @@ export default function SubjectCreationForm() {
      const handleInputChange = (event) => {
           const { name, value } = event.target;
           let parsedValue = value;
-               setFormData({
-                    ...formData,
-                    [name]: parsedValue
-               });
+          setFormData({
+               ...formData,
+               [name]: parsedValue
+          });
      };
 
      useEffect(() => {
@@ -31,7 +31,7 @@ export default function SubjectCreationForm() {
      }, [])
 
      const { allschClass } = schClass;
-     
+
 
      const handleSubmit = async (e) => {
           e.preventDefault();
@@ -62,29 +62,30 @@ export default function SubjectCreationForm() {
                               {message && <p style={{ backgroundColor: "var(--primary-color)" }} className="color-light text-center bold">{message}</p>}
                               {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{errorMessage}</p>}
                          </div>
-                              <InputField type={`text`} name={`name`} value={formData.name} placeholder={`Name of Subject`} className={`register-long-field`} handleChange={handleInputChange} />
-                              <InputField type={`text`} name={`code`} value={formData.code} placeholder={`Subject Code`} className={`register-long-field`} handleChange={handleInputChange} />
-                              <InputField type={`text`} name={`description`} value={formData.description} placeholder={`Subject Description`} className={`register-long-field`} handleChange={handleInputChange} />
-                              <InputField type={`text`} name={`userName`} value={formData.userName} placeholder={`Assigned staff user name`} className={`register-long-field`} handleChange={handleInputChange} />
-                              <select
-                                   name="className"
-                                   value={formData.className}
-                                   onChange={handleInputChange}
-                                   style={{
-                                        height: '50px',
-                                        border: 'none',
-                                        width: '100%',
-                                        padding: '10px',
-                                        fontSize: '16px',
-                                        borderRadius: '5px',
-                                        outline: 'none',
-                                        cursor: 'pointer'
-                                   }}  >
-                                   {allschClass.map((option) => (
-                                        <option key={option.classId} value={option.className}>{option.className}</option>
-                                   ))}
-                              </select>
-                        
+                         <InputField type={`text`} name={`name`} value={formData.name} placeholder={`Name of Subject`} className={`register-long-field`} handleChange={handleInputChange} />
+                         <InputField type={`text`} name={`code`} value={formData.code} placeholder={`Subject Code`} className={`register-long-field`} handleChange={handleInputChange} />
+                         <InputField type={`text`} name={`description`} value={formData.description} placeholder={`Subject Description`} className={`register-long-field`} handleChange={handleInputChange} />
+                         <InputField type={`text`} name={`userName`} value={formData.userName} placeholder={`Assigned staff user name`} className={`register-long-field`} handleChange={handleInputChange} />
+                         <select
+                              name="className"
+                              value={formData.className}
+                              onChange={handleInputChange}
+                              style={{
+                                   height: '50px',
+                                   border: 'none',
+                                   width: '100%',
+                                   padding: '10px',
+                                   fontSize: '16px',
+                                   borderRadius: '5px',
+                                   outline: 'none',
+                                   cursor: 'pointer'
+                              }}  >
+                              <option value="">Select class</option>
+                              {allschClass.map((option) => (
+                                   <option key={option.classId} value={option.className}>{option.className}</option>
+                              ))}
+                         </select>
+
                          <div className="form-grouping-buttom">
                               <input className="submit-button bg-color-mute text-center" type="reset" value="reset" onClick={handleReset} />
                               <Submit className={`submit-button text-center color-light`} loading={loading} isNotLoading={`submit`} isloading={`please wait...`} />

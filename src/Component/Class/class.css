@@ -94,3 +94,6 @@
      justify-content: space-between;
      align-items: center;
 }
+.list-in-single-class td{
+     text-align: left;
+}

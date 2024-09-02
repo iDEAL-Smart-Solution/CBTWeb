@@ -17,7 +17,7 @@ const Class = (set, get) => ({
           const { setLoading, setAllschClass } = get().schClass;
           setLoading(true);
           try {
-               const res = await axios.get(`${BASE_URL}/Class/get-all`);
+               const res = await axios.get(`${BASE_URL}/api/v1/Class/get-all`);
                const schClassList = res.data.map((list) => ({
                     className: list.cLassName,
                     classId: list.classId,
@@ -35,7 +35,7 @@ const Class = (set, get) => ({
           const { setLoading, setSingleClass } = get().schClass;
           setLoading(true);
           try {
-               const res = await axios.get(`${BASE_URL}/Class/Get?name_id=${param}`);
+               const res = await axios.get(`${BASE_URL}/api/v1/Class/Get?name_id=${param}`);
                const incoming = res.data.data;
                const data = {
                     name: incoming.name,
@@ -65,7 +65,7 @@ const Class = (set, get) => ({
           const { setLoading, setMessage } = get().schClass;
           setLoading(true);
           try {
-               const res = await axios.post(`${BASE_URL}/Class/Create?name=${name}`);
+               const res = await axios.post(`${BASE_URL}/api/v1/Class/Create?name=${name}`);
                const messg = res.data.message;
                setMessage(messg);
                setLoading(false);

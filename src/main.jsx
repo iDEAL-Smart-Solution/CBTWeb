@@ -7,8 +7,6 @@ import AppWrapper from './Pages/firstScreen.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-     <AppWrapper logo={logo} appName="CBT Web" duration={3000}>
       <App />
-    </AppWrapper>
   </React.StrictMode>
 )

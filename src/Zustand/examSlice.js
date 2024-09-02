@@ -22,7 +22,7 @@ const Exam = (set, get) => ({
                Object.entries(formData).forEach(([key, value]) => {
                     formDataToSend.append(key, value);
                });
-               var res = await axios.post(`${BASE_URL}/Exam/create`, formDataToSend);
+               var res = await axios.post(`${BASE_URL}/api/v1/Exam/create`, formDataToSend);
                const messg = res.data.message;
                console.log(messg)
                setMessage(messg);
@@ -38,7 +38,7 @@ const Exam = (set, get) => ({
           const { setLoading, setErrorMessage, setExams } = get().exam;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/Exam/get-all`);
+               var res = await axios.get(`${BASE_URL}/api/v1/Exam/get-all`);
                const fetchedexams = res.data.map((list) => ({
                     id: list.id,
                     examName: list.examName,

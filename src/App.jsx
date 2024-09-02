@@ -2,8 +2,8 @@ import './App.css'
 import { RouterProvider, createBrowserRouter, redirect } from 'react-router-dom';
 import Auth from './Pages/auth';
 import Root from './Pages/Layout/root';
-import Admin from './Pages/Admin';
-import Staff from './Pages/Staff';
+// import Admin from './Pages/Admin';
+// import Staff from './Pages/Staff';
 import Dev from './Pages/Dev';
 import Class from './Pages/Class';
 import SingleClass from './Pages/Class/singleClass';
@@ -25,8 +25,8 @@ function App() {
     let user = JSON.parse(sessionStorage.getItem("user"))
     if (!user) return <Auth />;
     const roleToComponent = {
-      1: <Admin />,
-      2: <Staff />,
+      1: <Class />,
+      2: <SubjectCreation />,
       4: <Dev />,
     };
     return roleToComponent[user.role] || <Auth />;

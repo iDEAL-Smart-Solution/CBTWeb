@@ -32,7 +32,7 @@ export default function LoginForm() {
           if (isAuthenticated) {
                console.log(isAuthenticated)
                navigate("/dashboard", { replace: true });
-               window.location.reload();
+               // window.location.reload();
           }
      }, [isAuthenticated]);
 
@@ -45,7 +45,7 @@ export default function LoginForm() {
                          </p>}
                          <h1 className="font-primary color-primary text-center">Welcome Back</h1>
                          <div>
-                              <input type="email" className="login-field" name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} />
+                              <input type="text" className="login-field" name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} />
                          </div>
                          <div>
                               <input type="password" className="login-field" name="password" placeholder="password" value={formData.password} onChange={handleInputChange} />

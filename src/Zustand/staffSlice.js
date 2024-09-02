@@ -25,7 +25,7 @@ const Staff = (set, get) => ({
                          formDataToSend.append(key, value);
                     }
                });
-               const res = await axios.post(`${BASE_URL}/Staff/Create`, formDataToSend);
+               const res = await axios.post(`${BASE_URL}/api/v1/Staff/Create`, formDataToSend);
                const messg = res.data.message;
                console.log(messg)
                setMessage(messg);
@@ -41,7 +41,7 @@ const Staff = (set, get) => ({
           const { setLoading, setStaffs, setErrorMessage } = get().staff;
           setLoading(true);
           try {
-               const res = await axios.get(`${BASE_URL}/Staff/get-all`);
+               const res = await axios.get(`${BASE_URL}/api/v1/Staff/get-all`);
                const allStaffs = res.data.map((list) => ({
                     userId: list.userId,
                     userName: list.userName,

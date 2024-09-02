@@ -16,14 +16,10 @@ export default function StudentRegistrationForm() {
           firstName: "",
           lastName: "",
           email: "",
-          password: "",
-          confirmPassword: "",
           phoneNumber: "",
           profilePicture: null,
           gender: 0,
      });
-
-     const [passwordError, setPasswordError] = useState("");
 
      const handleInputChange = (event) => {
           const { name, value, files } = event.target;
@@ -50,20 +46,13 @@ export default function StudentRegistrationForm() {
      }, [])
 
      const { allschClass } = schClass;
-     
+
 
      const handleSubmit = async (e) => {
           e.preventDefault();
 
-          if (formData.password !== formData.confirmPassword) {
-               setPasswordError("Password and confirm password do not match");
-               return;
-          }
-
-          setPasswordError("");
-          console.log(formData);
-
           try {
+               console.log(formData);
                await createStudent(formData);
           } catch (_error) {
                console.log(_error);
@@ -77,8 +66,6 @@ export default function StudentRegistrationForm() {
                firstName: "",
                lastName: "",
                email: "",
-               password: "",
-               confirmPassword: "",
                phoneNumber: "",
                profilePicture: null,
                gender: 0,
@@ -92,7 +79,7 @@ export default function StudentRegistrationForm() {
                     <form onSubmit={handleSubmit} >
                          <div style={{ height: "5vh" }}>
                               {message && <p style={{ backgroundColor: "var(--primary-color)" }} className="color-light text-center bold">{message}</p>}
-                              {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{message}</p>}
+                              {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{errorMessage}</p>}
 
 
                          </div>
@@ -112,6 +99,8 @@ export default function StudentRegistrationForm() {
                                         outline: 'none',
                                         cursor: 'pointer'
                                    }}  >
+                                   <option value="">Select class</option>
+
                                    {allschClass.map((option) => (
                                         <option key={option.classId} value={option.className}>{option.className}</option>
                                    ))}
@@ -125,12 +114,6 @@ export default function StudentRegistrationForm() {
                               <InputField type={`email`} name={`email`} value={formData.email} placeholder={`email address`} className={`register-field`} handleChange={handleInputChange} />
                               <InputField type={`text`} name={`phoneNumber`} value={formData.phoneNumber} placeholder={`phone number`} className={`register-field`} handleChange={handleInputChange} />
                          </div>
-                         <div className="form-grouping">
-                              <InputField type={`password`} name={`password`} value={formData.password} placeholder={`password`} className={`register-field`} handleChange={handleInputChange} />
-                              <InputField type={`password`} name={`confirmPassword`} value={formData.confirmPassword} placeholder={`confirm password`} className={`register-field`} handleChange={handleInputChange} />
-                         </div>
-                         {passwordError ? (<p style={{ color: "red" }}>{passwordError}</p>) : ("")}
-
                          <div className="form-grouping">
                               <SingleFileUploader
                                    name={`profilePicture`}
@@ -163,7 +146,7 @@ export default function StudentRegistrationForm() {
                                         <option key={option.value} value={option.value}>{option.label}</option>
                                    ))}
                               </select>
-                              
+
                          </div>
                          <div className="form-grouping-buttom">
                               <input className="submit-button bg-color-mute text-center" type="reset" value="reset" onClick={handleReset} />

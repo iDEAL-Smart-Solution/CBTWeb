@@ -25,11 +25,10 @@ const Student = (set, get) => ({
                          formDataToSend.append(key, value);
                     }
                });
-               const res = await axios.post(`${BASE_URL}/Student/create`, formDataToSend);
+               const res = await axios.post(`${BASE_URL}/api/v1/Student/create`, formDataToSend);
                const messg = res.data.message;
                console.log(messg)
                setMessage(messg);
-               setLoading(false);
           } catch (error) {
                console.error(`Error occured registering new student.`, error);
                setErrorMessage(error.response?.data?.message || 'An error occurred: kindly fill out all the required spaces');
@@ -41,7 +40,7 @@ const Student = (set, get) => ({
           const {setLoading, setErrorMessage, setStudents} = get().student;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/Student/getstudent-by-any?param=${param}`);
+               var res = await axios.get(`${BASE_URL}/api/v1/Student/getstudent-by-any?param=${param}`);
                const fetchedStudents = res.data.map((list) => ({
                     id: list.id,
                     className: list.className,

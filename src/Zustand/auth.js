@@ -7,6 +7,7 @@ const Auth = (set, get) => ({
         token: sessionStorage.getItem('token'),
         user: JSON.parse(sessionStorage.getItem('user')),
         isAuthenticated: !!sessionStorage.getItem('token'),
+        academicSession: JSON.parse(sessionStorage.getItem('academicSession')),
         loading: false,
         error: null,
         message: null,
@@ -20,28 +21,31 @@ const Auth = (set, get) => ({
         setLoading(true);
 
         try {
-            const res = await axios.post(`${BASE_URL}/User/Login?email=${formData.email}&password=${formData.password}`);
-            const { message, data } = res.data; 
-            const { user, token } = data;
-
+            const res = await axios.post(`${BASE_URL}/api/v1/User/Login?email=${formData.email}&password=${formData.password}`);
+            const { message, data } = res.data;
+            const { user, token, academicSession } = data;
             sessionStorage.setItem('token', token);
             sessionStorage.setItem('user', JSON.stringify(user));
-            console.log(message);
+            sessionStorage.setItem('academicSession', JSON.stringify(academicSession));
+            console.log(data);
             set((state) => ({
                 ...state,
                 auth: {
                     ...state.auth,
                     token,
                     user,
-                    isAuthenticated : true,
+                    academicSession,
+                    isAuthenticated: true,
                     loading: false,
                     message,
-                    error: null, 
+                    error: null,
                 },
             }));
+
         } catch (error) {
             sessionStorage.removeItem('token');
             sessionStorage.removeItem('user');
+            sessionStorage.removeItem('academicSession');
             set((state) => ({
                 ...state,
                 auth: {
@@ -58,6 +62,8 @@ const Auth = (set, get) => ({
     logout: async () => {
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('user');
+        sessionStorage.removeItem('academicSession');
+
         set((state) => ({
             ...state,
             auth: {

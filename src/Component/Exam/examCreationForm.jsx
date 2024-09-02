@@ -2,6 +2,8 @@ import { useExam } from "../../Zustand/examSlice";
 import { useState, useEffect } from "react";
 import { InputField, Submit } from "../ReUsableComponents/input";
 import { useSubject } from "../../Zustand/subjectSlice";
+import term from "../../lib/termOption";
+import examType from "../../lib/examTypeOption";
 
 export default function ExamCreationForm() {
      const { exam, createExam } = useExam();
@@ -44,19 +46,21 @@ export default function ExamCreationForm() {
           }
      };
 
-     const term = [
-          { value: 1, text: '1st term' },
-          { value: 2, text: 'second term' },
-          { value: 3, text: 'third term' }
-     ]
+     // const term = [
+     //      { value: 0, text: 'Select term' },
+     //      { value: 1, text: '1st term' },
+     //      { value: 2, text: 'second term' },
+     //      { value: 3, text: 'third term' }
+     // ]
 
-     const examType = [
-          { value: 1, text: '1st_CA' },
-          { value: 2, text: '2nd_CA' },
-          { value: 3, text: '3rd_CA' },
-          { value: 4, text: 'Exam' },
+     // const examType = [
+     //      { value: 0, text: 'Select exam type' },
+     //      { value: 1, text: '1st_CA' },
+     //      { value: 2, text: '2nd_CA' },
+     //      { value: 3, text: '3rd_CA' },
+     //      { value: 4, text: 'Exam' },
 
-     ]
+     // ]
 
      const handleReset = async () => {
           setFormData({
@@ -95,6 +99,8 @@ export default function ExamCreationForm() {
                                    marginBottom: '15px'
 
                               }}  >
+                              <option value="">Select subject code</option>
+
                               {subjects.map((option) => (
                                    <option key={option.id} value={option.code}>{option.code}</option>
                               ))}
