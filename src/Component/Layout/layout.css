@@ -85,4 +85,13 @@
  .color-picker-input:hover {
      opacity: 1;
  }
- 
+ .sub-links {
+  padding-left: 12px; 
+  margin-top: -10px;
+  margin-bottom: 30px;
+}
+
+.li{
+  list-style: none;
+  margin-bottom: -10px;
+}

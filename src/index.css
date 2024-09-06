@@ -63,10 +63,7 @@ body{
 .text-center{
   text-align: center;
 }
-.li{
-  list-style: none;
-  margin-bottom: 20px;
-}
+
 .b-r-r{
   border-top-right-radius: 10px;
 }
@@ -117,7 +114,7 @@ body{
 
 
 .login-box{
-  height: 60%;
+  height: fit-content;
   width: 40%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
@@ -166,7 +163,7 @@ body{
 @media screen and (min-width: 1440px) {
   .login-box{
     width: 30%;
-    height: 40%;
+    /* height: 40%; */
   }
 }
 
