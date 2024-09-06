@@ -53,8 +53,11 @@
    .sidebar {
      width: 200px; 
      height: 100vh;
-     padding: 15px;
-     overflow-y: auto; 
+     padding-left: 10px;
+     overflow-y: scroll; 
+   }
+   .sidebar::-webkit-scrollbar{
+    display: none;
    }
 
    /* **********************OUTLET******************************** */
