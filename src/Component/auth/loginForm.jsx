@@ -54,7 +54,7 @@ export default function LoginForm() {
                               {!loading ? "Login" : "please wait..."}
                          </button>
 
-                         <div>
+                         <div className="mb">
                               <a href="#">forgot password</a>
                          </div>
                     </div>

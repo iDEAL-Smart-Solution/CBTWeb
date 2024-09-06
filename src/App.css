@@ -5,7 +5,7 @@
 .register-box {
   all: unset;
   display: flex;
-  width: 70%;
+  width: 80%;
   height: fit-content;
   overflow: scroll;
   justify-content: center;
@@ -31,7 +31,7 @@
 
 .register-long-field {
   all: unset;
-  width: 96%;
+  width: 97%;
   height: 42px;
   outline: none;
   border: 1px solid rgba(200, 200, 200, 0.588);
@@ -62,4 +62,35 @@
   background-color: var(--primary-color);
   padding: 10px;
   border-radius: 10px;
+}
+
+
+/* ************************************* Side Bar**************************** */
+
+
+/* ************************** registration / creation forms ********************* */
+.form{
+  width: 100%;
+}
+.hr{
+    width: 10px;
+    height: 80%;
+    background-color: var(--primary-color); 
+    margin-bottom: 10%;
+    border-radius: 10px;
+    border: none;
+}
+
+/* ***************************************Question Upload **************** */
+.toggle-form{
+  width: 70%;
+  display: flex;
+  place-content: space-around;
+  place-items: center;
+  height: 5vh;
+}
+.toggle-form label{
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--primary-color);
 }

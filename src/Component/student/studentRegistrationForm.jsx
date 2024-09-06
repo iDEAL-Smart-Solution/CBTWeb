@@ -1,9 +1,11 @@
 
-import { InputField, SingleFileUploader, Submit } from "../ReUsableComponents/input"
+import { InputField, Submit } from "../ReUsableComponents/input"
+import { ImageUploader } from "../ReUsableComponents/file";
 import genderOptions from "../../lib/genderOptions";
 import { useStudent } from "../../Zustand/studentSlice";
 import { useClass } from "../../Zustand/classSlice";
 import { useEffect, useState } from "react";
+import { Dropdown } from "../ReUsableComponents/dropDown";
 
 export default function StudentRegistrationForm() {
      const { student, createStudent } = useStudent();
@@ -76,7 +78,7 @@ export default function StudentRegistrationForm() {
      return (
           <div className="page-center-2 ">
                <div className="register-box box-shadow">
-                    <form onSubmit={handleSubmit} >
+                    <form onSubmit={handleSubmit} className="form" >
                          <div style={{ height: "5vh" }}>
                               {message && <p style={{ backgroundColor: "var(--primary-color)" }} className="color-light text-center bold">{message}</p>}
                               {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{errorMessage}</p>}
@@ -85,7 +87,7 @@ export default function StudentRegistrationForm() {
                          </div>
                          <div className="form-grouping">
                               <InputField type={`text`} name={`registrationNumber`} value={formData.registrationNumber} placeholder={` registration Number`} className={`register-field`} handleChange={handleInputChange} />
-                              <select
+                              {/* <select
                                    name="className"
                                    value={formData.className}
                                    onChange={handleInputChange}
@@ -104,7 +106,19 @@ export default function StudentRegistrationForm() {
                                    {allschClass.map((option) => (
                                         <option key={option.classId} value={option.className}>{option.className}</option>
                                    ))}
-                              </select>
+                              </select> */}
+                              <Dropdown 
+                                   name={`className`}
+                                   value={formData.className}
+                                   handleChange={handleInputChange}
+                                   width={`105%`}
+                                   options={allschClass}
+                                   optionKey='classId'
+                                   optionValue='className'
+                                   firstOption={`Select Class`}
+                                   optionLabel='className'
+                                   />
+
                          </div>
                          <div className="form-grouping">
                               <InputField type={`text`} name={`firstName`} value={formData.firstName} placeholder={`first name`} className={`register-field`} handleChange={handleInputChange} />
@@ -115,20 +129,22 @@ export default function StudentRegistrationForm() {
                               <InputField type={`text`} name={`phoneNumber`} value={formData.phoneNumber} placeholder={`phone number`} className={`register-field`} handleChange={handleInputChange} />
                          </div>
                          <div className="form-grouping">
-                              <SingleFileUploader
+                              <ImageUploader
                                    name={`profilePicture`}
                                    handleChange={handleInputChange}
-                                   style={{
-                                        height: '30px',
-                                        width: '50%',
-                                        padding: '10px',
-                                        fontSize: '16px',
-                                        borderRadius: '5px',
-                                        outline: 'none',
-                                        cursor: 'pointer',
-                                        backgroundColor: 'rgba(200, 200, 200, 0.300)'
-                                   }} />
-                              <select
+                                   width={`50%`}
+                                  />
+                                   <Dropdown
+                                        name={`gender`}
+                                        value={formData.gender}
+                                        handleChange={handleInputChange}
+                                        options={genderOptions}
+                                        width={`54%`}
+                                        optionValue={`value`}
+                                        optionLabel={`label`}
+                                        firstOption={`Select Gender`}
+                                        />
+                              {/* <select
                                    name="gender"
                                    value={formData.gender}
                                    onChange={handleInputChange}
@@ -145,7 +161,7 @@ export default function StudentRegistrationForm() {
                                    {genderOptions.map((option) => (
                                         <option key={option.value} value={option.value}>{option.label}</option>
                                    ))}
-                              </select>
+                              </select> */}
 
                          </div>
                          <div className="form-grouping-buttom">

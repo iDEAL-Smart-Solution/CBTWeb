@@ -16,6 +16,7 @@ import SubjectList from './Pages/Subject/subjectList';
 import ExamCreation from './Pages/Exam/examCreation';
 import ExamList from './Pages/Exam/examList';
 import SingleExam from './Pages/Exam/singleExam';
+import QuestionUpload from './Pages/Question/questionUpload';
 
 
 
@@ -30,6 +31,8 @@ function App() {
       4: <Dev />,
     };
     return roleToComponent[user.role] || <Auth />;
+    return roleToComponent[1] || <Auth />;
+
   };
 
   const router = createBrowserRouter([
@@ -60,9 +63,7 @@ function App() {
         { path: "/exam/create", element: <ExamCreation /> },
         { path: "/exam/list", element: <ExamList /> },
         { path: "/exam/:id", element: <SingleExam /> },
-
-
-
+        { path: "/question/create", element: <QuestionUpload /> },
       ],
     },
   ]);

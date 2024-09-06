@@ -1,8 +1,10 @@
 
-import { InputField, SingleFileUploader, Submit } from "../ReUsableComponents/input"
+import { InputField, Submit } from "../ReUsableComponents/input"
+import { ImageUploader } from "../ReUsableComponents/file";
 import genderOptions from "../../lib/genderOptions";
 import { useStaff } from "../../Zustand/staffSlice";
 import { useState } from "react";
+import { Dropdown } from "../ReUsableComponents/dropDown";
 
 export default function StaffRegistrationForm() {
      const { staff, createSaff } = useStaff();
@@ -79,7 +81,7 @@ export default function StaffRegistrationForm() {
      return (
           <div className="page-center-2 ">
                <div className="register-box box-shadow">
-                    <form onSubmit={handleSubmit} >
+                    <form onSubmit={handleSubmit} className="form" >
                          <div style={{ height: "5vh" }}>
                               {message && <p style={{ backgroundColor: "var(--primary-color)" }} className="color-light text-center bold">{message}</p>}
                               {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{message}</p>}
@@ -101,7 +103,7 @@ export default function StaffRegistrationForm() {
                          {passwordError ? (<p style={{ color: "red" }}>{passwordError}</p>) : ("")}
 
                          <div className="form-grouping">
-                              <SingleFileUploader
+                              <ImageUploader
                                    name={`profilePicture`}
                                    handleChange={handleInputChange}
                                    style={{
@@ -114,7 +116,7 @@ export default function StaffRegistrationForm() {
                                         cursor: 'pointer',
                                         backgroundColor: 'rgba(200, 200, 200, 0.300)'
                                    }} />
-                              <select
+                              {/* <select
                                    name="gender"
                                    value={formData.gender}
                                    onChange={handleInputChange}
@@ -130,8 +132,19 @@ export default function StaffRegistrationForm() {
                                    }}  >
                                    {genderOptions.map((option) => (
                                         <option key={option.value} value={option.value}>{option.label}</option>
-                                   ))}
-                              </select>
+                                   ))} */}
+                              {/* </select> */}
+                                   <Dropdown
+                                        name={`gender`}
+                                        value={formData.gender}
+                                        handleChange={handleInputChange}
+                                        width={`54%`}
+                                        options={genderOptions}
+                                        optionKey='value'
+                                        optionValue='value'
+                                        optionLabel='label'
+                                        firstOption={`Select Gender`}
+                                   />
                          </div>
                          <div className="form-grouping-buttom">
                               <input className="submit-button bg-color-mute text-center" type="reset" value="reset" onClick={handleReset} />

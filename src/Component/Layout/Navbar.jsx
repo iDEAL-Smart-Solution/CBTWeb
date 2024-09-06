@@ -23,10 +23,14 @@ export default function Navbar() {
             <div>
                 <div>
                     <small className='bolder color-primary'>{current_Session}</small>
+                    {/* <small className='bolder color-primary'>2022/2023</small> */}
+
                 </div>
                 <div>
                    <b className='bolder'>
                    <small className='bolder color-primary bolder'>{termMap[current_Term]}</small>
+                   {/* <small className='bolder color-primary bolder'>2nd_Term</small> */}
+
                    </b>
                 </div>
             </div>

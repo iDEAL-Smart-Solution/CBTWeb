@@ -4,6 +4,7 @@ import { InputField, Submit } from "../ReUsableComponents/input";
 import { useSubject } from "../../Zustand/subjectSlice";
 import term from "../../lib/termOption";
 import examType from "../../lib/examTypeOption";
+import { Dropdown } from "../ReUsableComponents/dropDown";
 
 export default function ExamCreationForm() {
      const { exam, createExam } = useExam();
@@ -77,13 +78,13 @@ export default function ExamCreationForm() {
      return (
           <div className="page-center-2 ">
                <div className="register-box box-shadow">
-                    <form onSubmit={handleSubmit} >
+                    <form onSubmit={handleSubmit} className="form" >
                          <div style={{ height: "5vh" }}>
                               {message && <p style={{ backgroundColor: "var(--primary-color)" }} className="color-light text-center bold">{message}</p>}
                               {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{errorMessage}</p>}
                          </div>
                          <InputField type={`text`} name={`examName`} value={formData.examName} placeholder={`exam name e.g ENG_JSS_1stCA_2ndTerm_2022/23`} className={`register-long-field`} handleChange={handleInputChange} />
-                         <select
+                         {/* <select
                               name="subjectCode"
                               value={formData.subjectCode}
                               onChange={handleInputChange}
@@ -104,11 +105,35 @@ export default function ExamCreationForm() {
                               {subjects.map((option) => (
                                    <option key={option.id} value={option.code}>{option.code}</option>
                               ))}
-                         </select>
+                         </select> */}
+                         <Dropdown
+                              name={`subjectCode`}
+                              value={formData.subjectCode}
+                              handleChange={handleInputChange}
+                              width={`100%`}
+                              firstOption={`Select subject code`}
+                              options={subjects}
+                              optionKey='id'
+                              optionValue='code'
+                              optionLabel='code'
+                              mb={`15px`}
 
+                         />
 
+                         <Dropdown
+                              name={`term`}
+                              value={formData.term}
+                              handleChange={handleInputChange}
+                              width={`100%`}
+                              firstOption={`Select Term`}
+                              options={term}
+                              optionKey='value'
+                              optionValue='value'
+                              optionLabel='text'
+                              mb={`15px`}
+                         />
 
-                         <select
+                         {/* <select
                               name="term"
                               value={formData.term}
                               onChange={handleInputChange}
@@ -126,11 +151,22 @@ export default function ExamCreationForm() {
                               {term.map((option) => (
                                    <option key={option.value} value={option.value}>{option.text}</option>
                               ))}
-                         </select>
+                         </select> */}
                          <InputField type={`text`} name={`session`} value={formData.session} placeholder={`session e.g 2022/2023`} className={`register-long-field`} handleChange={handleInputChange} />
-
-                         <select
-                              name="examType"
+                         <Dropdown
+                              name={`examType`}
+                              value={formData.examType}
+                              handleChange={handleInputChange}
+                              width={`100%`}
+                              firstOption={`Select examType`}
+                              options={examType}
+                              optionKey='value'
+                              optionValue='value'
+                              optionLabel='text'
+                              mb={`15px`}
+                         />
+                         {/* <select
+                              name="examType"jjjjjjjjjjmj
                               value={formData.examType}
                               onChange={handleInputChange}
                               style={{
@@ -147,7 +183,7 @@ export default function ExamCreationForm() {
                               {examType.map((option) => (
                                    <option key={option.value} value={option.value}>{option.text}</option>
                               ))}
-                         </select>
+                         </select> */}
                          <InputField type={`int`} name={`NumberOfQuestionsPerStudent`} value={formData.NumberOfQuestionsPerStudent} placeholder={`Number of questions per student`} className={`register-long-field`} handleChange={handleInputChange} />
 
                          <div className="form-grouping-buttom">
