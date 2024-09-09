@@ -10,6 +10,7 @@ export default function SubjectListTemplate({ data, loading }) {
        { key: 'name', header: 'Name' },
        { key: 'code', header: 'Code' },
        { key: 'numberOfExam', header: 'Exams' },
+       { key: 'className', header: 'Class' },
        { key: 'more', header: 'More' }
      ];
    

@@ -31,8 +31,8 @@ export default function LoginForm() {
      useEffect(() => {
           if (isAuthenticated) {
                console.log(isAuthenticated)
-               navigate("/dashboard", { replace: true });
-               // window.location.reload();
+               // navigate("/dashboard", { replace: true });
+               window.location.reload();
           }
      }, [isAuthenticated]);
 

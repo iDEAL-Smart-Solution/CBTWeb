@@ -8,10 +8,12 @@ const Exam = (set, get) => ({
           exams: [],
           message: "",
           errorMessage: "",
+          instruction: {},
           loading: false,
           setExams: (datas) => set((state) => ({ ...state, exam: { ...state.exam, exams: datas } })),
           setMessage: (data) => set((state) => ({ ...state, exam: { ...state.exam, message: data } })),
           setErrorMessage: (data) => set((state) => ({ ...state, exam: { ...state.exam, errorMessage: data } })),
+          setInstruction: (data) => set((state) => ({ ...state, exam: { ...state.exam, instruction: data } })),
           setLoading: (value) => set((state) => ({ ...state, exam: { ...state.exam, loading: value } })),
      },
      createExam: async (formData) => {
@@ -55,7 +57,35 @@ const Exam = (set, get) => ({
           } finally {
                setLoading(false);
           }
-     }
+     },
+     fetchMyExams: async (id) => {
+          const { setLoading, setErrorMessage, setExams } = get().exam;
+          setLoading(true);
+          try {
+               var res = await axios.get(`${BASE_URL}/api/v1/Exam/get-student-available?id=${id}`);
+               const fetchedexams = res.data;
+               setExams(fetchedexams);
+          } catch (error) {
+               console.error("Error fetching student available exams:", error);
+               setErrorMessage(error.response?.data?.message || 'An error occurred');
+          } finally {
+               setLoading(false);
+          }
+     },
+     fetchExamInstruction: async (examKey, id) => {
+          const { setLoading, setInstruction, setErrorMessage } = get().exam;
+          setLoading(true);
+          try {
+               var res = await axios.get(`${BASE_URL}/api/v1/Exam/get-instructions?examKey=${examKey}&studentId=${id}`);
+               const fetchedIntruction = res.data.data;
+               setInstruction(fetchedIntruction);
+          } catch (error) {
+               console.error("Error fetching student available exams:", error);
+               setErrorMessage(error.response?.data?.message || 'An error occurred');
+          } finally {
+               setLoading(false);
+          }
+     },
 })
 
 export const useExam = create(Exam);

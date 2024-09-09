@@ -45,7 +45,9 @@ const Subject = (set, get) => ({
                     code: list.code,
                     description: list.description,
                     numberOfExam: list.numberOfExam,
+                    className: list.className,
                }));
+               console.log(fetchedSubjects);
                setSubjects(fetchedSubjects)
           } catch (error) {
                console.error("Error fetching list of subjects:", error);
@@ -59,13 +61,15 @@ const Subject = (set, get) => ({
           setLoading(true);
 
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/Subject/get-by-class?className=${param}`);
+               var res = await axios.get(`${BASE_URL}/api/v1/Subject/get-by-any?param=${param}`);
                const fetchedSubjects = res.data.map((list) => ({
                     id: list.id,
                     name: list.name,
-                    code: list.code,
+                    code: list.code,    
                     description: list.description,
                     numberOfExam: list.numberOfExam,
+                    className: list.className,
+
                }));
                setSubjects(fetchedSubjects)
           } catch (error) {

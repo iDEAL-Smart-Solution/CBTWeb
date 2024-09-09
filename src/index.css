@@ -74,6 +74,21 @@ body{
 .display-1{
   font-size: 100px;
 }
+.display-2{
+  font-size: 30px;
+}
+.height-content{
+  height: fit-content;
+}
+.text-big-1{
+  font-size: 20px;
+}
+.text-big-2{
+  font-size: 25px;
+}
+.text-big-3{
+  font-size: 19px;
+}
 .loader-cell {
     text-align: center; 
 }
@@ -112,6 +127,13 @@ body{
   margin-top: -10%;
 }
 
+.page-center-3{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  place-items: start;
+  place-content: center;
+}
 
 .login-box{
   height: fit-content;

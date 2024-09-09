@@ -14,18 +14,17 @@ export default function SingleClass() {
      }, [id, fetchSingleClass])
 
      const { singleClass } = schClass;
-     
-     if(singleClass == null) {
-          return <p>class not found!!!</p>
-     }
+
 
      return (
           <div>
-          {loading ? (
-               <p>loading...</p>
-          ) : (
-               <SingleClassTemplate students={singleClass} />
-          )}
+               {loading ? (
+                    <div colSpan="6" className="loader-cell">
+                         <div className="loader"></div>
+                    </div>
+               ) : !singleClass || singleClass.length == 0 ? (<p className='text-center'>CLass details not found</p>) : (
+                    <SingleClassTemplate students={singleClass} />
+               )}
           </div>
      )
 }
