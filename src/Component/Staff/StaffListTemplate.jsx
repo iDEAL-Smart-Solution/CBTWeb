@@ -31,6 +31,7 @@ export default function StaffListTemplate({ data, loading }) {
                genderMap={genderMap}
                onMoreClick={handleMoreClick}
                emptyText={`You have no Staff`}
+               width={`75%`}
           />
      )
 }

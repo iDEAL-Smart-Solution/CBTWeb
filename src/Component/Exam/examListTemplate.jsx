@@ -1,33 +1,8 @@
 import React from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { Table } from "../ReUsableComponents/table";
 
 
-export function ExamListTemplate1({ data, loading }) {
-//   const navigate = useNavigate();
-
-  const columns = [
-    { key: 'examName', header: 'Name' },
-    { key: 'subjectCode', header: 'Subject Code' },
-    { key: 'session', header: 'Session' },
-    { key: 'term', header: 'Term' },
-    { key: 'isAvailable', header: 'Available' },
-    { key: 'examType', header: 'Type' },
-  ];
-  
-  const termMap = {
-    1: "1st_term",
-    2: "2nd_term",
-    3: "3rd_term",
-  };
-  
-  const typeMap = {
-    1: "1st_CA",
-    2: "2nd_CA",
-    3: "3rd_CA",
-    4: "Exam"
-  };
-
+export function ExamListTemplate1({ data, loading, columns, termMap, typeMap }) {
 
 
   const transformedData = data.map(item => ({
@@ -45,6 +20,8 @@ export function ExamListTemplate1({ data, loading }) {
       termMap={termMap}
       typeMap={typeMap}
       linkPath={linkPath} 
+      emptyText={`No Exam `}
+      width={`90%`}
     />
   );
 }

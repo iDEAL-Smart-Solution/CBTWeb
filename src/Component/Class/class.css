@@ -41,27 +41,10 @@
 }
 
 /* ********************************LIST ALL CLASS*************************** */
-.all-class-table{
-     margin-top: 20px;
-     width: 80%;
-     border-radius: 7px;
-     border-spacing: 0;
-     border: none;
-}
-/* .all-class-table thead tr th:nth-child(1){
-     border-top-left-radius: 10px;
-}
-.all-class-table thead tr th:nth-child(3){
-     border-top-right-radius: 10px;
-} */
-.all-class-table thead{
-     height: 3em;
-     text-align: left;
-}
-.all-class-table thead tr th{
+.td thead tr th{
      padding-left: 10px;
 }
-.all-class-table tbody tr td{
+.td tbody tr td{
      text-align: left;
      padding: 10px;
 }
@@ -81,19 +64,12 @@
      padding: 20px;
 
 }
-.single-class-name{
-     font-size: 30px;
-     font-weight: bolder;
-}
 .list-in-single-class-box{
      width: 100%;
 }
 .list-in-single-class{
-     width: 100%;
      display: flex;
-     justify-content: space-between;
-     align-items: center;
-}
-.list-in-single-class td{
+     place-items: center;
+     place-content: space-between;
      text-align: left;
 }

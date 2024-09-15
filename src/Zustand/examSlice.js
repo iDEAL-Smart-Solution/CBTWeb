@@ -10,11 +10,13 @@ const Exam = (set, get) => ({
           errorMessage: "",
           instruction: {},
           loading: false,
+          singleExam: null,
           setExams: (datas) => set((state) => ({ ...state, exam: { ...state.exam, exams: datas } })),
           setMessage: (data) => set((state) => ({ ...state, exam: { ...state.exam, message: data } })),
           setErrorMessage: (data) => set((state) => ({ ...state, exam: { ...state.exam, errorMessage: data } })),
           setInstruction: (data) => set((state) => ({ ...state, exam: { ...state.exam, instruction: data } })),
           setLoading: (value) => set((state) => ({ ...state, exam: { ...state.exam, loading: value } })),
+          setSingleExam: (data) => set((state) => ({ ...state, exam: { ...state.exam, singleExam: data } })),
      },
      createExam: async (formData) => {
           const { setLoading, setMessage, setErrorMessage } = get().exam;
@@ -26,7 +28,6 @@ const Exam = (set, get) => ({
                });
                var res = await axios.post(`${BASE_URL}/api/v1/Exam/create`, formDataToSend);
                const messg = res.data.message;
-               console.log(messg)
                setMessage(messg);
                setLoading(false);
           } catch (error) {
@@ -86,6 +87,44 @@ const Exam = (set, get) => ({
                setLoading(false);
           }
      },
+     filterList: async (param) => {
+          const { setLoading, setErrorMessage, setExams } = get().exam;
+          setLoading(true);
+
+          try {
+               var res = await axios.get(`${BASE_URL}/api/v1/Subject/get-by-any?param=${param}`);
+               const fetchedSubjects = res.data.map((list) => ({
+                    id: list.id,
+                    name: list.name,
+                    code: list.code,
+                    description: list.description,
+                    numberOfExam: list.numberOfExam,
+                    className: list.className,
+
+               }));
+               setSubjects(fetchedSubjects)
+          } catch (error) {
+               console.error("Error fetching list of subjects:", error);
+               setErrorMessage(error.response?.data?.message || 'An error occurred make sure your server is up and running');
+          } finally {
+               setLoading(false);
+          }
+     },
+     fetchSingleExam: async (examKey) => {
+          const { setLoading, setSingleExam, setErrorMessage } = get().exam;
+          setLoading(true);
+          try {
+               
+               const res = await axios.get(`${BASE_URL}/api/v1/Exam/get-single-with-questions?examKey=${examKey}`);
+               var response = res.data.data;
+               setSingleExam(response);
+          } catch (error) {
+               console.error(`Error occured when trying to fetch single subject.`, error);
+               setErrorMessage(error.request.response || 'Exam not found');
+          } finally {
+               setLoading(false);
+          }
+     }
 })
 
 export const useExam = create(Exam);

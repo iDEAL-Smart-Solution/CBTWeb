@@ -24,6 +24,9 @@ export default function SubjectListTemplate({ data, loading }) {
       loading={loading}
       columns={columns}
       onMoreClick={handleMoreClick}
+      emptyText={`No subject`}
+      width={`80%`}
+
     />
   );
 }

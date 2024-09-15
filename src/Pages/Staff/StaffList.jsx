@@ -26,7 +26,7 @@ export default function StaffList() {
             <div style={{ width: "50%" }}>
                 <SearchField
                     type="search"
-                    placeholder="user name"
+                    placeholder="search key (username, subject)"
                     className="search register-field"
                     handleChange={handleInputChange}
                     handleSubmit={handleSubmit}

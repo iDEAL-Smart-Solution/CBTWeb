@@ -33,6 +33,9 @@ body{
 .bg-color-mute{
   background-color: rgba(200, 199, 199, 0.844);
 }
+.color-mute{
+  color: rgba(161, 161, 161, 0.844);
+}
 .color-primary{
   color: var(--primary-color);
 }
@@ -62,6 +65,9 @@ body{
 }
 .text-center{
   text-align: center;
+}
+.text-left{
+  text-align: left;
 }
 
 .b-r-r{
@@ -101,7 +107,9 @@ body{
   animation: spin 2s linear infinite;
   margin: 0 auto;
 }
-
+.p-30 {
+  padding: 30px;
+}
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

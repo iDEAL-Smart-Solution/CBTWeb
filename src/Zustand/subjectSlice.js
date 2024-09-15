@@ -8,10 +8,12 @@ const Subject = (set, get) => ({
           message: "",
           errorMessage: "",
           loading: false,
+          singleSubject: null,
           setSubjects: (datas) => set((state) => ({ ...state, subject: { ...state.subject, subjects: datas } })),
           setMessage: (data) => set((state) => ({ ...state, subject: { ...state.subject, message: data } })),
           setErrorMessage: (data) => set((state) => ({ ...state, subject: { ...state.subject, errorMessage: data } })),
           setLoading: (value) => set((state) => ({ ...state, subject: { ...state.subject, loading: value } })),
+          setSingleSubject: (data) => set((state) => ({ ...state, subject: { ...state.subject, singleSubject: data } })), 
 
      },
      createSubject: async (formData) => {
@@ -47,7 +49,7 @@ const Subject = (set, get) => ({
                     numberOfExam: list.numberOfExam,
                     className: list.className,
                }));
-               console.log(fetchedSubjects);
+               // console.log(fetchedSubjects);
                setSubjects(fetchedSubjects)
           } catch (error) {
                console.error("Error fetching list of subjects:", error);
@@ -75,6 +77,22 @@ const Subject = (set, get) => ({
           } catch (error) {
                console.error("Error fetching list of subjects:", error);
                setErrorMessage(error.response?.data?.message || 'An error occurred make sure your server is up and running');
+          } finally {
+               setLoading(false);
+          }
+     },
+     fetchSingleSubject: async (id) => {
+          const { setLoading, setSingleSubject, setErrorMessage } = get().subject;
+          setLoading(true);
+          try {
+               
+               const res = await axios.get(`${BASE_URL}/api/v1/Subject/get-by-id?id=${id}`);
+               var response = res.data.data;
+               console.log(response);
+               setSingleSubject(response);
+          } catch (error) {
+               console.error(`Error occured when trying to fetch single subject.`, error);
+               setErrorMessage(error.request.response || 'subject not found');
           } finally {
                setLoading(false);
           }

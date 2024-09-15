@@ -17,8 +17,10 @@ export default function ExamInstruction() {
      }, [])
      return (
           <div className="page-center-2">
-               <div className="register-box box-shadow-2">
-                    <ExamInstructionTemplate data={instruction} />
+               <div className="register-box-2 box-shadow-2 text-left">
+                    <b>
+                         <ExamInstructionTemplate data={instruction} />
+                    </b>
                </div>
           </div>
      )

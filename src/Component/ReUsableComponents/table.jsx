@@ -2,17 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BASE_URL } from '../../Constant';
 
-export function Table({ 
-  data, 
-  loading, 
-  columns, 
-  onMoreClick, 
-  genderMap, 
-  emptyText, 
-  termMap, 
-  availability, 
+export function Table({
+  data,
+  loading,
+  columns,
+  onMoreClick,
+  genderMap,
+  emptyText,
+  termMap,
+  availability,
   typeMap,
-  linkPath
+  linkPath,
+  width
 }) {
   const renderCell = (item, column) => {
     let cellContent;
@@ -20,10 +21,10 @@ export function Table({
     switch (column.key) {
       case 'profilePicture':
         cellContent = (
-          <img 
-            src={`${BASE_URL}/ProfilePictures/${item[column.key]}`} 
-            alt="Profile" 
-            style={{ width: '50px', height: '50px', borderRadius: '50%' }} 
+          <img
+            src={`${BASE_URL}/ProfilePictures/${item[column.key]}`}
+            alt="Profile"
+            style={{ width: '50px', height: '50px', borderRadius: '50%' }}
           />
         );
         break;
@@ -67,13 +68,27 @@ export function Table({
 
   return (
     <div>
-      <table className="all-class-table box-shadow-2">
-        <thead className="bg-color-prim color-light">
+      <table className="td box-shadow-2"
+        style={{
+          marginTop: '20px',
+          width: width,
+          borderRadius: '7px',
+          borderSpacing: 0,
+          border: 'none'
+        }}
+      >
+        <thead className="bg-color-prim color-light"
+          style={{
+            height: '3em',
+            textAlign: 'left'
+          }}
+        >
           <tr>
             {columns.map((column, index) => (
               <th
                 key={column.key}
                 className={index === 0 ? 'b-r-l' : index === columns.length - 1 ? 'b-r-r' : ''}
+                style={{paddingLeft: '10px'}}
               >
                 {column.header}
               </th>

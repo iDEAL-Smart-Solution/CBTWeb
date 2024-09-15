@@ -4,7 +4,7 @@
 export default function ListOfSubjectForClass({ data, index}) {
      return(
           <div>
-               <table className="list-in-single-class-box">
+               <table className="td list-in-single-class-box">
                     <tbody>
                          <tr key={data.id} className="list-in-single-class">
                               <td>

@@ -1,8 +1,12 @@
 
 
-export function InputField({ type, placeholder, className, handleChange, value, name }) {
+export function InputField({ type, placeholder, className, handleChange, value, name, label }) {
      return (
+         <>
+           {/* <label className="color-mute bold">{label}</label> */}
+           <small className="color-mute bold">{label}</small>
           <input type={type} placeholder={placeholder} className={className} onChange={handleChange} value={value} name={name} />
+         </>
      )
 }
 
