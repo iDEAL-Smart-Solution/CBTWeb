@@ -56,19 +56,19 @@ const Staff = (set, get) => ({
                setLoading(false);
           }
      },
-     filterAllStaff: async (userName) => {
+     filterAllStaff: async (param) => {
           const { setLoading, setStaffs, staffs } = get().staff;
           setLoading(true);
           try {
-            let filteredStaffs;
-            if (userName === null || userName.trim() === '') 
-               {
-                    filteredStaffs = staffs;
-               } else {
-                   filteredStaffs = staffs.filter(staff => staff.userName.toLowerCase() === userName.toLowerCase());
-               }
+               var res = await axios.get(`${BASE_URL}/api/v1/staff/get-by-any?param=${param}`);
+               const filteredStaff = res.data.map((list) => ({
+                    userId: list.userId,
+                    userName: list.userName,
+                    gender: list.gender,
+                    profilePicture: list.profilePicture,
+               }));
 
-            setStaffs(filteredStaffs);
+            setStaffs(filteredStaff);
           } catch (error) {
             console.error("Error filtering staff:", error);
           } finally {

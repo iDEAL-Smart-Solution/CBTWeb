@@ -13,13 +13,13 @@ export default function ExamCreationForm() {
 
      const [formData, setFormData] = useState({
           subjectCode: "",
-          term: 0,
-          session: "",
           examType: 0,
           examName: "",
-          NumberOfQuestionsPerStudent: 0
+          NumberOfQuestionsPerStudent: 0,
+          durationHours: 0,
+          durationMinutes: 0,
+          obtainableScore: 0,
      });
-
 
      const handleInputChange = (event) => {
           const { name, value } = event.target;
@@ -32,166 +32,137 @@ export default function ExamCreationForm() {
 
      useEffect(() => {
           fetchSubjectsLight();
-     }, [])
+     }, []);
 
      const { subjects } = subject;
-
 
      const handleSubmit = async (e) => {
           e.preventDefault();
 
+          const duration = `${String(formData.durationHours).padStart(2, '0')}:${String(formData.durationMinutes).padStart(2, '0')}:00`;
+
+          const dataToSubmit = {
+               ...formData,
+               duration
+          };
+
           try {
-               await createExam(formData);
+               console.log(dataToSubmit)
+               await createExam(dataToSubmit);
           } catch (_error) {
                console.log(_error);
           }
      };
 
-     // const term = [
-     //      { value: 0, text: 'Select term' },
-     //      { value: 1, text: '1st term' },
-     //      { value: 2, text: 'second term' },
-     //      { value: 3, text: 'third term' }
-     // ]
-
-     // const examType = [
-     //      { value: 0, text: 'Select exam type' },
-     //      { value: 1, text: '1st_CA' },
-     //      { value: 2, text: '2nd_CA' },
-     //      { value: 3, text: '3rd_CA' },
-     //      { value: 4, text: 'Exam' },
-
-     // ]
-
      const handleReset = async () => {
           setFormData({
                subjectCode: "",
-               term: 0,
-               session: "",
                examType: 0,
                examName: "",
-               NumberOfQuestionsPerStudent: 0
-          })
+               NumberOfQuestionsPerStudent: 0,
+               durationHours: 0,
+               durationMinutes: 0,
+               ontainableScore: 0, 
+          });
           setMessage("");
           setErrorMessage("");
-     }
+     };
+
      return (
           <div className="page-center-2 ">
                <div className="register-box box-shadow">
-                    <form onSubmit={handleSubmit} className="form" >
+                    <form onSubmit={handleSubmit} className="form">
                          <div style={{ height: "5vh" }}>
                               {message && <p style={{ backgroundColor: "var(--primary-color)" }} className="color-light text-center bold">{message}</p>}
                               {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{errorMessage}</p>}
                          </div>
-                         <InputField type={`text`} name={`examName`} value={formData.examName} placeholder={`exam name e.g ENG_JSS_1stCA_2ndTerm_2022/23`} className={`register-long-field`} handleChange={handleInputChange} />
-                         {/* <select
+
+                         <InputField
+                              type="text"
+                              name="examName"
+                              value={formData.examName}
+                              placeholder="Exam name e.g. ENG_JSS_1stCA_2ndTerm_2022/23"
+                              className="register-long-field"
+                              handleChange={handleInputChange}
+                         />
+
+                         <Dropdown
                               name="subjectCode"
                               value={formData.subjectCode}
-                              onChange={handleInputChange}
-                              style={{
-                                   height: '50px',
-                                   border: 'none',
-                                   width: '100%',
-                                   padding: '10px',
-                                   fontSize: '16px',
-                                   borderRadius: '5px',
-                                   outline: 'none',
-                                   cursor: 'pointer',
-                                   marginBottom: '15px'
-
-                              }}  >
-                              <option value="">Select subject code</option>
-
-                              {subjects.map((option) => (
-                                   <option key={option.id} value={option.code}>{option.code}</option>
-                              ))}
-                         </select> */}
-                         <Dropdown
-                              name={`subjectCode`}
-                              value={formData.subjectCode}
                               handleChange={handleInputChange}
-                              width={`100%`}
-                              firstOption={`Select subject code`}
+                              width="100%"
+                              firstOption="Select subject code"
                               options={subjects}
-                              optionKey='id'
-                              optionValue='code'
-                              optionLabel='code'
-                              mb={`15px`}
-
+                              optionKey="id"
+                              optionValue="code"
+                              optionLabel="code"
+                              mb="15px"
                          />
 
                          <Dropdown
-                              name={`term`}
-                              value={formData.term}
-                              handleChange={handleInputChange}
-                              width={`100%`}
-                              firstOption={`Select Term`}
-                              options={term}
-                              optionKey='value'
-                              optionValue='value'
-                              optionLabel='text'
-                              mb={`15px`}
-                         />
-
-                         {/* <select
-                              name="term"
-                              value={formData.term}
-                              onChange={handleInputChange}
-                              style={{
-                                   height: '50px',
-                                   border: 'none',
-                                   width: '99%',
-                                   padding: '10px',
-                                   fontSize: '16px',
-                                   borderRadius: '5px',
-                                   outline: 'none',
-                                   cursor: 'pointer',
-                                   marginBottom: '15px'
-                              }}  >
-                              {term.map((option) => (
-                                   <option key={option.value} value={option.value}>{option.text}</option>
-                              ))}
-                         </select> */}
-                         <InputField type={`text`} name={`session`} value={formData.session} placeholder={`session e.g 2022/2023`} className={`register-long-field`} handleChange={handleInputChange} />
-                         <Dropdown
-                              name={`examType`}
+                              name="examType"
                               value={formData.examType}
                               handleChange={handleInputChange}
-                              width={`100%`}
-                              firstOption={`Select examType`}
+                              width="100%"
+                              firstOption="Select exam type"
                               options={examType}
-                              optionKey='value'
-                              optionValue='value'
-                              optionLabel='text'
-                              mb={`15px`}
+                              optionKey="value"
+                              optionValue="value"
+                              optionLabel="text"
+                              mb="15px"
                          />
-                         {/* <select
-                              name="examType"jjjjjjjjjjmj
-                              value={formData.examType}
-                              onChange={handleInputChange}
-                              style={{
-                                   height: '50px',
-                                   border: 'none',
-                                   width: '99%',
-                                   padding: '10px',
-                                   fontSize: '16px',
-                                   borderRadius: '5px',
-                                   outline: 'none',
-                                   cursor: 'pointer',
-                                   marginBottom: '15px'
-                              }}  >
-                              {examType.map((option) => (
-                                   <option key={option.value} value={option.value}>{option.text}</option>
-                              ))}
-                         </select> */}
-                         <InputField type={`int`} name={`NumberOfQuestionsPerStudent`} value={formData.NumberOfQuestionsPerStudent} placeholder={`Number of questions per student`} className={`register-long-field`} handleChange={handleInputChange} />
+
+                         <InputField
+                              type="number"
+                              name="NumberOfQuestionsPerStudent"
+                              value={formData.NumberOfQuestionsPerStudent}
+                              placeholder="Number of questions per student"
+                              className="register-long-field"
+                              handleChange={handleInputChange}
+                              label={`Number of question per student`}
+                         />
+
+                         <div className="duration-inputs">
+                              <InputField
+                                   type="number"
+                                   name="durationHours"
+                                   value={formData.durationHours}
+                                   placeholder="Hours"
+                                   className="register-long-field"
+                                   handleChange={handleInputChange}
+                                   min="0"
+                                   label={`Time in hours e.g 01`}
+                              />
+                              <InputField
+                                   type="number"
+                                   name="durationMinutes"
+                                   value={formData.durationMinutes}
+                                   placeholder="Minutes"
+                                   className="register-long-field"
+                                   handleChange={handleInputChange}
+                                   min="0"
+                                   max="59"
+                                   label={`time in minutes e,g 30`}
+                              />
+                         </div>
+                         <InputField
+                                   type="number"
+                                   name="obtainableScore"
+                                   value={formData.obtainableScore}
+                                   placeholder="Obtainable Score"
+                                   className="register-long-field"
+                                   handleChange={handleInputChange}
+                                   min="0"
+                                   max="100"
+                                   label={`Max obtainable Score for the exam`}
+                              />
 
                          <div className="form-grouping-buttom">
-                              <input className="submit-button bg-color-mute text-center" type="reset" value="reset" onClick={handleReset} />
-                              <Submit className={`submit-button text-center color-light`} loading={loading} isNotLoading={`submit`} isloading={`please wait...`} />
+                               <input className="submit-button bg-color-mute text-center" type="reset" value="reset" onClick={handleReset} />
+                               <Submit className={`submit-button text-center color-light`} loading={loading} isNotLoading={`submit`} isloading={`please wait...`} />
                          </div>
                     </form>
                </div>
           </div>
-     )
+     );
 }

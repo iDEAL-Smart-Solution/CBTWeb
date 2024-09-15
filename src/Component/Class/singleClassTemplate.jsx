@@ -5,7 +5,7 @@ import ListOfSubjectForClass from "./listOfSubjecForClass"
 export default function SingleClassTemplate({ students }) {
      return (
           <div className="box-shadow single-class-container">
-               <p className="text-center color-primary single-class-name">
+               <p className="text-center color-primary single-class-name bolder text-big-2">
                     <b>
                          {students.name}
                     </b>
@@ -24,13 +24,6 @@ export default function SingleClassTemplate({ students }) {
                          ))
                     }
                </div>
-               {/* <div className="box-shadow single-class-box">
-                    {
-                         students.listOfSubjects.map((sub, index) => (
-                              <ListOfSubjectForClass key={sub.id} id={sub.id} data={sub} index={index} />
-                         ))
-                    }
-               </div> */}
           </div>
      )
 }

@@ -2,6 +2,7 @@ import { useSubject } from "../../Zustand/subjectSlice";
 import { useClass } from "../../Zustand/classSlice";
 import { useState, useEffect } from "react";
 import { InputField, Submit } from "../ReUsableComponents/input";
+import { Dropdown } from "../ReUsableComponents/dropDown";
 
 export default function SubjectCreationForm() {
      const { subject, createSubject } = useSubject();
@@ -14,6 +15,8 @@ export default function SubjectCreationForm() {
           description: "",
           className: "",
           userName: "",
+          testTotalScore: 0,
+          examTotalScore: 0,
      });
 
 
@@ -50,6 +53,8 @@ export default function SubjectCreationForm() {
                description: "",
                className: "",
                userName: "",
+               testTotalScore: 0,
+               examTotalScore: 0,
           })
           setMessage("");
           setErrorMessage("");
@@ -66,7 +71,7 @@ export default function SubjectCreationForm() {
                          <InputField type={`text`} name={`code`} value={formData.code} placeholder={`Subject Code`} className={`register-long-field`} handleChange={handleInputChange} />
                          <InputField type={`text`} name={`description`} value={formData.description} placeholder={`Subject Description`} className={`register-long-field`} handleChange={handleInputChange} />
                          <InputField type={`text`} name={`userName`} value={formData.userName} placeholder={`Assigned staff user name`} className={`register-long-field`} handleChange={handleInputChange} />
-                         <select
+                         {/* <select
                               name="className"
                               value={formData.className}
                               onChange={handleInputChange}
@@ -82,9 +87,24 @@ export default function SubjectCreationForm() {
                               }}  >
                               <option value="">Select class</option>
                               {allschClass.map((option) => (
-                                   <option key={option.classId} value={option.className}>{option.className}</option>
+                                   <option key={option.classId} value={option.className}>{option.className}</option> 
                               ))}
-                         </select>
+                         </select> */}
+                         <Dropdown 
+                         name={`className`}
+                         value={formData.className}
+                         handleChange={handleInputChange}
+                         width={`100%`}
+                         firstOption={`Select Class`}
+                         options={allschClass}
+                         optionKey={`classId`}
+                         optionValue={`className`}
+                         optionLabel={`className`}
+                         />
+                         <div className="form-grouping">
+                         <InputField type={`number`} name={`testTotalScore`} value={formData.testTotalScore} className={`register-field`} handleChange={handleInputChange} />
+                         <InputField type={`number`} name={`examTotalScore`} value={formData.examTotalScore} className={`register-field`} handleChange={handleInputChange} />
+                         </div>
 
                          <div className="form-grouping-buttom">
                               <input className="submit-button bg-color-mute text-center" type="reset" value="reset" onClick={handleReset} />

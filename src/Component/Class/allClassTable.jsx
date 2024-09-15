@@ -1,41 +1,24 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Table } from "../ReUsableComponents/table";
 
 export default function ListClass({ classes, loading }) {
+  const columns = [
+    { key: 'className', header: 'Class Name' },
+    { key: 'numberOfSubjects', header: 'Number of Subjects' },
+    { key: 'numberOfStudents', header: 'Number of Student' },
+  ];
+
+  const linkPath = (item) => `/class/${item.classId}`; 
+
   return (
-    <table className="all-class-table box-shadow-2">
-      <thead className="bg-color-prim color-light">
-        <tr>
-          <th className="b-r-l">Class Name</th>
-          <th>Number of Subjects</th>
-          <th className="b-r-r">Number of Students</th>
-        </tr>
-      </thead>
-      <tbody>
-        {loading ? (
-          <tr>
-            <td colSpan="6" className="loader-cell">
-              <div className="loader"></div>
-            </td>
-          </tr>
-        ) : !classes || classes.length === 0 ? (
-          <tr>
-            <td colSpan="3" style={{ textAlign: "center" }}>You have no class</td>
-          </tr>
-        ) : (
-          classes.map((item) => (
-            <tr key={item.classId}>
-              <td>
-                <Link className="link" to={`/class/${item.classId}`}>
-                  {item.className}
-                </Link>
-              </td>
-              <td>{item.numberOfSubjects}</td>
-              <td>{item.numberOfStudents}</td>
-            </tr>
-          ))
-        )}
-      </tbody>
-    </table>
+    <div>
+      <Table
+        data={classes}
+        columns={columns}
+        width={`80%`}
+        linkPath={linkPath}
+        loading={loading}
+       />
+    </div>
   );
 }

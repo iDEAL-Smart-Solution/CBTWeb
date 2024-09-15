@@ -7,22 +7,29 @@ import { useQuestion } from "../../Zustand/questionSlice";
 import { FileUploader } from "../ReUsableComponents/file";
 
 export default function BulkQuestionUploadingForm() {
-     const { question, uploadSingleQuestion } = useQuestion();
+     const { question, uploadBulkQuestion } = useQuestion();
      const { subject, fetchSubjectsLight } = useSubject();
      const { exam, fetchExamsLight } = useExam();
      const { loading, message, errorMessage, setMessage, setErrorMessage } = question;
      const [formData, setFormData] = useState({
           examId: "",
           subjectCode: "",
-          file: null,
+          question: null,
      });
      const handleInputChange = (event) => {
-          const { name, value } = event.target;
+          const { name, value, files } = event.target;
           let parsedValue = value;
-          setFormData({
-               ...formData,
-               [name]: parsedValue
-          });
+          if (name === "question") {
+               setFormData({
+                    ...formData,
+                    [name]: files[0]
+               });
+          } else {
+               setFormData({
+                    ...formData,
+                    [name]: parsedValue
+               });
+          }
      }
      useEffect(() => {
           fetchSubjectsLight();
@@ -36,8 +43,7 @@ export default function BulkQuestionUploadingForm() {
           e.preventDefault();
 
           try {
-               console.log(formData);
-               // await uploadSingleQuestion(formData);
+               await uploadBulkQuestion(formData);
           } catch (_error) {
                console.log(_error);
           }
@@ -46,7 +52,7 @@ export default function BulkQuestionUploadingForm() {
           setFormData({
                examId: "",
                subjectCode: "",
-               file: null,
+               question: null,
           })
           setMessage("");
           setErrorMessage("");
@@ -92,9 +98,8 @@ export default function BulkQuestionUploadingForm() {
                          <div className="form-grouping">
                               <FileUploader
                                    className={``}
-                                   name='file'
-                                   value={formData.file}
-                                   onChange={handleInputChange}
+                                   name={`question`}
+                                   handleChange={handleInputChange}
                                    width='100%'
                               />
                          </div>

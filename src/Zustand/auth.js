@@ -27,7 +27,6 @@ const Auth = (set, get) => ({
             sessionStorage.setItem('token', token);
             sessionStorage.setItem('user', JSON.stringify(user));
             sessionStorage.setItem('academicSession', JSON.stringify(academicSession));
-            console.log(data);
             set((state) => ({
                 ...state,
                 auth: {

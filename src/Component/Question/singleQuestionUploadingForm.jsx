@@ -5,6 +5,7 @@ import { useExam } from "../../Zustand/examSlice";
 import { Dropdown } from "../ReUsableComponents/dropDown";
 import { Submit } from "../ReUsableComponents/input";
 import { useQuestion } from "../../Zustand/questionSlice";
+import { TextArea } from "../ReUsableComponents/textArea";
 
 export default function SingleQuestionUploadingForm() {
      const { question, uploadSingleQuestion } = useQuestion();
@@ -19,7 +20,7 @@ export default function SingleQuestionUploadingForm() {
           optionB: "",
           optionC: "",
           optionD: "",
-          correctAnswer: "",
+          answer: "",
           pointPerQuestion: 0,
      });
      const handleInputChange = (event) => {
@@ -43,7 +44,7 @@ export default function SingleQuestionUploadingForm() {
 
           try {
                console.log(formData);
-               // await uploadSingleQuestion(formData);
+               await uploadSingleQuestion(formData);
           } catch (_error) {
                console.log(_error);
           }
@@ -57,7 +58,7 @@ export default function SingleQuestionUploadingForm() {
                optionB: "",
                optionC: "",
                optionD: "",
-               correctAnswer: "",
+               answer: "",
                pointPerQuestion: 0,
           })
           setMessage("");
@@ -99,18 +100,20 @@ export default function SingleQuestionUploadingForm() {
                               />
                          </div>
                          <div className="form-grouping">
-                         <InputField type={`text`} name={`question`} value={formData.question} placeholder={`type the question here ...`} className={`register-field`} handleChange={handleInputChange} />
+                         <TextArea name={`question`} value={formData.question} handleChange={handleInputChange} rows={3} className={`text-area`} placeholder={`enter the question ...`}  mb={`20px`} width={`100%`}
+
+                         />
                          </div>
                          <div className="form-grouping">
-                              <InputField type={`text`} name={`optionA`} value={formData.optionA} placeholder={`option A`} className={`register-field`} handleChange={handleInputChange} />
-                              <InputField type={`text`} name={`optionB`} value={formData.optionB} placeholder={`option B`} className={`register-field`} handleChange={handleInputChange} />
+                              <InputField type={`text`} name={`optionA`} value={formData.optionA} placeholder={`Option A`} className={`register-field`} handleChange={handleInputChange} />
+                              <InputField type={`text`} name={`optionB`} value={formData.optionB} placeholder={`Option B`} className={`register-field`} handleChange={handleInputChange} />
                          </div>
                          <div className="form-grouping">
-                              <InputField type={`text`} name={`optionC`} value={formData.optionC} placeholder={`option C`} className={`register-field`} handleChange={handleInputChange} />
-                              <InputField type={`text`} name={`optionD`} value={formData.optionD} placeholder={`option D`} className={`register-field`} handleChange={handleInputChange} />
+                              <InputField type={`text`} name={`optionC`} value={formData.optionC} placeholder={`Option C`} className={`register-field`} handleChange={handleInputChange} />
+                              <InputField type={`text`} name={`optionD`} value={formData.optionD} placeholder={`Option D`} className={`register-field`} handleChange={handleInputChange} />
                          </div>
                          <div className="form-grouping">
-                              <InputField type={`text`} name={`correctAnswer`} value={formData.correctAnswer} placeholder={`Correct Answer e.g A or B`} className={`register-field`} handleChange={handleInputChange} />
+                              <InputField type={`text`} name={`answer`} value={formData.answer} placeholder={`Correct Answer e.g option A or option B`} className={`register-field`} handleChange={handleInputChange} />
                               <InputField type={`number`} name={`pointPerQuestion`} value={formData.pointPerQuestion} placeholder={`quetion Points`} className={`register-field`} handleChange={handleInputChange} />
                          </div>
                          <div className="form-grouping-buttom">

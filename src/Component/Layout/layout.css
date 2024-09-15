@@ -1,4 +1,4 @@
-.root-container {
+F.root-container {
      height: 100%;
      margin: 0;
      padding: 0;
@@ -97,4 +97,11 @@
 .li{
   list-style: none;
   margin-bottom: -10px;
+}
+.student-settings{
+  display: flex;
+  gap: 20px;
+  width: 20%;
+  place-items: center;
+  place-content: center;
 }

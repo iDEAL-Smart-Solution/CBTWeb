@@ -1,18 +1,15 @@
 import React from 'react';
 import './layout.css'
 import { useAuth } from '../../Zustand/auth';
+import { BASE_URL } from '../../Constant';
 import { SCHOOL_NAME } from '../../Constant';
-import { useNavigate } from 'react-router-dom';
 
-export default function Navbar() {
+export default function StudentNavbar() {
     const { logout, auth } = useAuth();
-    const { academicSession } = auth;
+    const { academicSession, user } = auth;
     const { current_Session, current_Term } = academicSession;
-    const navigate = useNavigate();
     function handleSignOut() {
-        navigate('/');
         logout();
-
     }
     const termMap = {
         1: "1st_term",
@@ -32,14 +29,20 @@ export default function Navbar() {
 
                 </div>
                 <div>
-                   <b className='bolder'>
-                   <small className='bolder color-primary bolder'>{termMap[current_Term]}</small>
-                   {/* <small className='bolder color-primary bolder'>2nd_Term</small> */}
+                    <b className='bolder'>
+                        <small className='bolder color-primary bolder'>{termMap[current_Term]}</small>
+                        {/* <small className='bolder color-primary bolder'>2nd_Term</small> */}
 
-                   </b>
+                    </b>
                 </div>
             </div>
-            <div>
+            <div className='student-settings'>
+                <div>
+                    <small className='bolder'>{user.firstName ? user.firstName : ''}</small>
+                </div>
+                <div>
+                    <img src={`${BASE_URL}/ProfilePictures/${user.profilePicture}`} width="50em" alt="image" />
+                </div>
                 <button onClick={handleSignOut} className="signout-button">
                     Sign Out
                 </button>

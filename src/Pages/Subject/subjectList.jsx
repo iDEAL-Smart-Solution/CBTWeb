@@ -28,7 +28,7 @@ export default function SubjectList() {
             <div style={{ width: "50%" }}>
                 <SearchField
                     type="search"
-                    placeholder="user name"
+                    placeholder="name"
                     className="search register-field"
                     handleChange={handleInputChange}
                     handleSubmit={handleSubmit}

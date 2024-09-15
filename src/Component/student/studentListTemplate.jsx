@@ -34,6 +34,8 @@ export default function StudentListTemplate({ data, loading }) {
                onMoreClick={handleMoreClick}
                genderMap={genderMap}
                emptyText="Enter valid keyword to search for student either by class name or subject"
+               width={`80%`}
+
           />
      )
 }
