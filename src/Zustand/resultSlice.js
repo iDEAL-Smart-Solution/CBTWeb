@@ -1,0 +1,66 @@
+import axios from "axios";
+import { BASE_URL } from '../Constant/index';
+import { create } from "zustand";
+
+
+const Result = (set, get) => ({ 
+      result: {
+          errorMessage: "",
+          loading: false,
+          subjectResults: [],
+          studentResults: [],
+          setErrorMessage: (data) => set((state) => ({ ...state, result: { ...state.result, errorMessage: data } })),
+          setLoading: (value) => set((state) => ({ ...state, result: { ...state.result, loading: value } })),
+          setSubjectResults: (data) => set((state) => ({...state, result: { ...state.result, subjectResults: data } })),
+          setStudentResults: (data) => set((state) => ({...state, result: { ...state.result, studentResults: data } })),
+     },
+     fetchSubjectResults: async (subjectCode, term) => {
+          const { setErrorMessage,  setLoading, setSubjectResults } = get().result;
+          setLoading(true);
+          try {
+               var resposne = await axios.get(`${BASE_URL}/api/v1/Result/get-subject-result?subjectCode=${subjectCode}&term=${term}`);
+               const results = resposne.data.map((result) => ({
+                         studentUin: result.studentUin,
+                         first_CA_Score: result.first_CA_Score,
+                         second_CA_Score: result.second_CA_Score,
+                         third_CA_Score: result.third_CA_Score,
+                         exam_Score: result.exam_Score,
+                         total_Score: result.total_Score,
+                         term: result.term,
+                }))
+                setSubjectResults(results);
+          } catch (error) {
+               console.error("Error fetching subject result:", error);
+               setErrorMessage(error.response?.data?.message);
+          } finally {
+               setLoading(false);
+          }
+     },
+     fetchStudentResults: async (key, term) => {
+          const { setErrorMessage,  setLoading, setStudentResults } = get().result;
+          setLoading(true);
+          try {
+               var resposne = await axios.get(`${BASE_URL}/api/v1/Result/get-student-result?studentKey=${key}&term=${term}`);
+               const results = resposne.data.map((result) => ({
+                         studentUin: result.studentUin,
+                         subjectCode: result.subjectCode,
+                         first_CA_Score: result.first_CA_Score,
+                         second_CA_Score: result.second_CA_Score,
+                         third_CA_Score: result.third_CA_Score,
+                         exam_Score: result.exam_Score,
+                         total_Score: result.total_Score,
+                         term: result.term,
+                         session: result.session,
+                }))
+                setStudentResults(results);
+          } catch (error) {
+               console.error("Error fetching subject result:", error);
+               setErrorMessage(error.response?.data?.message);
+          } finally {
+               setLoading(false);
+          }
+     }
+
+})
+
+export const useResult = create(Result);

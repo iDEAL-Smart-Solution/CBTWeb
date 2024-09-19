@@ -8,7 +8,7 @@ import { FileUploader } from "../ReUsableComponents/file";
 
 export default function BulkQuestionUploadingForm() {
      const { question, uploadBulkQuestion } = useQuestion();
-     const { subject, fetchSubjectsLight } = useSubject();
+     const { subject, fetchSubjectCodes } = useSubject();
      const { exam, fetchExamsLight } = useExam();
      const { loading, message, errorMessage, setMessage, setErrorMessage } = question;
      const [formData, setFormData] = useState({
@@ -32,7 +32,7 @@ export default function BulkQuestionUploadingForm() {
           }
      }
      useEffect(() => {
-          fetchSubjectsLight();
+          fetchSubjectCodes();
           fetchExamsLight();
      }, [])
 

@@ -132,36 +132,19 @@ export default function StudentRegistrationForm() {
                               <ImageUploader
                                    name={`profilePicture`}
                                    handleChange={handleInputChange}
-                                   width={`50%`}
+                                   width={`49%`}
                                   />
                                    <Dropdown
                                         name={`gender`}
                                         value={formData.gender}
                                         handleChange={handleInputChange}
                                         options={genderOptions}
-                                        width={`54%`}
+                                        width={`50%`}
                                         optionValue={`value`}
                                         optionLabel={`label`}
                                         firstOption={`Select Gender`}
                                         />
-                              {/* <select
-                                   name="gender"
-                                   value={formData.gender}
-                                   onChange={handleInputChange}
-                                   style={{
-                                        height: '50px',
-                                        border: 'none',
-                                        width: '54%',
-                                        padding: '10px',
-                                        fontSize: '16px',
-                                        borderRadius: '5px',
-                                        outline: 'none',
-                                        cursor: 'pointer'
-                                   }}  >
-                                   {genderOptions.map((option) => (
-                                        <option key={option.value} value={option.value}>{option.label}</option>
-                                   ))}
-                              </select> */}
+                             
 
                          </div>
                          <div className="form-grouping-buttom">

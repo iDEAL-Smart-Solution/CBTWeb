@@ -91,7 +91,9 @@ export default function StaffRegistrationForm() {
                               <InputField type={`text`} name={`firstName`} value={formData.firstName} placeholder={`first name`} className={`register-field`} handleChange={handleInputChange} />
                               <InputField type={`text`} name={`lastName`} value={formData.lastName} placeholder={`last name`} className={`register-field`} handleChange={handleInputChange} />
                          </div>
-                         <InputField type={`text`} name={`userName`} value={formData.userName} placeholder={`User Name`} className={`register-long-field`} handleChange={handleInputChange} />
+                         <div className="form-grouping">
+                         <InputField type={`text`} name={`userName`} value={formData.userName} placeholder={`User Name`} className={`register-long-field`} handleChange={handleInputChange}  />
+                         </div>
                          <div className="form-grouping">
                               <InputField type={`email`} name={`email`} value={formData.email} placeholder={`email address`} className={`register-field`} handleChange={handleInputChange} />
                               <InputField type={`text`} name={`phoneNumber`} value={formData.phoneNumber} placeholder={`phone number`} className={`register-field`} handleChange={handleInputChange} />
@@ -106,39 +108,13 @@ export default function StaffRegistrationForm() {
                               <ImageUploader
                                    name={`profilePicture`}
                                    handleChange={handleInputChange}
-                                   style={{
-                                        height: '30px',
-                                        width: '50%',
-                                        padding: '10px',
-                                        fontSize: '16px',
-                                        borderRadius: '5px',
-                                        outline: 'none',
-                                        cursor: 'pointer',
-                                        backgroundColor: 'rgba(200, 200, 200, 0.300)'
-                                   }} />
-                              {/* <select
-                                   name="gender"
-                                   value={formData.gender}
-                                   onChange={handleInputChange}
-                                   style={{
-                                        height: '50px',
-                                        border: 'none',
-                                        width: '54%',
-                                        padding: '10px',
-                                        fontSize: '16px',
-                                        borderRadius: '5px',
-                                        outline: 'none',
-                                        cursor: 'pointer'
-                                   }}  >
-                                   {genderOptions.map((option) => (
-                                        <option key={option.value} value={option.value}>{option.label}</option>
-                                   ))} */}
-                              {/* </select> */}
+                                   width={`49%`}
+                                    />
                                    <Dropdown
                                         name={`gender`}
                                         value={formData.gender}
                                         handleChange={handleInputChange}
-                                        width={`54%`}
+                                        width={`49%`}
                                         options={genderOptions}
                                         optionKey='value'
                                         optionValue='value'

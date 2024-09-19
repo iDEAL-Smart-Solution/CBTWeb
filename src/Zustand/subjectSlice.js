@@ -96,6 +96,24 @@ const Subject = (set, get) => ({
           } finally {
                setLoading(false);
           }
+     },
+     fetchSubjectCodes: async () => {
+          const { setLoading, setErrorMessage, setSubjects } = get().subject;
+          setLoading(true);
+          try {
+               const res = await axios.get(`${BASE_URL}/api/v1/Subject/get-codes`);
+               const fetchedSubjectCodes = res.data.map((list, index) => ({
+                    id: index,
+                    code: list,
+               }));
+
+               setSubjects(fetchedSubjectCodes);
+          } catch (error) {
+               console.error("Error fetching subject codes:", error);
+               setErrorMessage(error.response?.data?.message);
+          } finally {
+               setLoading(false);
+          }
      }
 })
 
