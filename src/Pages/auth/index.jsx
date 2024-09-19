@@ -1,6 +1,7 @@
 import LoginForm from "../../Component/auth/loginForm"
 import AppWrapper from "../firstScreen";
-import logo from '../../assets/avatar.jpeg';
+import logo from '../../assets/ideal_logo.png';
+
 
 export default function Auth() {
      return (

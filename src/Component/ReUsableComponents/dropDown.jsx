@@ -15,7 +15,7 @@ export function Dropdown({ name, value, handleChange, options, width, firstOptio
                     borderRadius: '5px',
                     outline: 'none',
                     cursor: 'pointer',
-                    marginBottom: mb
+                    marginBottom: mb,
                }}  >
                <option value="">{firstOption}</option>
                {options.map((option) => (

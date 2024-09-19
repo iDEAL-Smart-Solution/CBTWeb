@@ -30,7 +30,6 @@ export default function LoginForm() {
      };
      useEffect(() => {
           if (isAuthenticated) {
-               console.log(isAuthenticated)
                // navigate("/dashboard", { replace: true });
                window.location.reload();
           }
@@ -54,9 +53,9 @@ export default function LoginForm() {
                               {!loading ? "Login" : "please wait..."}
                          </button>
 
-                         <div className="mb">
+                         {/* <div className="mb">
                               <a href="#">forgot password</a>
-                         </div>
+                         </div> */}
                     </div>
                </form>
           </div>

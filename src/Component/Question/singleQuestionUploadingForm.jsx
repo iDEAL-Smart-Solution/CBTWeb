@@ -9,7 +9,7 @@ import { TextArea } from "../ReUsableComponents/textArea";
 
 export default function SingleQuestionUploadingForm() {
      const { question, uploadSingleQuestion } = useQuestion();
-     const { subject, fetchSubjectsLight } = useSubject();
+     const { subject, fetchSubjectCodes } = useSubject();
      const { exam, fetchExamsLight } = useExam();
      const { loading, message, errorMessage, setMessage, setErrorMessage } = question;
      const [formData, setFormData] = useState({
@@ -32,7 +32,7 @@ export default function SingleQuestionUploadingForm() {
           });
      }
      useEffect(() => {
-          fetchSubjectsLight();
+          fetchSubjectCodes();
           fetchExamsLight();
      }, [])
 

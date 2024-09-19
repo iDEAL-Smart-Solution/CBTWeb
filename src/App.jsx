@@ -21,6 +21,8 @@ import ExamInstruction from './Pages/Exam/examInstructions';
 import DoExam from './Pages/Exam/doExam';
 import ExamCompleted from './Pages/Exam/completed';
 import SingleSubject from './Pages/Subject/singleSubject';
+import SubjectResult from './Pages/Result/subjectResult';
+import StudentResult from './Pages/Result/studentResult';
 
 function App() {
   const getUser = () => JSON.parse(sessionStorage.getItem("user"));
@@ -65,6 +67,8 @@ function App() {
         { path: "question/create", element: <QuestionUpload /> },
         { path: "dev", element: <Dev /> },
         { path: "/subject/:id", element: <SingleSubject /> },
+        { path: "/subject-result", element: <SubjectResult /> },
+        { path: "/student-result", element: <StudentResult /> },
       ]
     },
     {

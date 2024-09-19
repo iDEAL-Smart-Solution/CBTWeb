@@ -47,7 +47,6 @@ export default function ExamCreationForm() {
           };
 
           try {
-               console.log(dataToSubmit)
                await createExam(dataToSubmit);
           } catch (_error) {
                console.log(_error);
@@ -62,7 +61,7 @@ export default function ExamCreationForm() {
                NumberOfQuestionsPerStudent: 0,
                durationHours: 0,
                durationMinutes: 0,
-               ontainableScore: 0, 
+               ontainableScore: 0,
           });
           setMessage("");
           setErrorMessage("");
@@ -77,15 +76,17 @@ export default function ExamCreationForm() {
                               {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{errorMessage}</p>}
                          </div>
 
-                         <InputField
-                              type="text"
-                              name="examName"
-                              value={formData.examName}
-                              placeholder="Exam name e.g. ENG_JSS_1stCA_2ndTerm_2022/23"
-                              className="register-long-field"
-                              handleChange={handleInputChange}
-                         />
+                         <div className="form-grouping">
+                              <InputField
+                                   type="text"
+                                   name="examName"
+                                   value={formData.examName}
+                                   placeholder="Exam name e.g. ENG_JSS_1stCA_2ndTerm_2022/23"
+                                   className="register-long-field"
+                                   handleChange={handleInputChange}
+                              />
 
+                         </div>
                          <Dropdown
                               name="subjectCode"
                               value={formData.subjectCode}
@@ -120,6 +121,7 @@ export default function ExamCreationForm() {
                               className="register-long-field"
                               handleChange={handleInputChange}
                               label={`Number of question per student`}
+                              width={`97.5%`}
                          />
 
                          <div className="duration-inputs">
@@ -132,6 +134,8 @@ export default function ExamCreationForm() {
                                    handleChange={handleInputChange}
                                    min="0"
                                    label={`Time in hours e.g 01`}
+                                   width={`97.5%`}
+
                               />
                               <InputField
                                    type="number"
@@ -143,23 +147,27 @@ export default function ExamCreationForm() {
                                    min="0"
                                    max="59"
                                    label={`time in minutes e,g 30`}
+                                   width={`97.5%`}
+
                               />
                          </div>
                          <InputField
-                                   type="number"
-                                   name="obtainableScore"
-                                   value={formData.obtainableScore}
-                                   placeholder="Obtainable Score"
-                                   className="register-long-field"
-                                   handleChange={handleInputChange}
-                                   min="0"
-                                   max="100"
-                                   label={`Max obtainable Score for the exam`}
-                              />
+                              type="number"
+                              name="obtainableScore"
+                              value={formData.obtainableScore}
+                              placeholder="Obtainable Score"
+                              className="register-long-field"
+                              handleChange={handleInputChange}
+                              min="0"
+                              max="100"
+                              label={`Max obtainable Score for the exam`}
+                              width={`97.5%`}
+
+                         />
 
                          <div className="form-grouping-buttom">
-                               <input className="submit-button bg-color-mute text-center" type="reset" value="reset" onClick={handleReset} />
-                               <Submit className={`submit-button text-center color-light`} loading={loading} isNotLoading={`submit`} isloading={`please wait...`} />
+                              <input className="submit-button bg-color-mute text-center" type="reset" value="reset" onClick={handleReset} />
+                              <Submit className={`submit-button text-center color-light`} loading={loading} isNotLoading={`submit`} isloading={`please wait...`} />
                          </div>
                     </form>
                </div>
