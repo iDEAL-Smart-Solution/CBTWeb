@@ -2,26 +2,41 @@
   margin: 0;
   /* text-align: center; */
 }
+.my-mt {
+  margin-top: var(--mt-value, 0); /* Default to 0 if not provided */
+}
+
 .register-box {
   all: unset;
   display: flex;
   width: 80%;
   height: fit-content;
-  overflow: scroll;
+  overflow: hidden;
   justify-content: center;
   padding-top: 20px;
-  /* margin-top: -10%; */
+  margin-top: 15%;
   padding: 20px;
+}
+.register-box::-webkit-scrollbar, .register-box-2::-webkit-scrollbar, .register-box-3::-webkit-scrollbar{
+  display: none;
 }
 .register-box-2{
   all: unset;
   width: 80%;
   height: fit-content;
-  overflow: scroll;
+  overflow: hidden;
+  padding-top: 20px;
+  padding: 20px;
+  margin-top: 10%;
+}
+.register-box-3{
+  all: unset;
+  width: 80%;
+  height: fit-content;
+  overflow: hidden;
   padding-top: 20px;
   padding: 20px;
 }
-
 .register-field {
   all: unset;
   width: 100%;
@@ -88,9 +103,9 @@
 
 
 /* ************************** registration / creation forms ********************* */
-.form{
+/* .form{
   width: 100%;
-}
+} */
 .hr{
     width: 10px;
     height: 80%;
@@ -102,7 +117,7 @@
 
 /* ***************************************Question Upload **************** */
 .toggle-form{
-  width: 70%;
+  width: 100%;
   display: flex;
   place-content: space-around;
   place-items: center;
@@ -266,3 +281,6 @@ input[type="file"] {
   display: flex;
   gap: 20px;
 }
+
+
+/* ********************************Side Nav **************************** */

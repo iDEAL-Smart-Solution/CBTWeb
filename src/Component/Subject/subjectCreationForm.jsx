@@ -61,7 +61,7 @@ export default function SubjectCreationForm() {
      }
      return (
           <div className="page-center-2 ">
-               <div className="register-box box-shadow">
+               <div className="register-box-2 my-mt box-shadow">
                     <form onSubmit={handleSubmit} className="form" >
                          <div style={{ height: "5vh" }}>
                               {message && <p style={{ backgroundColor: "var(--primary-color)" }} className="color-light text-center bold">{message}</p>}

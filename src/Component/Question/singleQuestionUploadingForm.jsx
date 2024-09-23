@@ -66,7 +66,7 @@ export default function SingleQuestionUploadingForm() {
      }
      return (
           <div className="page-center-2">
-               <div className="register-box box-shadow">
+               <div className="register-box-3 box-shadow">
                     <form onSubmit={handleSubmit} className="form" >
                     {/* <h1 className="color-primary text-center">Single Question Uploader</h1> */}
                          <div style={{ height: "5vh" }}>
