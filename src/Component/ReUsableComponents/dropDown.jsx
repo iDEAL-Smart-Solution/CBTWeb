@@ -8,7 +8,7 @@ export function Dropdown({ name, value, handleChange, options, width, firstOptio
                onChange={handleChange}
                style={{
                     height: '50px',
-                    border: 'none',
+                    border: '1px solid var(--muted-color)',
                     width: width,
                     padding: '10px',
                     fontSize: '16px',
@@ -16,6 +16,7 @@ export function Dropdown({ name, value, handleChange, options, width, firstOptio
                     outline: 'none',
                     cursor: 'pointer',
                     marginBottom: mb,
+
                }}  >
                <option value="">{firstOption}</option>
                {options.map((option) => (

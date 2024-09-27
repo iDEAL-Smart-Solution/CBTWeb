@@ -47,6 +47,7 @@ const Staff = (set, get) => ({
                     userName: list.userName,
                     gender: list.gender,
                     profilePicture: list.profilePicture,
+                    uin: list.uin,
                }));
                setStaffs(allStaffs);
           } catch (error) {

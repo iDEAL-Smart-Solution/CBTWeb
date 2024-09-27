@@ -5,7 +5,7 @@ import { ExamListTemplate1 } from "../../Component/Exam/examListTemplate";
 
 
 export default function ExamList() {
-    const { exam, fetchExamsLight} = useExam();
+    const { exam, fetchExamsLight, flipAvailability} = useExam();
     const { exams, loading } = exam;
 
     useEffect(() => {
@@ -18,6 +18,17 @@ export default function ExamList() {
         setFilterKey(e.target.value);
     };
 
+    const handleAvailability = async (examId) => {
+        try {
+            var res = await flipAvailability(examId);
+            if(res)
+            {
+                fetchExamsLight();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
     const handleSubmit = () => {
           filterList(filterKey);
     };
@@ -28,6 +39,8 @@ export default function ExamList() {
         { key: 'term', header: 'Term' },
         { key: 'isAvailable', header: 'Available' },
         { key: 'examType', header: 'Type' },
+        { key: 'more', header: ''},
+        { key: 'makeAvailable', header: ''}
       ];
       const termMap = {
         1: "1st_term",
@@ -56,7 +69,7 @@ export default function ExamList() {
                 />
             </div>
             <div>
-                <ExamListTemplate1 data={exams} loading={loading} columns={columns}  termMap={termMap} typeMap={typeMap}/>
+                <ExamListTemplate1 data={exams} loading={loading} columns={columns}  termMap={termMap} typeMap={typeMap} handleAvailability={handleAvailability}/>
             </div>
         </div>
     );

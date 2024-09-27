@@ -53,8 +53,8 @@ export default function SubjectCreationForm() {
                description: "",
                className: "",
                userName: "",
-               testTotalScore: 0,
-               examTotalScore: 0,
+               totalTestScore: 0,
+               totalExamScore: 0,
           })
           setMessage("");
           setErrorMessage("");
@@ -96,9 +96,9 @@ export default function SubjectCreationForm() {
                          </div>
 
                          <div className="">
-                              <InputField type={`number`} name={`testTotalScore`} value={formData.testTotalScore} className={`register-long-field`} handleChange={handleInputChange} label={`Test allocated score`} width={`98%`} />
+                              <InputField type={`number`} name={`totalTestScore`} value={formData.totalTestScore} className={`register-long-field`} handleChange={handleInputChange} label={`Test allocated score`} width={`98%`} />
                          </div>
-                         <InputField type={`number`} name={`examTotalScore`} value={formData.examTotalScore} className={`register-long-field`} handleChange={handleInputChange} label={`Exam allocated score`} width={`98%`} />
+                         <InputField type={`number`} name={`totalExamScore`} value={formData.totalExamScore} className={`register-long-field`} handleChange={handleInputChange} label={`Exam allocated score`} width={`98%`} />
 
                          <div className="form-grouping-buttom">
                               <input className="submit-button bg-color-mute text-center" type="reset" value="reset" onClick={handleReset} />

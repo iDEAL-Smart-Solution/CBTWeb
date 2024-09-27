@@ -46,35 +46,37 @@ export default function SubjectResult() {
 
      return (
           <div>
-               <form onSubmit={handleSubmit}>
-               <small className="color-mute bold mb-3">Note: To check all terms select a term and vice versa</small>
-                    <div className="result-form-group">
-                         <Dropdown
-                              name="subjectCode"
-                              value={formData.subjectCode}
-                              handleChange={handleInputChange}
-                              width="54%"
-                              firstOption="Select subject code"
-                              options={subjects}
-                              optionKey="id"
-                              optionValue="code"
-                              optionLabel="code"
-                              mb="15px"
-                         />
-                         <Dropdown
-                              name={`term`}
-                              value={formData.term}
-                              handleChange={handleInputChange}
-                              options={term}
-                              width={`54%`}
-                              optionValue={`value`}
-                              optionLabel={`text`}
-                              firstOption={`Select Term`}
-                         />
-                         <Submit className={`submit-button text-center color-light bolder`} loading={loading} isNotLoading={`check`} isloading={`on it...`} />
-                    </div>
-               </form>
+               <div className="box-shadow header-crumbs">
 
+                    <form onSubmit={handleSubmit}>
+                         <small className="color-mute bold mb-3">Note: To check all terms select a term and vice versa</small>
+                         <div className="result-form-group">
+                              <Dropdown
+                                   name="subjectCode"
+                                   value={formData.subjectCode}
+                                   handleChange={handleInputChange}
+                                   width="54%"
+                                   firstOption="Select subject code"
+                                   options={subjects}
+                                   optionKey="id"
+                                   optionValue="code"
+                                   optionLabel="code"
+                                   mb="15px"
+                              />
+                              <Dropdown
+                                   name={`term`}
+                                   value={formData.term}
+                                   handleChange={handleInputChange}
+                                   options={term}
+                                   width={`54%`}
+                                   optionValue={`value`}
+                                   optionLabel={`text`}
+                                   firstOption={`Select Term`}
+                              />
+                              <Submit className={`submit-button text-center color-light bolder`} loading={loading} isNotLoading={`check`} isloading={`on it...`} />
+                         </div>
+                    </form>
+               </div>
                <SubjectResultTemplate data={subjectResults} loading={loading} />
           </div>
 

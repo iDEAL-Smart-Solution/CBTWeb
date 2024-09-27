@@ -76,6 +76,22 @@ const Class = (set, get) => ({
                setLoading(false);
                return false;
           }
+     },
+     deleteClass: async (id) => {
+          const { setLoading, setMessage } = get().schClass;
+          setLoading(true);
+          try {
+               const res = await axios.delete(`${BASE_URL}/api/v1/Class/delete?name_id=${id}`);
+               const messg = res.data.message;
+               setMessage(messg);
+               setLoading(false);
+               return true;
+          } catch (error) {
+               console.error(`Error occured while deleting class.`, error);
+               setMessage(error.response?.data?.message || 'An error occurred, class cant be deleted');
+               setLoading(false);
+               return false;
+          }
      }
 
 })

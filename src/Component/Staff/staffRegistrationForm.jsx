@@ -81,12 +81,12 @@ export default function StaffRegistrationForm() {
      return (
           <div className="page-center-2 ">
                <div className="register-box-3 box-shadow">
-                    <form onSubmit={handleSubmit} className="form" >
                          <div style={{ height: "5vh" }}>
                               {message && <p style={{ backgroundColor: "var(--primary-color)" }} className="color-light text-center bold">{message}</p>}
                               {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{message}</p>}
 
                          </div>
+                    <form onSubmit={handleSubmit} className="form" >
                          <div className="form-grouping">
                               <InputField type={`text`} name={`firstName`} value={formData.firstName} placeholder={`first name`} className={`register-field`} handleChange={handleInputChange} />
                               <InputField type={`text`} name={`lastName`} value={formData.lastName} placeholder={`last name`} className={`register-field`} handleChange={handleInputChange} />

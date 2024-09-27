@@ -5,16 +5,18 @@ import { create } from "zustand";
 const Student = (set, get) => ({
      student: {
           students: [],
+          studentsForClearnce: [],
           message: "",
           errorMessage: "",
           loading: false,
-          setStudents: (datas) => set((state)  => ({...state, student: {...state.student, students: datas } })),
-          setMessage: (data) => set((state) =>  ({...state, student: {...state.student, message: data } })),
-          setErrorMessage: (data) => set((state) => ({...state, student: {...state.student, errorMessage: data } })),
+          setStudents: (datas) => set((state) => ({ ...state, student: { ...state.student, students: datas } })),
+          setStudentsForClearnce: (datas) => set((state) => ({ ...state, student: { ...state.student, studentsForClearnce: datas } })),
+          setMessage: (data) => set((state) => ({ ...state, student: { ...state.student, message: data } })),
+          setErrorMessage: (data) => set((state) => ({ ...state, student: { ...state.student, errorMessage: data } })),
           setLoading: (value) => set((state) => ({ ...state, student: { ...state.student, loading: value } })),
      },
      createStudent: async (formData) => {
-          const {setLoading, setMessage, setErrorMessage} = get().student;
+          const { setLoading, setMessage, setErrorMessage } = get().student;
           setLoading(true);
           try {
                const formDataToSend = new FormData();
@@ -37,7 +39,7 @@ const Student = (set, get) => ({
           }
      },
      fetchStudents: async (param) => {
-          const {setLoading, setErrorMessage, setStudents} = get().student;
+          const { setLoading, setErrorMessage, setStudents } = get().student;
           setLoading(true);
           try {
                var res = await axios.get(`${BASE_URL}/api/v1/Student/getstudent-by-any?param=${param}`);
@@ -56,7 +58,57 @@ const Student = (set, get) => ({
           } finally {
                setLoading(false);
           }
-     }
+     },
+     fetchStuddentForClearance: async (examId) => {
+          const { setLoading, setErrorMessage, setStudentsForClearnce } = get().student;
+          setLoading(true);
+          try {
+               var res = await axios.get(`${BASE_URL}/api/v1/SubmittedExam/get-student-for-clearance?examId=${examId}`);
+               const fetchedStudents = res.data.map((list) => ({
+                    className: list.className,
+                    uin: list.uin,
+                    studentName: list.studentName,
+                    studentId: list.studentId,
+                    examId: list.examId,
+               }));
+               setStudentsForClearnce(fetchedStudents);
+          } catch (error) {
+               console.error("Error fetching student by class:", error);
+               setErrorMessage(error.response?.data?.message || 'An error occurred fetching student by class');
+          } finally {
+               setLoading(false);
+          }
+     },
+     clearSingleStudents: async (studentId, examId) => {
+          const { setLoading, setErrorMessage, setMessage } = get().student;
+          setLoading(true);
+          try {
+               var res = await axios.delete(`${BASE_URL}/api/v1/SubmittedExam/clear-single-student?studentId=${studentId}&examId=${examId}`);
+               var mssg = res.data.message;
+               setMessage(mssg);
+               return true;
+          } catch (error) {
+               console.error("Eror clearing student:", error);
+               setErrorMessage(error.response?.data?.message || 'An error while trying to fetch student');
+          } finally {
+               setLoading(false);
+          }
+     },
+     clearMultipleStudents: async (subjectCode, examId) => {
+          const { setLoading, setErrorMessage, setMessage } = get().student;
+          setLoading(true);
+          try {
+               var res = await axios.get(`${BASE_URL}/api/v1/SubmittedExam/clear-multiple-student?subjectCode=${subjectCode}&examId=${examId}`);
+               var mssg = res.data.message;
+               setMessage(mssg);
+          } catch (error) {
+               console.error("Eror clearing student:", error);
+               setErrorMessage(error.response?.data?.message || 'An error while trying to fetch student');
+          } finally {
+               setLoading(false);
+          }
+     },
+
 })
 
 export const useStudent = create(Student);

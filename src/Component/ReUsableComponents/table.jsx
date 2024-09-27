@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BASE_URL } from '../../Constant';
+import { MdDelete } from 'react-icons/md';
+import { MdMoreVert } from 'react-icons/md';
 
 export function Table({
   data,
@@ -13,7 +15,10 @@ export function Table({
   availability,
   typeMap,
   linkPath,
-  width
+  width,
+  onClearnce,
+  makeAvailable,
+  handleDelete,
 }) {
   const renderCell = (item, column) => {
     let cellContent;
@@ -43,13 +48,41 @@ export function Table({
       case 'more':
         cellContent = (
           <button
-            className="link text-dec-none"
-            onClick={() => onMoreClick(item.id)}
+            style={{all: 'unset'}}
+            onClick={() => onMoreClick(item.id || item.classId)}
           >
-            more
+            <MdMoreVert className='color-success' />
           </button>
         );
         break;
+        case 'clear': 
+        cellContent = (
+          <button
+          className='special-button'
+          onClick={() => onClearnce(item.studentId, item.examId)}
+          >
+            Clear
+          </button>
+        );
+        break;
+        case 'makeAvailable':
+          cellContent = (
+            <button style={{width: '100%'}} className='special-button'
+          onClick={() => makeAvailable(item.id)} 
+          >
+              flip
+            </button>
+          );
+          break;
+          case 'delete':
+            cellContent = (
+              <button style={{all: 'unset'}}
+            onClick={() => handleDelete(item.classId)} 
+            >
+                <MdDelete className='color-danger' />
+              </button>
+            );
+            break;
       default:
         cellContent = item[column.key];
     }

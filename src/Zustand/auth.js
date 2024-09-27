@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from '../Constant/index';
+import { BASE_URL } from '../Constant/index';   
 import { create } from "zustand";
 
 const Auth = (set, get) => ({
@@ -62,16 +62,16 @@ const Auth = (set, get) => ({
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('academicSession');
-
+    
         set((state) => ({
             ...state,
-            auth: {
-                ...state.auth,
-                isAuthenticated: false,
-                token: null,
-                user: null,
-                loading: false,
-            },
+          auth: {
+            ...state.auth,
+            isAuthenticated: false,
+            token: null,
+            user: null,
+            loading: false,
+          },
         }));
         window.location.reload();
     }
