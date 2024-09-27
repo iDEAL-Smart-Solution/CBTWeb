@@ -208,7 +208,9 @@ const navLinksItem = [
     {
         name: "Setting",
         subLinks: [
-            { link: "/student-clearance", name: "Exam Clearance", icon: <FaCog /> }
+            { link: "/student-clearance", name: "Exam Clearance", icon: <FaCog /> },
+            { link: "/edit-academic-session", name: "Academic Session", icon: <FaCog /> }
+
         ]
     }
 ];
@@ -220,7 +222,7 @@ export default function Sidebar() {
     const roleRoutes = {
         4: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list"],
         2: ["/dashboard", "/staff/list", "/student/registration", "/student/list", "/subject/list", "/exam/create", "/question/create", "/exam/list"],
-        1: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list", "/question/create", "/subject-result", "/student-result", "/student-clearance"],
+        1: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list", "/question/create", "/subject-result", "/student-result", "/student-clearance", "/edit-academic-session"],
     };
     
     const routeNames = {

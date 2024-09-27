@@ -88,7 +88,6 @@ const Subject = (set, get) => ({
                
                const res = await axios.get(`${BASE_URL}/api/v1/Subject/get-by-id?id=${id}`);
                var response = res.data.data;
-               console.log(response);
                setSingleSubject(response);
           } catch (error) {
                console.error(`Error occured when trying to fetch single subject.`, error);
@@ -141,12 +140,14 @@ const Subject = (set, get) => ({
                          formDataToSend.append(key, value);
                     }
                });
-               var res = await axios.patch(`${BASE_URL}/`, formDataToSend);
+               var res = await axios.patch(`${BASE_URL}/api/v1/Subject/update`, formDataToSend);
                var mssg = res.data.message;
                setMessage(mssg);
+               return true;
           } catch (error) {
                console.error("Error occured when trying to edit question : ", error);
                setErrorMessage(error.response.data.message || "Error occured when trying to edit the question");
+               return false;
           } finally {
                setLoading(false);
           }

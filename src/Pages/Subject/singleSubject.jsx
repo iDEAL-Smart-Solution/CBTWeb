@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import SingleSubjectTemplate from "../../Component/Subject/singleSubjectTemplate";
 import { ExamListTemplate1 } from "../../Component/Exam/examListTemplate";
+import { useNavigate } from "react-router-dom";
 
 export default function SingleSubject() {
      const { id } = useParams();
+     const navigate = useNavigate();
      const { subject, fetchSingleSubject, deleteSubject,editSubject } = useSubject();
      const { errorMessage, singleSubject, loading } = subject;
  
@@ -21,15 +23,25 @@ export default function SingleSubject() {
           { key: 'totalQuestion', header: 'Total question'}
         ];
 
-        const handleDelele = (iden) => {
+        const handleDelele = async (iden) => {
             console.log(iden);
-            deleteSubject(iden);
-            fetchSingleSubject(id)
+            try {
+                var res = await deleteSubject(id);
+                if(res)
+                {
+                    navigate('/subject/list');
+                } else {
+                    
+                }
+            } catch (error) {
+                
+            }
+            // deleteSubject(iden);
        }
-       const handleEdit = (iden) => {
-            console.log(iden);
-            editSubject()
-            fetchSingleSubject(id);
+       const handleEdit = (formData) => {
+            console.log(formData);
+            // editSubject(formData)
+            // fetchSingleSubject(id);
        }
  
      return (
