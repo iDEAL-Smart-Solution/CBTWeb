@@ -11,7 +11,7 @@ export default function SubjectListTemplate({ data, loading }) {
        { key: 'code', header: 'Code' },
        { key: 'numberOfExam', header: 'Exams' },
        { key: 'className', header: 'Class' },
-       { key: 'more', header: 'More' }
+       { key: 'more', header: 'More' },
      ];
    
      const handleMoreClick = (id) => {

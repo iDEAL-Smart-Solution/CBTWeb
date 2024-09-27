@@ -6,7 +6,7 @@ import { ExamListTemplate1 } from "../../Component/Exam/examListTemplate";
 
 export default function SingleSubject() {
      const { id } = useParams();
-     const { subject, fetchSingleSubject } = useSubject();
+     const { subject, fetchSingleSubject, deleteSubject,editSubject } = useSubject();
      const { errorMessage, singleSubject, loading } = subject;
  
      useEffect(() => {
@@ -20,10 +20,21 @@ export default function SingleSubject() {
           { key: 'available', header: 'Available'},
           { key: 'totalQuestion', header: 'Total question'}
         ];
+
+        const handleDelele = (iden) => {
+            console.log(iden);
+            deleteSubject(iden);
+            fetchSingleSubject(id)
+       }
+       const handleEdit = (iden) => {
+            console.log(iden);
+            editSubject()
+            fetchSingleSubject(id);
+       }
  
      return (
          <div>
-             <SingleSubjectTemplate loading={loading} singleSubject={singleSubject} errorMessage={errorMessage} />
+             <SingleSubjectTemplate loading={loading} singleSubject={singleSubject} errorMessage={errorMessage} handleDelele={handleDelele} handleEdit={handleEdit} />
              <div>
                <p className="bold text-big-2 ">Examinations</p>
              </div>

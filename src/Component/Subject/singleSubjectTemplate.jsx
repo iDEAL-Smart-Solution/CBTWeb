@@ -1,7 +1,8 @@
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
-
-export default function  SingleSubjectTemplate({ loading, singleSubject, errorMessage}) {
-     return(
+export default function SingleSubjectTemplate({ loading, singleSubject, errorMessage, handleDelele, handleEdit }) {
+     return (
           <div>
                {
                     loading ? (
@@ -22,6 +23,8 @@ export default function  SingleSubjectTemplate({ loading, singleSubject, errorMe
                          </div>
                     )
                }
+               <FaEdit className="edit-icon" onClick={() => handleDelele(data.id)} />
+               <MdDelete className="delete-icon" onClick={() => handleEdit(data.id)} />
           </div>
      )
 }

@@ -55,6 +55,64 @@ const Question = (set, get) => ({
                setLoading(false);
           }
      },
+     deleteQuestion: async (id) => {
+          const { setLoading, setMessage, setErrorMessage } = get().question;
+          setLoading(true);
+          try {
+               var res = await axios.delete(`${BASE_URL}/`);
+               var mssg = res.data.message;
+               setMessage(mssg);
+          } catch (error) {
+               console.error("Error occured when attempting to delete question")
+               setErrorMessage(error.response.data.message || "An error occured, question could not be deleted");
+          } finally {
+               setLoading(false);
+          }
+     },
+     editQuestion: async (formData) => {
+          const {setLoading, setMessage, setErrorMessage } = get().question;
+          setLoading(true);
+          try {
+               const formDataToSend = new FormData();
+               Object.entries(formData).forEach(([key, value]) => {
+                    if (Array.isArray(value)) {
+                         formDataToSend.append(key, value[0]);
+                    } else {
+                         formDataToSend.append(key, value);
+                    }
+               });
+               var res = await axios.patch(`${BASE_URL}/`, formDataToSend);
+               var mssg = res.data.message;
+               setMessage(mssg);
+          } catch (error) {
+               console.error("Error occured when trying to edit question : ", error);
+               setErrorMessage(error.response.data.message || "Error occured when trying to edit the question");
+          } finally {
+               setLoading(false);
+          }
+     },
+     uploadImageForQuestion: async (formData) => {
+          const { setLoading, setMessage, setErrorMessage } = get().question;
+          setLoading(true);
+          try {
+               const formDataToSend = new FormData();
+               Object.entries(formData).forEach(([key, value]) => {
+                    if (Array.isArray(value)) {
+                         formDataToSend.append(key, value[0]);
+                    } else {
+                         formDataToSend.append(key, value);
+                    }
+               });
+               var res = await axios.post(`${BASE_URL}`, formDataToSend);
+               var mssg = res.data.message;
+               setMessage(mssg);
+          } catch (error) {
+               console.error("An error occured whne uploading image for a question", error);
+               setErrorMessage(error.response.data.message || "An error ocuured whne trying to upload the image please check again");
+          } finally {
+               setLoading(false);
+          }
+     }
 })
 
 export const useQuestion = create(Question);
