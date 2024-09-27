@@ -52,11 +52,14 @@ F.root-container {
    
    .sidebar {
      width: 200px; 
-     height: 100vh;
+     height: 90vh;
      padding-left: 10px;
      overflow-y: scroll; 
    }
    .sidebar::-webkit-scrollbar{
+    display: none;
+   }
+   .sidebar::-moz-webkit-scrollbar{
     display: none;
    }
 

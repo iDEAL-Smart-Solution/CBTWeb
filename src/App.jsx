@@ -23,6 +23,11 @@ import ExamCompleted from './Pages/Exam/completed';
 import SingleSubject from './Pages/Subject/singleSubject';
 import SubjectResult from './Pages/Result/subjectResult';
 import StudentResult from './Pages/Result/studentResult';
+import StudentClearancePage from './Pages/Student/studentClearance';
+import ErrorPage from '../errorPage';
+import Edit_Acad_Session from './Pages/Acad/edit_acad_session';
+
+
 
 function App() {
   const getUser = () => JSON.parse(sessionStorage.getItem("user"));
@@ -69,6 +74,9 @@ function App() {
         { path: "/subject/:id", element: <SingleSubject /> },
         { path: "/subject-result", element: <SubjectResult /> },
         { path: "/student-result", element: <StudentResult /> },
+        { path: "/student-clearance", element: <StudentClearancePage /> },
+        { path: "*", element: <ErrorPage /> },
+        { path: "/edit-academic-session", element: <Edit_Acad_Session/> },
       ]
     },
     {
@@ -82,6 +90,7 @@ function App() {
         { path: "/instructions/:id", element: <ExamInstruction /> },
         { path: "/do-exam/:examKey", element: <DoExam /> },
         { path: "/exam-submited", element: <ExamCompleted /> },
+        { path: "*", element: <ErrorPage /> }
       ]
     }
   ]);

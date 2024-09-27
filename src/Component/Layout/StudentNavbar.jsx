@@ -3,12 +3,15 @@ import './layout.css'
 import { useAuth } from '../../Zustand/auth';
 import { BASE_URL } from '../../Constant';
 import { SCHOOL_NAME } from '../../Constant';
+import { useNavigate } from 'react-router-dom';
 
 export default function StudentNavbar() {
     const { logout, auth } = useAuth();
+    const navigate = useNavigate();
     const { academicSession, user } = auth;
     const { current_Session, current_Term } = academicSession;
     function handleSignOut() {
+        navigate('/');
         logout();
     }
     const termMap = {

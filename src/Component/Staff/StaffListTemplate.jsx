@@ -12,6 +12,7 @@ export default function StaffListTemplate({ data, loading }) {
           { key: 'profilePicture', header: 'Profile Picture' },
           { key: 'userName', header: 'User Name' },
           { key: 'gender', header: 'Gender' },
+          { key: 'uin', header: 'UIN' },
           { key: 'more', header: 'more' },
      ]
      const genderMap = {

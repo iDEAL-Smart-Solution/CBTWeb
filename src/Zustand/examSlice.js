@@ -124,6 +124,38 @@ const Exam = (set, get) => ({
           } finally {
                setLoading(false);
           }
+     },
+     fetchExamNamesAndId: async () => {
+          const { setLoading, setErrorMessage, setExams } = get().exam;
+          setLoading(true);
+          try {
+               var res = await axios.get(`${BASE_URL}/api/v1/Exam/get-all-light`);
+               const fetchedexams = res.data.map((list) => ({
+                    id: list.id,
+                    examName: list.examName,
+               }));
+               setExams(fetchedexams);
+          } catch (error) {
+               console.error("Error fetching exam names and id:", error);
+               setErrorMessage(error.response?.data?.message || 'check you connection and call attention');
+          } finally {
+               setLoading(false);
+          }
+     },
+     flipAvailability: async (id) => {
+          const { setLoading, setMessage, setErrorMessage } = get().exam;
+          setLoading(true);
+          try {
+               var res = await axios.post(`${BASE_URL}/api/v1/Exam/flip-availability?key=${id}`);
+               const messg = res.data.message;
+               setMessage(messg);
+               return true;
+          } catch (error) {
+               console.error(`Error occured updating availabilty.`, error);
+               setErrorMessage(error.response?.data?.message || 'An error occurred when fliping the availability');
+          } finally {
+               setLoading(false);
+          }
      }
 })
 

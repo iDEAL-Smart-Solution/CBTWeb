@@ -3,6 +3,7 @@
   --primary-color: rgba(118, 177, 247, 1);
   --secondary-color: #ffffff;
   --danger-color: rgb(200, 34, 34);
+  --muted-color: rgba(161, 161, 161, 0.844);
 }
 body{
   width: 100%;
@@ -23,6 +24,9 @@ body{
 }
 .color-danger{
   color: var(--danger-color);
+}
+.color-success{
+  color: green;
 }
 .bg-color-danger{
   background-color: var(--danger-color);
@@ -75,7 +79,6 @@ body{
 }
 .b-r-l{
   border-top-left-radius: 10px;
-
 }
 .display-1{
   font-size: 100px;
@@ -95,6 +98,7 @@ body{
 .text-big-3{
   font-size: 19px;
 }
+
 .loader-cell {
     text-align: center; 
 }

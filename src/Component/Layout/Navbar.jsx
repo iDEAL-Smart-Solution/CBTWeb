@@ -3,6 +3,7 @@ import './layout.css'
 import { useAuth } from '../../Zustand/auth';
 import { SCHOOL_NAME } from '../../Constant';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
     const { logout, auth } = useAuth();
@@ -26,18 +27,15 @@ export default function Navbar() {
                 <span className='color-primary'>{SCHOOL_NAME}</span>
             </div>
             <div>
-                <div>
-                    <small className='bolder color-primary'>{current_Session}</small>
-                    {/* <small className='bolder color-primary'>2022/2023</small> */}
+                <Link to="/edit-academic-session" className="text-dec-none" >
+                    <div>
+                        <small className='bolder color-primary'>{current_Session}</small>
 
-                </div>
-                <div>
-                   <b className='bolder'>
-                   <small className='bolder color-primary bolder'>{termMap[current_Term]}</small>
-                   {/* <small className='bolder color-primary bolder'>2nd_Term</small> */}
-
-                   </b>
-                </div>
+                    </div>
+                    <div>
+                        <small className='bolder color-primary bolder'>{termMap[current_Term]}</small>
+                    </div>
+                </Link>
             </div>
             <div>
                 <button onClick={handleSignOut} className="signout-button">

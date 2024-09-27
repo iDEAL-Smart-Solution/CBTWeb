@@ -4,7 +4,7 @@ import CreateClass from "../../Component/Class/createClassForm";
 import { useClass } from "../../Zustand/classSlice";
 
 export default function Class() {
-     const { fetchClassList, schClass, createClass } = useClass();
+     const { fetchClassList, schClass, createClass, deleteClass } = useClass();
 
      const [name, setName] = useState('');
 
@@ -23,6 +23,19 @@ export default function Class() {
           }
      };
 
+     const handleDelete = async (id) => {
+          console.log(id);
+          try {
+               let res = await deleteClass(id);
+               if(res)
+               {
+                    fetchClassList();
+               }
+          } catch (error) {
+               console.error(error);
+          }
+     }
+
      useEffect(() => {
           fetchClassList();
      }, [fetchClassList]);
@@ -38,7 +51,7 @@ export default function Class() {
                     handleInputChange={handleInputChange} 
                     loading={loading} 
                />
-               <ListClass classes={allschClass} loading={loading} />
+               <ListClass classes={allschClass} loading={loading} handleDelete={handleDelete} />
           </div>
      );
 }

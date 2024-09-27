@@ -35,7 +35,7 @@ export default function SingleExamTemplate({ loading, data, errorMessage }) {
                               <div className="box-shadow-2 p-30 bold">
                                    <p>Duration of Exam : {data.duration}</p>
                                    <p>Exam Type : {typeMap[data.examType]}</p>
-                                   <p>Available : {data.isAvailable}</p>
+                                   <p>Available : {data.isAvailable ? "Yes" : "No"}</p>
                                    <p>Number of question for each Studnet : {data.numberOfQuestionsPerStudent}</p>
                                    <p>Max Obtainable Score: {data.obtainableScore}</p>
                               </div>

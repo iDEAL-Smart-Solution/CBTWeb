@@ -6,8 +6,8 @@ export default function CreateClass({handleSubmit, handleInputChange, fieldvalue
      
      return (
           <>
-                    <form onSubmit={handleSubmit} className="box-shadow-3 create-class-nav">
-                         <div className='box-shadow-3 class-name'>
+                    <form onSubmit={handleSubmit} className="box-shadow create-class-nav">
+                         <div className='box-shadow class-name'>
                               <input type="text" placeholder="name" name={fieldName} value={fieldvalue} onChange={handleInputChange}  />
                          </div>
                          <div className='add-button bg-color-prim bold color-light'>

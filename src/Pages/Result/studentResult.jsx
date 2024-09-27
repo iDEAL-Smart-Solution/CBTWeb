@@ -9,7 +9,7 @@ import { useState } from "react";
 export default function StudentResult() {
      const { result, fetchStudentResults } = useResult();
 
-    
+
 
      const [formData, setFormData] = useState({
           key: "",
@@ -40,31 +40,32 @@ export default function StudentResult() {
 
      return (
           <div>
-               <form onSubmit={handleSubmit}>
-               <small className="color-mute bold mb-3">Note: To check all terms select a term and vice versa</small>
-                    <div className="result-form-group">
-                        <InputField
-                              type="text"
-                              name={`key`}
-                              value={formData.key}
-                              placeholder="Enter the student UIN"
-                              className="register-field"
-                              handleChange={handleInputChange}
-                         />
-                         <Dropdown
-                              name={`term`}
-                              value={formData.term}
-                              handleChange={handleInputChange}
-                              options={term}
-                              width={`54%`}
-                              optionValue={`value`}
-                              optionLabel={`text`}
-                              firstOption={`Select Term`}
-                         />
-                         <Submit className={`submit-button text-center color-light bolder`} loading={loading} isNotLoading={`check`} isloading={`on it...`} />
-                    </div>
-               </form>
-
+               <div className="box-shadow header-crumbs">
+                    <form onSubmit={handleSubmit}>
+                         <small className="color-mute bold mb-3">Note: To check all terms select a term and vice versa</small>
+                         <div className="result-form-group">
+                              <InputField
+                                   type="text"
+                                   name={`key`}
+                                   value={formData.key}
+                                   placeholder="Enter the student UIN"
+                                   className="register-field"
+                                   handleChange={handleInputChange}
+                              />
+                              <Dropdown
+                                   name={`term`}
+                                   value={formData.term}
+                                   handleChange={handleInputChange}
+                                   options={term}
+                                   width={`54%`}
+                                   optionValue={`value`}
+                                   optionLabel={`text`}
+                                   firstOption={`Select Term`}
+                              />
+                              <Submit className={`submit-button text-center color-light bolder`} loading={loading} isNotLoading={`check`} isloading={`on it...`} />
+                         </div>
+                    </form>
+               </div>
                <StudentByResultTemplate data={studentResults} loading={loading} />
           </div>
 
