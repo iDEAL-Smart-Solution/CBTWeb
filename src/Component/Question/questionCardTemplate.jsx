@@ -1,7 +1,8 @@
+import { FaEdit } from "react-icons/fa";
+import { MdDelete, MdFileUpload } from "react-icons/md";
 
+export default function QuestionCard({ data, index, loading, handleDelele, handleEdit, handleUpload }) {
 
-export default function QuestionCard({ data, index, loading }) {
-    
      return (
           <div className="card box-shadow-2">
                {loading ? (
@@ -19,6 +20,11 @@ export default function QuestionCard({ data, index, loading }) {
                          </div>
                          <p>Question Point: {data.pointPerQuestion}</p>
                          <p>Correct Answer: {data.answer}</p>
+                         <div className="icon-container">
+                              <FaEdit className="edit-icon" onClick={() => handleDelele(data.id)} />
+                              <MdDelete className="delete-icon" onClick={() => handleEdit(data.id)} />
+                              <MdFileUpload className="" onClick={() => handleUpload()} />
+                         </div>
                     </div >}
           </div >
      )

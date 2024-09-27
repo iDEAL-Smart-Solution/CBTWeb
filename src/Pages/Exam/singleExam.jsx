@@ -7,26 +7,35 @@ import QuestionCard from "../../Component/Question/questionCardTemplate";
 
 export default function SingleExam() {
      const { id } = useParams();
-     const { exam, fetchSingleExam } = useExam();
+     const { exam, fetchSingleExam, editQuestion, deleteQuestion } = useExam();
      const { loading, errorMessage, singleExam } = exam;
 
      useEffect(() => {
           fetchSingleExam(id);
      }, [])
-    
+     const handleDelele = (iden) => {
+          console.log(iden);
+          deleteQuestion(iden);
+          fetchSingleExam(id);
+     }
+     const handleEdit = (iden) => {
+          console.log(iden);
+          editQuestion()
+          fetchSingleExam(id);
+     }
      return (
           <div>
                <SingleExamTemplate data={singleExam} loading={loading} errorMessage={errorMessage} />
                <p className="bold text-big-2">Questions</p>
                <div className="card-container">
-                    {loading ? 
-                    <div className="loader-cell">
-                         <div className="loader"></div>
-                    </div> 
-                    :
+                    {loading ?
+                         <div className="loader-cell">
+                              <div className="loader"></div>
+                         </div>
+                         :
                          singleExam && singleExam.questions && singleExam.questions.length > 0
                               ? singleExam.questions.map((question, index) => ((
-                                   <QuestionCard data={question} loading={loading} index={index} key={index} />
+                                   <QuestionCard data={question} loading={loading} index={index} key={index} handleDelele={handleDelele} handleEdit={handleEdit} />
                               )))
                               : <p className="text-center text-big-2 bold">Questions not Found</p>
                     }
