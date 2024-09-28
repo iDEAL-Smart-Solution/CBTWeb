@@ -76,7 +76,6 @@ export default function ExamCreationForm() {
                               {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{errorMessage}</p>}
                          </div>
 
-                         <div className="form-grouping">
                               <InputField
                                    type="text"
                                    name="examName"
@@ -84,9 +83,9 @@ export default function ExamCreationForm() {
                                    placeholder="Exam name e.g. ENG_JSS_1stCA_2ndTerm_2022/23"
                                    className="register-long-field"
                                    handleChange={handleInputChange}
+                                   width={`97.5%`}
                               />
 
-                         </div>
                          <Dropdown
                               name="subjectCode"
                               value={formData.subjectCode}

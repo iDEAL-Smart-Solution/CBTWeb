@@ -30,6 +30,7 @@ export const useDoExam = create((set, get) => ({
       const questions = incoming.questionsPerStudents.map((list, index) => ({
         index,
         id: list.id,
+        questionInstruction: list.questionInstruction,  
         question: list.question,
         options: [list.optionA, list.optionB, list.optionC, list.optionD],
       }));

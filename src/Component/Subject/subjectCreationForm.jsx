@@ -67,18 +67,10 @@ export default function SubjectCreationForm() {
                               {message && <p style={{ backgroundColor: "var(--primary-color)" }} className="color-light text-center bold">{message}</p>}
                               {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{errorMessage}</p>}
                          </div>
-                         <div className="form-grouping">
-                              <InputField type={`text`} name={`name`} value={formData.name} placeholder={`Name of Subject`} className={`register-long-field`} handleChange={handleInputChange} />
-                         </div>
-                         <div className="form-grouping">
-                              <InputField type={`text`} name={`code`} value={formData.code} placeholder={`Subject Code`} className={`register-long-field`} handleChange={handleInputChange} />
-                         </div>
-                         <div className="form-grouping">
-                              <InputField type={`text`} name={`description`} value={formData.description} placeholder={`Subject Description`} className={`register-long-field`} handleChange={handleInputChange} />
-                         </div>
-                         <div className="form-grouping">
-                              <InputField type={`text`} name={`userName`} value={formData.userName} placeholder={`Assigned staff user name`} className={`register-long-field`} handleChange={handleInputChange} />
-                         </div>
+                              <InputField type={`text`} name={`name`} value={formData.name} placeholder={`Name of Subject`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
+                              <InputField type={`text`} name={`code`} value={formData.code} placeholder={`Subject Code`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
+                              <InputField type={`text`} name={`description`} value={formData.description} placeholder={`Subject Description`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
+                              <InputField type={`text`} name={`userName`} value={formData.userName} placeholder={`Assigned staff user name`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
 
                          <div className="form-grouping">
                               <Dropdown
@@ -96,9 +88,9 @@ export default function SubjectCreationForm() {
                          </div>
 
                          <div className="">
-                              <InputField type={`number`} name={`totalTestScore`} value={formData.totalTestScore} className={`register-long-field`} handleChange={handleInputChange} label={`Test allocated score`} width={`98%`} />
+                              <InputField type={`number`} name={`totalTestScore`} value={formData.totalTestScore} className={`register-long-field`} handleChange={handleInputChange} label={`Test allocated score`} width={`97.5%`} />
                          </div>
-                         <InputField type={`number`} name={`totalExamScore`} value={formData.totalExamScore} className={`register-long-field`} handleChange={handleInputChange} label={`Exam allocated score`} width={`98%`} />
+                         <InputField type={`number`} name={`totalExamScore`} value={formData.totalExamScore} className={`register-long-field`} handleChange={handleInputChange} label={`Exam allocated score`} width={`97.5%`} />
 
                          <div className="form-grouping-buttom">
                               <input className="submit-button bg-color-mute text-center" type="reset" value="reset" onClick={handleReset} />

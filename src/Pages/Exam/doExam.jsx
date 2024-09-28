@@ -171,6 +171,7 @@ const DoExam = () => {
       <h1 className='text-center color-primary'>Questions</h1>
       <div className='exam-question-box'>
         <div className='left-fraction'>
+        {currentQuestion.questionInstruction?.trim() && <p className='bolder'>{currentQuestion.questionInstruction}</p>}
           <p className='text-big-3'>{currentIndex + 1}. {currentQuestion.question}</p>
           {currentQuestion.options.map((option, index) => (
             <div key={index}>

@@ -19,6 +19,7 @@ export function SearchField({ type, placeholder, className, handleChange, handle
      return (
           <input
                type={type} placeholder={placeholder} className={className}  onChange={handleChange}
+               style={{width: '100%'}}
                onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                          handleSubmit();

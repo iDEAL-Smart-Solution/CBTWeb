@@ -4,10 +4,10 @@ import { create } from "zustand";
 
 const Auth = (set, get) => ({
     auth: {
-        token: sessionStorage.getItem('token'),
-        user: JSON.parse(sessionStorage.getItem('user')),
+        token: sessionStorage.getItem('token') || '',
+        user: JSON.parse(sessionStorage.getItem('user')) ? JSON.parse(sessionStorage.getItem('user')) : null,
         isAuthenticated: !!sessionStorage.getItem('token'),
-        academicSession: JSON.parse(sessionStorage.getItem('academicSession')),
+        academicSession: JSON.parse(sessionStorage.getItem('academicSession')) ? JSON.parse(sessionStorage.getItem('academicSession')) : null,
         loading: false,
         error: null,
         message: null,
@@ -17,7 +17,7 @@ const Auth = (set, get) => ({
         clearMessage: () => set((state) => ({ ...state, auth: { ...state.auth, message: null } })),
     },
     login: async (formData) => {
-        const { setLoading, setMessage } = get().auth;
+        const { setLoading } = get().auth;
         setLoading(true);
 
         try {

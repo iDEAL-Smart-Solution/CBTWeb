@@ -15,6 +15,7 @@ export default function SingleQuestionUploadingForm() {
      const [formData, setFormData] = useState({
           examId: "",
           subjectCode: "",
+          questionInstruction: "",
           question: "",
           optionA: "",
           optionB: "",
@@ -54,6 +55,7 @@ export default function SingleQuestionUploadingForm() {
                examId: "",
                subjectCode: "",
                question: "",
+               questionInstruction: "",
                optionA: "",
                optionB: "",
                optionC: "",
@@ -68,17 +70,16 @@ export default function SingleQuestionUploadingForm() {
           <div className="page-center-2">
                <div className="register-box-3 box-shadow">
                     <form onSubmit={handleSubmit} className="form" >
-                    {/* <h1 className="color-primary text-center">Single Question Uploader</h1> */}
                          <div style={{ height: "5vh" }}>
                               {message && <p style={{ backgroundColor: "var(--primary-color)" }} className="color-light text-center bold">{message}</p>}
                               {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{errorMessage}</p>}
                          </div>
-                         <div className="form-grouping">
+                         <div className="form-grouping-2">
                               <Dropdown
                                    name={`subjectCode`}
                                    value={formData.subjectCode}
                                    handleChange={handleInputChange}
-                                   width={`54%`}
+                                   width={`50%`}
                                    firstOption={`Select subject code`}
                                    options={subjects}
                                    optionKey='id'
@@ -91,7 +92,7 @@ export default function SingleQuestionUploadingForm() {
                                    name={`examId`}
                                    value={formData.examId}
                                    handleChange={handleInputChange}
-                                   width={`54%`}
+                                   width={`50%`}
                                    options={exams}
                                    optionKey='id'
                                    optionValue='id'
@@ -100,21 +101,23 @@ export default function SingleQuestionUploadingForm() {
                               />
                          </div>
                          <div className="form-grouping">
-                         <TextArea name={`question`} value={formData.question} handleChange={handleInputChange} rows={3} className={`text-area`} placeholder={`enter the question ...`}  mb={`20px`} width={`100%`}
-
-                         />
+                              <TextArea name={`question`} value={formData.question} handleChange={handleInputChange} rows={3} className={`text-area`} placeholder={`Enter the question ...`} mb={`20px`} width={`100%`} ml={`10px`}
+                              />
                          </div>
                          <div className="form-grouping">
-                              <InputField type={`text`} name={`optionA`} value={formData.optionA} placeholder={`Option A`} className={`register-field`} handleChange={handleInputChange} />
-                              <InputField type={`text`} name={`optionB`} value={formData.optionB} placeholder={`Option B`} className={`register-field`} handleChange={handleInputChange} />
+                              <InputField type={`text`} name={`questionInstruction`} value={formData.questionInstruction} placeholder={`Question Instruction`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
                          </div>
                          <div className="form-grouping">
-                              <InputField type={`text`} name={`optionC`} value={formData.optionC} placeholder={`Option C`} className={`register-field`} handleChange={handleInputChange} />
-                              <InputField type={`text`} name={`optionD`} value={formData.optionD} placeholder={`Option D`} className={`register-field`} handleChange={handleInputChange} />
+                              <InputField type={`text`} name={`optionA`} value={formData.optionA} placeholder={`Option A`} className={`register-field`} handleChange={handleInputChange} width={`97.5%`} />
+                              <InputField type={`text`} name={`optionB`} value={formData.optionB} placeholder={`Option B`} className={`register-field`} handleChange={handleInputChange} width={`97.5%`} />
                          </div>
                          <div className="form-grouping">
-                              <InputField type={`text`} name={`answer`} value={formData.answer} placeholder={`Correct Answer e.g option A or option B`} className={`register-field`} handleChange={handleInputChange} />
-                              <InputField type={`number`} name={`pointPerQuestion`} value={formData.pointPerQuestion} placeholder={`quetion Points`} className={`register-field`} handleChange={handleInputChange} />
+                              <InputField type={`text`} name={`optionC`} value={formData.optionC} placeholder={`Option C`} className={`register-field`} handleChange={handleInputChange} width={`97.5%`} />
+                              <InputField type={`text`} name={`optionD`} value={formData.optionD} placeholder={`Option D`} className={`register-field`} handleChange={handleInputChange} width={`97.5%`} />
+                         </div>
+                         <div className="form-grouping">
+                              <InputField type={`text`} name={`answer`} value={formData.answer} placeholder={`Correct Answer e.g option A or option B`} className={`register-field`} handleChange={handleInputChange} width={`97.5%`} />
+                              <InputField type={`number`} name={`pointPerQuestion`} value={formData.pointPerQuestion} placeholder={`quetion Points`} className={`register-field`} handleChange={handleInputChange} width={`97.5%`} />
                          </div>
                          <div className="form-grouping-buttom">
                               <input className="submit-button bg-color-mute text-center" type="reset" value="reset" onClick={handleReset} />

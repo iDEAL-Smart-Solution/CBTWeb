@@ -79,6 +79,7 @@ const Exam = (set, get) => ({
           try {
                var res = await axios.get(`${BASE_URL}/api/v1/Exam/get-instructions?examKey=${examKey}&studentId=${id}`);
                const fetchedIntruction = res.data.data;
+               console.log(fetchedIntruction);
                setInstruction(fetchedIntruction);
           } catch (error) {
                console.error("Error fetching student available exams:", error);

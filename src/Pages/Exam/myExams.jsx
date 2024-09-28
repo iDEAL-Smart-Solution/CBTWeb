@@ -10,6 +10,7 @@ export default function MyExams() {
      const { message } = useDoExam();
      const { exam, fetchMyExams } = useExam();
      const { user, academicSession } = auth;
+     const id  = user?.id;
      const { current_Session, current_Term } = academicSession;
 
      const termMap = {
@@ -19,10 +20,10 @@ export default function MyExams() {
       };
 
      useEffect(() => {
-          fetchMyExams(user.id);
+          fetchMyExams(id);
      }, [])
 
-     const { exams, loading } = exam;
+     const { exams, loading } = exam || {};
 
      return (
          <div>

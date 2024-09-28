@@ -129,7 +129,7 @@ const Subject = (set, get) => ({
           }
      },
      editSubject: async (formData) => {
-          const {setLoading, setMessage, setErrorMessage } = get().subject;
+          const {setLoading, setMessage, setErrorMessage, singleSubject, setSingleSubject } = get().subject;
           setLoading(true);
           try {
                const formDataToSend = new FormData();
@@ -142,8 +142,9 @@ const Subject = (set, get) => ({
                });
                var res = await axios.patch(`${BASE_URL}/api/v1/Subject/update`, formDataToSend);
                var mssg = res.data.message;
+               console.log(mssg);
                setMessage(mssg);
-               return true;
+               return {success: true, message: mssg};
           } catch (error) {
                console.error("Error occured when trying to edit question : ", error);
                setErrorMessage(error.response.data.message || "Error occured when trying to edit the question");

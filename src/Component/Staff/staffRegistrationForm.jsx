@@ -88,33 +88,33 @@ export default function StaffRegistrationForm() {
                          </div>
                     <form onSubmit={handleSubmit} className="form" >
                          <div className="form-grouping">
-                              <InputField type={`text`} name={`firstName`} value={formData.firstName} placeholder={`first name`} className={`register-field`} handleChange={handleInputChange} />
-                              <InputField type={`text`} name={`lastName`} value={formData.lastName} placeholder={`last name`} className={`register-field`} handleChange={handleInputChange} />
+                              <InputField type={`text`} name={`firstName`} value={formData.firstName} placeholder={`first name`} className={`register-field`} handleChange={handleInputChange} width={`100%`} />
+                              <InputField type={`text`} name={`lastName`} value={formData.lastName} placeholder={`last name`} className={`register-field`} handleChange={handleInputChange} width={`100%`}/>
                          </div>
                          <div className="form-grouping">
-                         <InputField type={`text`} name={`userName`} value={formData.userName} placeholder={`User Name`} className={`register-long-field`} handleChange={handleInputChange}  />
+                         <InputField type={`text`} name={`userName`} value={formData.userName} placeholder={`User Name`} className={`register-long-field`} handleChange={handleInputChange} width={`100%`}  />
                          </div>
                          <div className="form-grouping">
-                              <InputField type={`email`} name={`email`} value={formData.email} placeholder={`email address`} className={`register-field`} handleChange={handleInputChange} />
-                              <InputField type={`text`} name={`phoneNumber`} value={formData.phoneNumber} placeholder={`phone number`} className={`register-field`} handleChange={handleInputChange} />
+                              <InputField type={`email`} name={`email`} value={formData.email} placeholder={`email address`} className={`register-field`} handleChange={handleInputChange} width={`100%`} />
+                              <InputField type={`text`} name={`phoneNumber`} value={formData.phoneNumber} placeholder={`phone number`} className={`register-field`} handleChange={handleInputChange} width={`100%`} />
                          </div>
                          <div className="form-grouping">
-                              <InputField type={`password`} name={`password`} value={formData.password} placeholder={`password`} className={`register-field`} handleChange={handleInputChange} />
-                              <InputField type={`password`} name={`confirmPassword`} value={formData.confirmPassword} placeholder={`confirm password`} className={`register-field`} handleChange={handleInputChange} />
+                              <InputField type={`password`} name={`password`} value={formData.password} placeholder={`password`} className={`register-field`} handleChange={handleInputChange} width={`100%`} />
+                              <InputField type={`password`} name={`confirmPassword`} value={formData.confirmPassword} placeholder={`confirm password`} className={`register-field`} handleChange={handleInputChange} width={`100%`} />
                          </div>
                          {passwordError ? (<p style={{ color: "red" }}>{passwordError}</p>) : ("")}
 
-                         <div className="form-grouping">
+                         <div className="form-grouping-3">
                               <ImageUploader
                                    name={`profilePicture`}
                                    handleChange={handleInputChange}
-                                   width={`49%`}
+                                   width={`48%`}
                                     />
                                    <Dropdown
                                         name={`gender`}
                                         value={formData.gender}
                                         handleChange={handleInputChange}
-                                        width={`49%`}
+                                        width={`50%`}
                                         options={genderOptions}
                                         optionKey='value'
                                         optionValue='value'

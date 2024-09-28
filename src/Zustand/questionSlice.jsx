@@ -59,12 +59,14 @@ const Question = (set, get) => ({
           const { setLoading, setMessage, setErrorMessage } = get().question;
           setLoading(true);
           try {
-               var res = await axios.delete(`${BASE_URL}/`);
+               var res = await axios.delete(`${BASE_URL}/api/v1/Question/delete?id=${id}`);
                var mssg = res.data.message;
                setMessage(mssg);
+               return true;
           } catch (error) {
                console.error("Error occured when attempting to delete question")
                setErrorMessage(error.response.data.message || "An error occured, question could not be deleted");
+               return false;
           } finally {
                setLoading(false);
           }
@@ -81,12 +83,15 @@ const Question = (set, get) => ({
                          formDataToSend.append(key, value);
                     }
                });
-               var res = await axios.patch(`${BASE_URL}/`, formDataToSend);
+               var res = await axios.patch(`${BASE_URL}/api/v1/Question/update-question`, formDataToSend);
                var mssg = res.data.message;
                setMessage(mssg);
+               return {success: true, message: mssg};
           } catch (error) {
                console.error("Error occured when trying to edit question : ", error);
                setErrorMessage(error.response.data.message || "Error occured when trying to edit the question");
+               let mssg = error.response.data.errors.QuestionInstruction[0];
+               return {sucess: false, message: mssg };
           } finally {
                setLoading(false);
           }

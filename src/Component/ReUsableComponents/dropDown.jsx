@@ -7,7 +7,7 @@ export function Dropdown({ name, value, handleChange, options, width, firstOptio
                value={value}
                onChange={handleChange}
                style={{
-                    height: '50px',
+                    height: '45px',
                     border: '1px solid var(--muted-color)',
                     width: width,
                     padding: '10px',

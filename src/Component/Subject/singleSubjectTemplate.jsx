@@ -1,63 +1,3 @@
-// import { FaEdit } from "react-icons/fa";
-// import { MdDelete } from "react-icons/md";
-
-// export default function SingleSubjectTemplate({ loading, singleSubject, errorMessage, handleDelele, handleEdit }) {
-//      return (
-//           <div>
-//                {
-//                     loading ? (
-//                          <div className="loader-cell">
-//                               <div className="loader"></div>
-//                          </div>
-//                     ) : !singleSubject ? (
-//                          <div className="text-center text-big-2">{errorMessage}</div>
-//                     ) : (
-//                          <div className="box-shadow-2 p-20 bold" style={{position: 'relative'}}>
-//                               <p>Name : {singleSubject.name}</p>
-//                               <p>Code : {singleSubject.code}</p>
-//                               <p>Description : {singleSubject.description}</p>
-//                               <p>Class : {singleSubject.className}</p>
-//                               <p>Tutor : {singleSubject.staffName}</p>
-//                               <p>Allocated Exam Agregrate : {singleSubject.totalExamScore}</p>
-//                               <p>Allocated Test Agregrate : {singleSubject.totalTestScore}</p>
-//                               <div style={{position: "absolute", right:"10px", bottom: "40px"}}>
-//                                    <FaEdit className="edit-icon" onClick={() => handleDelele(singleSubject.id)} />
-//                                    <MdDelete className="delete-icon" onClick={() => handleEdit(singleSubject.id)} />
-//                               </div>
-//                          </div>
-//                     )
-//                }
-//           </div>
-//      )
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { useState } from 'react';
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
@@ -114,7 +54,7 @@ function Modal({ isOpen, onClose, onSubmit, formData, handleInputChange }) {
     );
 }
 
-export default function SingleSubjectTemplate({ loading, singleSubject, errorMessage, handleDelele, handleEdit }) {
+export default function SingleSubjectTemplate({ loading, singleSubject, errorMessage, handleDelele, handleEdit, message }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [formData, setFormData] = useState({
         subjectName: '',
@@ -123,15 +63,16 @@ export default function SingleSubjectTemplate({ loading, singleSubject, errorMes
         id: '',
     });
 
-    const handleEditClick = (id) => {
-        setFormData({
-            subjectName: singleSubject.name || '',
-            subjectCode: singleSubject.code || '',
-            subjectClass: singleSubject.className || '',
-            id: id,
-        });
-        setIsModalOpen(true);
-    };
+
+        const handleEditClick = (id) => {
+            setFormData({
+                subjectName: singleSubject.name || '',
+                subjectCode: singleSubject.code || '',
+                subjectClass: singleSubject.className || '',
+                id: id,
+            });
+            setIsModalOpen(true);
+        };
 
     const handleInputChange = (e) => {
         setFormData({
@@ -143,7 +84,8 @@ export default function SingleSubjectTemplate({ loading, singleSubject, errorMes
     const handleFormSubmit = (e) => {
         e.preventDefault();
         handleEdit(formData);
-        setIsModalOpen(false); 
+        setIsModalOpen(false);
+       
     };
 
     return (
@@ -156,7 +98,7 @@ export default function SingleSubjectTemplate({ loading, singleSubject, errorMes
                 ) : !singleSubject ? (
                     <div className="text-center text-big-2">{errorMessage}</div>
                 ) : (
-                    <div className="box-shadow-2 p-20 bold" style={{position: 'relative'}}>
+                    <div className="box-shadow-2 p-20 bold" style={{ position: 'relative' }}>
                         <p>Name : {singleSubject.name}</p>
                         <p>Code : {singleSubject.code}</p>
                         <p>Description : {singleSubject.description}</p>
@@ -164,7 +106,7 @@ export default function SingleSubjectTemplate({ loading, singleSubject, errorMes
                         <p>Tutor : {singleSubject.staffName}</p>
                         <p>Allocated Exam Aggregate : {singleSubject.totalExamScore}</p>
                         <p>Allocated Test Aggregate : {singleSubject.totalTestScore}</p>
-                        <div style={{position: "absolute", right:"10px", bottom: "40px"}}>
+                        <div style={{ position: "absolute", right: "10px", bottom: "40px" }}>
                             <FaEdit className="edit-icon" onClick={() => handleEditClick(singleSubject.id)} />
                             <MdDelete className="delete-icon" onClick={() => handleDelele(singleSubject.id)} />
                         </div>

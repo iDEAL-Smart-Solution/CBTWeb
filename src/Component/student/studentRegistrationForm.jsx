@@ -86,32 +86,12 @@ export default function StudentRegistrationForm() {
 
                          </div>
                          <div className="form-grouping">
-                              <InputField type={`text`} name={`registrationNumber`} value={formData.registrationNumber} placeholder={` registration Number`} className={`register-field`} handleChange={handleInputChange} />
-                              {/* <select
-                                   name="className"
-                                   value={formData.className}
-                                   onChange={handleInputChange}
-                                   style={{
-                                        height: '50px',
-                                        border: 'none',
-                                        width: '105%',
-                                        padding: '10px',
-                                        fontSize: '16px',
-                                        borderRadius: '5px',
-                                        outline: 'none',
-                                        cursor: 'pointer'
-                                   }}  >
-                                   <option value="">Select class</option>
-
-                                   {allschClass.map((option) => (
-                                        <option key={option.classId} value={option.className}>{option.className}</option>
-                                   ))}
-                              </select> */}
+                              <InputField type={`text`} name={`registrationNumber`} value={formData.registrationNumber} placeholder={` registration Number`} className={`register-field`} handleChange={handleInputChange} width={`97.5%`} />
                               <Dropdown 
                                    name={`className`}
                                    value={formData.className}
                                    handleChange={handleInputChange}
-                                   width={`105%`}
+                                   width={`102.5%`}
                                    options={allschClass}
                                    optionKey='classId'
                                    optionValue='className'
@@ -121,18 +101,18 @@ export default function StudentRegistrationForm() {
 
                          </div>
                          <div className="form-grouping">
-                              <InputField type={`text`} name={`firstName`} value={formData.firstName} placeholder={`first name`} className={`register-field`} handleChange={handleInputChange} />
-                              <InputField type={`text`} name={`lastName`} value={formData.lastName} placeholder={`last name`} className={`register-field`} handleChange={handleInputChange} />
+                              <InputField type={`text`} name={`firstName`} value={formData.firstName} placeholder={`first name`} className={`register-field`} handleChange={handleInputChange} width={`97.5%`}/>
+                              <InputField type={`text`} name={`lastName`} value={formData.lastName} placeholder={`last name`} className={`register-field`} handleChange={handleInputChange} width={`97.5%`} />
                          </div>
                          <div className="form-grouping">
-                              <InputField type={`email`} name={`email`} value={formData.email} placeholder={`email address`} className={`register-field`} handleChange={handleInputChange} />
-                              <InputField type={`text`} name={`phoneNumber`} value={formData.phoneNumber} placeholder={`phone number`} className={`register-field`} handleChange={handleInputChange} />
+                              <InputField type={`email`} name={`email`} value={formData.email} placeholder={`email address`} className={`register-field`} handleChange={handleInputChange} width={`97.5%`} />
+                              <InputField type={`text`} name={`phoneNumber`} value={formData.phoneNumber} placeholder={`phone number`} className={`register-field`} handleChange={handleInputChange} width={`97.5%`} />
                          </div>
-                         <div className="form-grouping">
+                         <div className="form-grouping-3">
                               <ImageUploader
                                    name={`profilePicture`}
                                    handleChange={handleInputChange}
-                                   width={`49%`}
+                                   width={`48%`}
                                   />
                                    <Dropdown
                                         name={`gender`}

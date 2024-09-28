@@ -10,6 +10,7 @@ export default function StudentNavbar() {
     const navigate = useNavigate();
     const { academicSession, user } = auth;
     const { current_Session, current_Term } = academicSession;
+    const { firstName, profilePicture } = user || {};
     function handleSignOut() {
         navigate('/');
         logout();
@@ -27,24 +28,20 @@ export default function StudentNavbar() {
             </div>
             <div>
                 <div>
-                    <small className='bolder color-primary'>{current_Session}</small>
-                    {/* <small className='bolder color-primary'>2022/2023</small> */}
-
+                    {current_Session && <small className='bolder color-primary'>{current_Session}</small>}
                 </div>
                 <div>
                     <b className='bolder'>
-                        <small className='bolder color-primary bolder'>{termMap[current_Term]}</small>
-                        {/* <small className='bolder color-primary bolder'>2nd_Term</small> */}
-
+                    {current_Term && <small className='bolder color-primary bolder'>{termMap[current_Term]}</small> }
                     </b>
                 </div>
             </div>
             <div className='student-settings'>
                 <div>
-                    <small className='bolder'>{user.firstName ? user.firstName : ''}</small>
+                    {firstName && <small className='bolder'>{firstName}</small>}
                 </div>
                 <div>
-                    <img src={`${BASE_URL}/ProfilePictures/${user.profilePicture}`} width="50em" alt="image" />
+                   {profilePicture &&  <img src={`${BASE_URL}/ProfilePictures/${user.profilePicture}`} style={{borderRadius: '50%'}} width="50em" alt="image" />}
                 </div>
                 <button onClick={handleSignOut} className="signout-button">
                     Sign Out
