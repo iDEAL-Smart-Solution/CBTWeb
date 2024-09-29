@@ -111,7 +111,7 @@ export default function SingleExamTemplate({ loading, data, errorMessage, handle
                          <div className="text-center text-big-2">{errorMessage}</div>
                     ) : (
                          <div className="profile-group" style={{ position: 'relative' }}>
-                              <div className="box-shadow-2 p-30 bold">
+                              <div className="box-shadow-3 p-30 bold">
                                    <p>Subject Code : {data.subjectCode}</p>
                                    <p>Exam Name : {data.examName}</p>
                                    <p>Exam Term : {termMap[data.term]}</p>

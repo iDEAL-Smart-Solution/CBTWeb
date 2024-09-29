@@ -98,15 +98,7 @@ const Question = (set, get) => ({
           const { setLoading } = get().question;
           setLoading(true);
           try {
-               const formDataToSend = new FormData();
-               Object.entries(formData).forEach(([key, value]) => {
-                    if (Array.isArray(value)) {
-                         formDataToSend.append(key, value[0]);
-                    } else {
-                         formDataToSend.append(key, value);
-                    }
-               });
-               var res = await axios.post(`${BASE_URL}/api/v1/Question/upload-image`, formDataToSend);
+               var res = await axios.patch(`${BASE_URL}/api/v1/Question/update-question-image`, formData);
                var mssg = res.data.message;
                return{success: true, message: mssg}
           } catch (error) {

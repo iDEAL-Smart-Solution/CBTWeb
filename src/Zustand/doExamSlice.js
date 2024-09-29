@@ -25,13 +25,13 @@ export const useDoExam = create((set, get) => ({
 
       const res = await axios.get(`${BASE_URL}/api/v1/Exam/do-exam?examKey=${examKey}&studentId=${studentId}`);
       const incoming = res.data;
-      console.log(incoming);
 
       const questions = incoming.questionsPerStudents.map((list, index) => ({
         index,
         id: list.id,
         questionInstruction: list.questionInstruction,  
         question: list.question,
+        questionImage: list.questionImage,
         options: [list.optionA, list.optionB, list.optionC, list.optionD],
       }));
 

@@ -1,5 +1,5 @@
 import { useAuth } from "../../Zustand/auth"
-import smiley from '../../assets/smiley.jpeg';
+import smiley from '../../assets/smiley2.jpg';
 
 export default function ExamCompleted() {
      const { auth } = useAuth();

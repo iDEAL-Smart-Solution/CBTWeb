@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDoExam } from '../../Zustand/doExamSlice';
 import { useParams, useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../Constant';
 
 const DoExam = () => {
   const { examKey } = useParams();
@@ -18,7 +19,6 @@ const DoExam = () => {
     setCurrentIndex,
     submitExam,
     startTime,
-    message,
   } = useDoExam();
 
   const [timeLeft, setTimeLeft] = useState(null);
@@ -83,7 +83,7 @@ const DoExam = () => {
 
       if (remainingTime === 0) {
         clearInterval(timerId);
-        // handleExamSubmit();
+        handleExamSubmit();
       }
     }, 1000);
 
@@ -165,14 +165,15 @@ const DoExam = () => {
   // if (message) return <div className=''>{message}</div>
 
   const currentQuestion = questions[currentIndex];
-
   return (
     <div>
       <h1 className='text-center color-primary'>Questions</h1>
       <div className='exam-question-box'>
         <div className='left-fraction'>
-        {currentQuestion.questionInstruction?.trim() && <p className='bolder'>{currentQuestion.questionInstruction}</p>}
+        {currentQuestion.questionInstruction?.trim() && <small className='bolder'>{currentQuestion.questionInstruction}</small>}
           <p className='text-big-3'>{currentIndex + 1}. {currentQuestion.question}</p>
+          {currentQuestion.questionImage &&  <img src={`${BASE_URL}/ProfilePictures/${currentQuestion.questionImage}`}  width="50%" alt="image" />}
+
           {currentQuestion.options.map((option, index) => (
             <div key={index}>
               <label className='text-big-3'>

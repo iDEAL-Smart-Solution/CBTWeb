@@ -12,7 +12,7 @@ export default function SingleExam() {
      const { id } = useParams();
      const navigate = useNavigate();
      const { exam, fetchSingleExam, deleteExam, editExam } = useExam();
-     const { editQuestion, deleteQuestion } = useQuestion();
+     const { editQuestion, deleteQuestion, uploadImageForQuestion } = useQuestion();
      const { loading, errorMessage, singleExam } = exam;
 
      const { showSuccess, showError } = useNotification();
@@ -72,8 +72,21 @@ export default function SingleExam() {
                showError(error);
           }
      }
+    const handleUploadImageForQuestion = async (formData) => {
+          try {
+               let res = await uploadImageForQuestion(formData);
+               if(res.success)
+               {
+                    showSuccess(res.message);
+               } else {
+                    showError(res.message);
+               }
+          } catch (error) {
+               showError(error);
+          }
+    }
      return (
-          <div>
+          <div style={{overflowX: 'hidden'}}>
                <SingleExamTemplate data={singleExam} loading={loading} errorMessage={errorMessage} handleDelele={handleExamDelete} handleEdit={handleExamEdit} />
                <p className="bold text-big-2">Questions</p>
                <div className="card-container">
@@ -84,7 +97,7 @@ export default function SingleExam() {
                          :
                          singleExam && singleExam.questions && singleExam.questions.length > 0
                               ? singleExam.questions.map((question, index) => ((
-                                   <QuestionCard data={question} loading={loading} index={index} key={index} handleDelele={handleQuestionDelele} handleEdit={handleQuestionEdit} />
+                                   <QuestionCard data={question} loading={loading} index={index} key={index} handleDelele={handleQuestionDelele} handleEdit={handleQuestionEdit} handleUpload={handleUploadImageForQuestion} />
                               )))
                               : <p className="text-center text-big-2 bold">Questions not Found</p>
                     }

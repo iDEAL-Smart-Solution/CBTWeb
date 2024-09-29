@@ -6,7 +6,7 @@ import { useNotification } from "../../Context/notificationContext";
 
 export default function LoginForm() {
      const { login, auth } = useAuth();
-     const { loading, isAuthenticated, error } = auth;
+     const { loading, isAuthenticated } = auth;
      const { showSuccess, showError } = useNotification();
      const [formData, setFormData] = useState({
           email: "",
@@ -44,9 +44,6 @@ export default function LoginForm() {
           <div className="page-center">
                <form className="login-box" onSubmit={handleSubmit}>
                     <div className="login-box-inner">
-                         {error && <p className="color-danger">
-                              <b>{error}!!!</b>
-                         </p>}
                          <h1 className="font-primary color-primary text-center">Welcome Back</h1>
                          <div>
                               <input type="text" className="login-field" name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} />
