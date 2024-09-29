@@ -3,11 +3,14 @@ import { useClass } from "../../Zustand/classSlice";
 import { useState, useEffect } from "react";
 import { InputField, Submit } from "../ReUsableComponents/input";
 import { Dropdown } from "../ReUsableComponents/dropDown";
+import { useNotification } from "../../Context/notificationContext";
 
 export default function SubjectCreationForm() {
      const { subject, createSubject } = useSubject();
      const { schClass, fetchClassList } = useClass();
-     const { loading, message, errorMessage, setMessage, setErrorMessage } = subject;
+     const { loading } = subject;
+
+     const { showSuccess, showError } = useNotification();
 
      const [formData, setFormData] = useState({
           name: "",
@@ -40,9 +43,15 @@ export default function SubjectCreationForm() {
           e.preventDefault();
 
           try {
-               await createSubject(formData);
+               let res = await createSubject(formData);
+               if(res.success)
+                    {
+                         showSuccess(res.message);
+                    } else {
+                         showError(res.message);
+                    }
           } catch (_error) {
-               console.log(_error);
+               showError(_error);
           }
      };
 
@@ -56,17 +65,11 @@ export default function SubjectCreationForm() {
                totalTestScore: 0,
                totalExamScore: 0,
           })
-          setMessage("");
-          setErrorMessage("");
      }
      return (
           <div className="page-center-2 ">
                <div className="register-box-2 my-mt box-shadow">
                     <form onSubmit={handleSubmit} className="form" >
-                         <div style={{ height: "5vh" }}>
-                              {message && <p style={{ backgroundColor: "var(--primary-color)" }} className="color-light text-center bold">{message}</p>}
-                              {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{errorMessage}</p>}
-                         </div>
                               <InputField type={`text`} name={`name`} value={formData.name} placeholder={`Name of Subject`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
                               <InputField type={`text`} name={`code`} value={formData.code} placeholder={`Subject Code`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
                               <InputField type={`text`} name={`description`} value={formData.description} placeholder={`Subject Description`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />

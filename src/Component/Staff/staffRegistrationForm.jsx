@@ -5,10 +5,13 @@ import genderOptions from "../../lib/genderOptions";
 import { useStaff } from "../../Zustand/staffSlice";
 import { useState } from "react";
 import { Dropdown } from "../ReUsableComponents/dropDown";
+import { useNotification } from "../../Context/notificationContext";
 
 export default function StaffRegistrationForm() {
      const { staff, createSaff } = useStaff();
-     const { loading, message, errorMessage, setMessage, setErrorMessage } = staff;
+     const { loading } = staff;
+
+     const { showSuccess, showError } = useNotification();
 
      const [formData, setFormData] = useState({
           firstName: "",
@@ -53,13 +56,16 @@ export default function StaffRegistrationForm() {
           }
 
           setPasswordError("");
-          console.log(formData);
-
           try {
-               await createSaff(formData);
+               let res = await createSaff(formData);
+               if(res.success)
+                    {
+                         showSuccess(res.message);
+                    } else {
+                         showError(res.message);
+                    }
           } catch (_error) {
-               alert(_error);
-               console.log(_error);
+               showError('Request failed');
           }
      };
 
@@ -75,17 +81,10 @@ export default function StaffRegistrationForm() {
                profilePicture: null,
                gender: 0,
           })
-          setMessage("");
-          setErrorMessage("");
      }
      return (
           <div className="page-center-2 ">
                <div className="register-box-3 box-shadow">
-                         <div style={{ height: "5vh" }}>
-                              {message && <p style={{ backgroundColor: "var(--primary-color)" }} className="color-light text-center bold">{message}</p>}
-                              {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{message}</p>}
-
-                         </div>
                     <form onSubmit={handleSubmit} className="form" >
                          <div className="form-grouping">
                               <InputField type={`text`} name={`firstName`} value={formData.firstName} placeholder={`first name`} className={`register-field`} handleChange={handleInputChange} width={`100%`} />

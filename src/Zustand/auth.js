@@ -40,6 +40,7 @@ const Auth = (set, get) => ({
                     error: null,
                 },
             }));
+            return { success: true, message: message }
 
         } catch (error) {
             sessionStorage.removeItem('token');
@@ -56,6 +57,8 @@ const Auth = (set, get) => ({
                     loading: false,
                 },
             }));
+            return { success: false, message: error.response.data.message || 'Login failed' }
+
         }
     },
     logout: async () => {

@@ -29,11 +29,10 @@ const Student = (set, get) => ({
                });
                const res = await axios.post(`${BASE_URL}/api/v1/Student/create`, formDataToSend);
                const messg = res.data.message;
-               console.log(messg)
-               setMessage(messg);
+               return {success: true, message: messg };
           } catch (error) {
                console.error(`Error occured registering new student.`, error);
-               setErrorMessage(error.response?.data?.message || 'An error occurred: kindly fill out all the required spaces');
+               return {success: false, message: error.response?.data?.message || 'An error occurred: kindly fill out all the required spaces'};
           } finally {
                setLoading(false);
           }

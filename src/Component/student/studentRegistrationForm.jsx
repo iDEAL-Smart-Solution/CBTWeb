@@ -6,11 +6,13 @@ import { useStudent } from "../../Zustand/studentSlice";
 import { useClass } from "../../Zustand/classSlice";
 import { useEffect, useState } from "react";
 import { Dropdown } from "../ReUsableComponents/dropDown";
+import { useNotification } from "../../Context/notificationContext";
 
 export default function StudentRegistrationForm() {
      const { student, createStudent } = useStudent();
      const { schClass, fetchClassList } = useClass();
-     const { loading, message, errorMessage, setMessage, setErrorMessage } = student;
+     const { loading } = student;
+     const { showSuccess, showError } = useNotification();
 
      const [formData, setFormData] = useState({
           registrationNumber: "",
@@ -54,10 +56,15 @@ export default function StudentRegistrationForm() {
           e.preventDefault();
 
           try {
-               console.log(formData);
-               await createStudent(formData);
+               let res = await createStudent(formData);
+               if(res.success)
+                    {
+                         showSuccess(res.message);
+                    } else {
+                         showError(res.message);
+                    }
           } catch (_error) {
-               console.log(_error);
+               showError(_error);
           }
      };
 
@@ -72,19 +79,11 @@ export default function StudentRegistrationForm() {
                profilePicture: null,
                gender: 0,
           })
-          setMessage("");
-          setErrorMessage("");
      }
      return (
           <div className="page-center-2 ">
                <div className="register-box-3 box-shadow">
                     <form onSubmit={handleSubmit} className="form" >
-                         <div style={{ height: "5vh" }}>
-                              {message && <p style={{ backgroundColor: "var(--primary-color)" }} className="color-light text-center bold">{message}</p>}
-                              {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{errorMessage}</p>}
-
-
-                         </div>
                          <div className="form-grouping">
                               <InputField type={`text`} name={`registrationNumber`} value={formData.registrationNumber} placeholder={` registration Number`} className={`register-field`} handleChange={handleInputChange} width={`97.5%`} />
                               <Dropdown 

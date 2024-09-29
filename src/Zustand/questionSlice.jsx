@@ -95,7 +95,7 @@ const Question = (set, get) => ({
           }
      },
      uploadImageForQuestion: async (formData) => {
-          const { setLoading, setMessage, setErrorMessage } = get().question;
+          const { setLoading } = get().question;
           setLoading(true);
           try {
                const formDataToSend = new FormData();
@@ -106,12 +106,12 @@ const Question = (set, get) => ({
                          formDataToSend.append(key, value);
                     }
                });
-               var res = await axios.post(`${BASE_URL}`, formDataToSend);
+               var res = await axios.post(`${BASE_URL}/api/v1/Question/upload-image`, formDataToSend);
                var mssg = res.data.message;
-               setMessage(mssg);
+               return{success: true, message: mssg}
           } catch (error) {
                console.error("An error occured whne uploading image for a question", error);
-               setErrorMessage(error.response.data.message || "An error ocuured whne trying to upload the image please check again");
+               return {success: false, message: error.response.data.message || "An error ocuured whne trying to upload the image please check again"};
           } finally {
                setLoading(false);
           }

@@ -17,7 +17,7 @@ const Subject = (set, get) => ({
 
      },
      createSubject: async (formData) => {
-          const { setLoading, setMessage, setErrorMessage } = get().subject;
+          const { setLoading } = get().subject;
           setLoading(true);
           try {
                const formDataToSend = new FormData();
@@ -26,12 +26,10 @@ const Subject = (set, get) => ({
                });
                var res = await axios.post(`${BASE_URL}/api/v1/Subject/create`, formDataToSend);
                const messg = res.data.message;
-               console.log(messg)
-               setMessage(messg);
-               setLoading(false);
+               return {success: true, message: messg}
           } catch (error) {
                console.error(`Error occured creating new subject.`, error);
-               setErrorMessage(error.response?.data?.message || 'An error occurred: make sure form was filled appropriately');
+               return {success: false, message: error.response?.data?.message || 'An error occurred: make sure form was filled appropriately'}
           } finally {
                setLoading(false);
           }
@@ -115,7 +113,7 @@ const Subject = (set, get) => ({
           }
      },
      deleteSubject: async (id) => {
-          const { setLoading, setMessage, setErrorMessage } = get().subject;
+          const { setLoading, setErrorMessage } = get().subject;
           setLoading(true);
           try {
                var res = await axios.delete(`${BASE_URL}/api/v1/Subject/delete?id=${id}`);
@@ -130,7 +128,7 @@ const Subject = (set, get) => ({
           }
      },
      editSubject: async (formData) => {
-          const {setLoading, setMessage, setErrorMessage, singleSubject, setSingleSubject } = get().subject;
+          const {setLoading } = get().subject;
           setLoading(true);
           try {
                const formDataToSend = new FormData();
@@ -143,13 +141,10 @@ const Subject = (set, get) => ({
                });
                var res = await axios.patch(`${BASE_URL}/api/v1/Subject/update`, formDataToSend);
                var mssg = res.data.message;
-               console.log(mssg);
-               setMessage(mssg);
                return {success: true, message: mssg};
           } catch (error) {
                console.error("Error occured when trying to edit question : ", error);
-               setErrorMessage(error.response.data.message || "Error occured when trying to edit the question");
-               return false;
+               return {success: false, message: error.response.data.message || "Error occured when trying to edit the question"};
           } finally {
                setLoading(false);
           }

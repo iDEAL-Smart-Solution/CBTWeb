@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../Zustand/auth";
-import { useNavigate } from 'react-router-dom';
+import { useNotification } from "../../Context/notificationContext";
 
 
 
 export default function LoginForm() {
-     const navigate = useNavigate();
      const { login, auth } = useAuth();
      const { loading, isAuthenticated, error } = auth;
+     const { showSuccess, showError } = useNotification();
      const [formData, setFormData] = useState({
           email: "",
           password: ""
@@ -23,14 +23,19 @@ export default function LoginForm() {
      const handleSubmit = async (e) => {
           e.preventDefault();
           try {
-               await login(formData);
+               let res = await login(formData);
+               if(res.success)
+                    {
+                         showSuccess(res.message);
+                    } else {
+                         showError(res.message);
+                    }
           } catch (_error) {
-               console.log(_error);
+               showError(_error);
           }
      };
      useEffect(() => {
           if (isAuthenticated) {
-               // navigate("/dashboard", { replace: true });
                window.location.reload();
           }
      }, [isAuthenticated]);
