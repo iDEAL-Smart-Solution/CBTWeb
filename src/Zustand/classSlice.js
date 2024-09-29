@@ -67,14 +67,13 @@ const Class = (set, get) => ({
           try {
                const res = await axios.post(`${BASE_URL}/api/v1/Class/Create?name=${name}`);
                const messg = res.data.message;
-               setMessage(messg);
                setLoading(false);
-               return true;
+               return {success: true, message: messg};
           } catch (error) {
                console.error(`Error occured while creating class ${name}.`, error);
                setMessage(error.response?.data?.message || 'An error occurred');
                setLoading(false);
-               return false;
+               return {success: true, message: messg};
           }
      },
      deleteClass: async (id) => {
@@ -85,12 +84,12 @@ const Class = (set, get) => ({
                const messg = res.data.message;
                setMessage(messg);
                setLoading(false);
-               return true;
+               return {success: true, message: messg};
           } catch (error) {
                console.error(`Error occured while deleting class.`, error);
                setMessage(error.response?.data?.message || 'An error occurred, class cant be deleted');
                setLoading(false);
-               return false;
+               return {success: false, message: error.response.data.message};
           }
      }
 

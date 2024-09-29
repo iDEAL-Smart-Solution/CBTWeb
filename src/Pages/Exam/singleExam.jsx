@@ -5,12 +5,14 @@ import { useEffect } from "react";
 import QuestionCard from "../../Component/Question/questionCardTemplate";
 import { useQuestion } from "../../Zustand/questionSlice";
 import { useNotification } from "../../Context/notificationContext";
+import { useNavigate } from "react-router-dom";
 
 
 export default function SingleExam() {
      const { id } = useParams();
-     const { exam, fetchSingleExam } = useExam();
-     const { editQuestion, deleteQuestion, question } = useQuestion();
+     const navigate = useNavigate();
+     const { exam, fetchSingleExam, deleteExam, editExam } = useExam();
+     const { editQuestion, deleteQuestion } = useQuestion();
      const { loading, errorMessage, singleExam } = exam;
 
      const { showSuccess, showError } = useNotification();
@@ -19,7 +21,7 @@ export default function SingleExam() {
      useEffect(() => {
           fetchSingleExam(id);
      }, [])
-     const handleDelele = async (iden) => {
+     const handleQuestionDelele = async (iden) => {
           console.log(iden);
           try {
                let res = await deleteQuestion(iden);
@@ -30,8 +32,7 @@ export default function SingleExam() {
                
           }
      }
-     const handleEdit = async (formData) => {
-          console.log(formData);
+     const handleQuestionEdit = async (formData) => {
           try {
                let res = await editQuestion(formData);
                if (res.success) {
@@ -44,9 +45,36 @@ export default function SingleExam() {
                console.log(error);
           }
      }
+     const handleExamEdit = async (formData) => {
+          try {
+               let res = await editExam(formData);
+               if (res.success) {
+                    fetchSingleExam(id);
+                    showSuccess(res.message);
+               } else {
+                    showError(res.message)
+               }
+          } catch (error) {
+               console.log(error);
+               showError(error);
+          }
+     }
+     const handleExamDelete = async (id) => {
+          try {
+               let res = await deleteExam(id);
+               if(res.success) {
+                    showSuccess(res.message);
+                    navigate('/exam/list');
+               } else {
+                    showError("request failed");
+               }
+          } catch (error) {
+               showError(error);
+          }
+     }
      return (
           <div>
-               <SingleExamTemplate data={singleExam} loading={loading} errorMessage={errorMessage} />
+               <SingleExamTemplate data={singleExam} loading={loading} errorMessage={errorMessage} handleDelele={handleExamDelete} handleEdit={handleExamEdit} />
                <p className="bold text-big-2">Questions</p>
                <div className="card-container">
                     {loading ?
@@ -56,7 +84,7 @@ export default function SingleExam() {
                          :
                          singleExam && singleExam.questions && singleExam.questions.length > 0
                               ? singleExam.questions.map((question, index) => ((
-                                   <QuestionCard data={question} loading={loading} index={index} key={index} handleDelele={handleDelele} handleEdit={handleEdit} />
+                                   <QuestionCard data={question} loading={loading} index={index} key={index} handleDelele={handleQuestionDelele} handleEdit={handleQuestionEdit} />
                               )))
                               : <p className="text-center text-big-2 bold">Questions not Found</p>
                     }

@@ -2,14 +2,16 @@ import { useExam } from "../../Zustand/examSlice";
 import { useState, useEffect } from "react";
 import { InputField, Submit } from "../ReUsableComponents/input";
 import { useSubject } from "../../Zustand/subjectSlice";
-import term from "../../lib/termOption";
 import examType from "../../lib/examTypeOption";
 import { Dropdown } from "../ReUsableComponents/dropDown";
+import { useNotification } from "../../Context/notificationContext";
 
 export default function ExamCreationForm() {
      const { exam, createExam } = useExam();
      const { subject, fetchSubjectsLight } = useSubject();
-     const { loading, message, errorMessage, setMessage, setErrorMessage } = exam;
+     const { loading } = exam;
+
+     const { showSuccess, showError } = useNotification();
 
      const [formData, setFormData] = useState({
           subjectCode: "",
@@ -47,7 +49,12 @@ export default function ExamCreationForm() {
           };
 
           try {
-               await createExam(dataToSubmit);
+               let res = await createExam(dataToSubmit);
+               if (res.success) {
+                    showSuccess(res.message);
+               } else {
+                    showError(res.message)
+               }
           } catch (_error) {
                console.log(_error);
           }
@@ -63,28 +70,21 @@ export default function ExamCreationForm() {
                durationMinutes: 0,
                ontainableScore: 0,
           });
-          setMessage("");
-          setErrorMessage("");
      };
 
      return (
           <div className="page-center-2 ">
                <div className="register-box box-shadow">
                     <form onSubmit={handleSubmit} className="form">
-                         <div style={{ height: "5vh" }}>
-                              {message && <p style={{ backgroundColor: "var(--primary-color)" }} className="color-light text-center bold">{message}</p>}
-                              {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{errorMessage}</p>}
-                         </div>
-
-                              <InputField
-                                   type="text"
-                                   name="examName"
-                                   value={formData.examName}
-                                   placeholder="Exam name e.g. ENG_JSS_1stCA_2ndTerm_2022/23"
-                                   className="register-long-field"
-                                   handleChange={handleInputChange}
-                                   width={`97.5%`}
-                              />
+                         <InputField
+                              type="text"
+                              name="examName"
+                              value={formData.examName}
+                              placeholder="Exam name e.g. ENG_JSS_1stCA_2ndTerm_2022/23"
+                              className="register-long-field"
+                              handleChange={handleInputChange}
+                              width={`97.5%`}
+                         />
 
                          <Dropdown
                               name="subjectCode"

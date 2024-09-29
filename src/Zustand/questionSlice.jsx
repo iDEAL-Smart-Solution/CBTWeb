@@ -15,24 +15,24 @@ const Question = (set, get) => ({
           setQuestionsToDo: (data) => set((state) => ({...state, question: { ...state.question, questionsToDo: data } })),
      },
      uploadSingleQuestion: async (formData) => {
-          const { setLoading, setMessage, setErrorMessage } = get().question;
+          const { setLoading } = get().question;
           setLoading(true);
           try {
                var res = await axios.post(`${BASE_URL}/api/v1/Question/upload-single`, formData);
                const messg = res.data.message;
                console.log(messg)
-               setMessage(messg);
-               setLoading(false);
+               return{success: true, message: messg}
+
           } catch (error) {
                console.error(`Error occured uploading single question.`, error);
-               setErrorMessage(error.response?.data?.message || 'An error occurred: make sure form was filled appropriately');
+               return{success: false, message: error.response?.data?.message || 'An error occurred: make sure form was filled appropriately'}
           } finally {
                setLoading(false);
           }
           
      },
      uploadBulkQuestion: async (formData) => {
-          const { setLoading, setMessage, setErrorMessage } = get().question;
+          const { setLoading } = get().question;
           setLoading(true);
           try {
                const formDataToSend = new FormData();
@@ -45,12 +45,10 @@ const Question = (set, get) => ({
                });
                var res = await axios.post(`${BASE_URL}/api/v1/Question/upload-bulk`, formDataToSend);
                const messg = res.data.message;
-               console.log(messg)
-               setMessage(messg);
-               setLoading(false);
+               return{success: true, message: messg}
           } catch (error) {
                console.error(`Error occured uploading bulk question.`, error);
-               setErrorMessage(error.response.data.message || 'An error occurred uploading the questions');
+               return{success: false, message: error.response.data.message || 'An error occurred uploading the questions'};
           } finally {
                setLoading(false);
           }

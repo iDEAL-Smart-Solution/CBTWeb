@@ -28,11 +28,12 @@ const Exam = (set, get) => ({
                });
                var res = await axios.post(`${BASE_URL}/api/v1/Exam/create`, formDataToSend);
                const messg = res.data.message;
-               setMessage(messg);
-               setLoading(false);
+               return{success: true, message: messg}
           } catch (error) {
                console.error(`Error occured creating new exam.`, error);
                setErrorMessage(error.response?.data?.message || 'An error occurred: make sure form was filled appropriately');
+               return{success: false, message: error.response?.data?.message || 'An error occurred: make sure form was filled appropriately'}
+
           } finally {
                setLoading(false);
           }
@@ -157,7 +158,40 @@ const Exam = (set, get) => ({
           } finally {
                setLoading(false);
           }
-     }
+     },
+     deleteExam: async (id) => {
+          const { setLoading, setErrorMessage } = get().exam;
+          setLoading(true);
+          try {
+               var res = await axios.delete(`${BASE_URL}/api/v1/Exam/delete?id=${id}`);
+               var mssg = res.data.message;
+               return{success: true, message: mssg}
+          } catch (error) {
+               console.error("Error occured when attempting to delete question")
+               setErrorMessage(error.response.data.message || "An error occured, question could not be deleted");
+          } finally {
+               setLoading(false);
+          }
+     },
+     editExam: async (formData) => {
+          const {setLoading, setErrorMessage } = get().exam;
+          setLoading(true);
+          try {
+               const formDataToSend = new FormData();
+               Object.entries(formData).forEach(([key, value]) => {
+                         formDataToSend.append(key, value);
+               });
+               var res = await axios.patch(`${BASE_URL}/api/v1/Exam/update`, formDataToSend);
+               var mssg = res.data.message;
+               return {success: true, message: mssg};
+          } catch (error) {
+               console.error("Error occured when trying to edit Exam : ", error);
+               setErrorMessage(error.response.data.message || "Error occured when trying to edit exam");
+               return {success: false, message: error.response.data};
+          } finally {
+               setLoading(false);
+          }
+     },
 })
 
 export const useExam = create(Exam);

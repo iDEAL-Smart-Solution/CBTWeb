@@ -6,12 +6,14 @@ import { Dropdown } from "../ReUsableComponents/dropDown";
 import { Submit } from "../ReUsableComponents/input";
 import { useQuestion } from "../../Zustand/questionSlice";
 import { TextArea } from "../ReUsableComponents/textArea";
+import { useNotification } from "../../Context/notificationContext";
 
 export default function SingleQuestionUploadingForm() {
      const { question, uploadSingleQuestion } = useQuestion();
      const { subject, fetchSubjectCodes } = useSubject();
      const { exam, fetchExamsLight } = useExam();
-     const { loading, message, errorMessage, setMessage, setErrorMessage } = question;
+     const { loading } = question;
+     const {showSuccess, showError} = useNotification();
      const [formData, setFormData] = useState({
           examId: "",
           subjectCode: "",
@@ -44,10 +46,15 @@ export default function SingleQuestionUploadingForm() {
           e.preventDefault();
 
           try {
-               console.log(formData);
-               await uploadSingleQuestion(formData);
+               let res = await uploadSingleQuestion(formData);
+               if(res.success) 
+               {
+                    showSuccess(res.message);
+               } else {
+                    showError(res.message);
+               }
           } catch (_error) {
-               console.log(_error);
+               showError(_error);
           }
      };
      const handleReset = async () => {
@@ -63,17 +70,15 @@ export default function SingleQuestionUploadingForm() {
                answer: "",
                pointPerQuestion: 0,
           })
-          setMessage("");
-          setErrorMessage("");
      }
      return (
           <div className="page-center-2">
                <div className="register-box-3 box-shadow">
                     <form onSubmit={handleSubmit} className="form" >
-                         <div style={{ height: "5vh" }}>
+                         {/* <div style={{ height: "5vh" }}>
                               {message && <p style={{ backgroundColor: "var(--primary-color)" }} className="color-light text-center bold">{message}</p>}
                               {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{errorMessage}</p>}
-                         </div>
+                         </div> */}
                          <div className="form-grouping-2">
                               <Dropdown
                                    name={`subjectCode`}

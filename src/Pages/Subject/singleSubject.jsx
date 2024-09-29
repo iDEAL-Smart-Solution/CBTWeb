@@ -27,19 +27,18 @@ export default function SingleSubject() {
           { key: 'totalQuestion', header: 'Total question'}
         ];
 
-        const handleDelele = async (iden) => {
-            console.log(iden);
+        const handleDelele = async (id) => {
             try {
                 var res = await deleteSubject(id);
                 if(res)
                 {
-                    deleteSubject(iden);
+                    showSuccess(res.message);
                     navigate('/subject/list');
                 } else {
-
+                    showError("Request failed");
                 }
             } catch (error) {
-
+                showError(error);
             }
        }
        const handleEdit =  async (formData) => {

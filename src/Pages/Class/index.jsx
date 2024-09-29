@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import ListClass from "../../Component/Class/allClassTable";
 import CreateClass from "../../Component/Class/createClassForm";
 import { useClass } from "../../Zustand/classSlice";
+import { useNotification } from "../../Context/notificationContext";
 
 export default function Class() {
      const { fetchClassList, schClass, createClass, deleteClass } = useClass();
+
+     const {showSuccess, showError } = useNotification;
 
      const [name, setName] = useState('');
 
@@ -16,23 +19,32 @@ export default function Class() {
 
      const handleSubmit = async (e) => {
           e.preventDefault();
-          const success = await createClass(name);
-          if (success) {
-               setName(''); 
-               fetchClassList(); 
+          try {
+               let res = await createClass(name);
+               if(res.success)
+               {
+                    showSuccess(res.message);
+                    fetchClassList();
+               } else {
+                    showError(res.message);
+               }
+          } catch (error) {
+               showError(error)
           }
      };
 
      const handleDelete = async (id) => {
-          console.log(id);
           try {
                let res = await deleteClass(id);
-               if(res)
+               if(res.success)
                {
+                    showSuccess(res.message);
                     fetchClassList();
+               } else {
+                    showError(res.message);
                }
           } catch (error) {
-               console.error(error);
+               showError(error);
           }
      }
 

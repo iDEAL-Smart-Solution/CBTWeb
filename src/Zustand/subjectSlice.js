@@ -118,12 +118,13 @@ const Subject = (set, get) => ({
           const { setLoading, setMessage, setErrorMessage } = get().subject;
           setLoading(true);
           try {
-               var res = await axios.delete(`${BASE_URL}/`);
+               var res = await axios.delete(`${BASE_URL}/api/v1/Subject/delete?id=${id}`);
                var mssg = res.data.message;
-               setMessage(mssg);
+               return{success: true, message: mssg}
           } catch (error) {
                console.error("Error occured when attempting to delete question")
                setErrorMessage(error.response.data.message || "An error occured, question could not be deleted");
+               return{success: false, message: error.response.data.message}
           } finally {
                setLoading(false);
           }
