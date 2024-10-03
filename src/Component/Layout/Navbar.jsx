@@ -11,8 +11,8 @@ export default function Navbar() {
     const { current_Session, current_Term } = academicSession;
     const navigate = useNavigate();
     function handleSignOut() {
-        navigate('/');
         logout();
+        navigate('/');
 
     }
     const termMap = {

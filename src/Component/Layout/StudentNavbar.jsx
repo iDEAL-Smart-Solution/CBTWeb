@@ -12,8 +12,8 @@ export default function StudentNavbar() {
     const { current_Session, current_Term } = academicSession;
     const { firstName, profilePicture } = user || {};
     function handleSignOut() {
-        navigate('/');
         logout();
+        navigate('/');
     }
     const termMap = {
         1: "1st_term",

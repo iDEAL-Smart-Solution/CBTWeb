@@ -5,11 +5,11 @@ import { SearchField } from "../../Component/ReUsableComponents/input";
 import { useSubject } from "../../Zustand/subjectSlice";
 import SubjectListTemplate from "../../Component/Subject/subjectListTemplate";
 export default function SubjectList() {
-    const { subject, fetchSubjectsLight, filterList} = useSubject();
+    const { subject, fetchSubjectsLight, filterList } = useSubject();
     const { subjects, loading } = subject;
 
     useEffect(() => {
-     fetchSubjectsLight();
+        fetchSubjectsLight();
     }, [fetchSubjectsLight]);
 
     const [filterKey, setFilterKey] = useState('');
@@ -19,20 +19,22 @@ export default function SubjectList() {
     };
 
     const handleSubmit = () => {
-          filterList(filterKey);
+        filterList(filterKey);
     };
 
     return (
         <div>
 
-            <div style={{ width: "50%" }}>
-                <SearchField
-                    type="search"
-                    placeholder="name"
-                    className="search register-field"
-                    handleChange={handleInputChange}
-                    handleSubmit={handleSubmit}
-                />
+            <div style={{ width: '70%' }} className="box-shadow header-crumbs">
+                <div style={{ width: "90%", marginBottom: '-10px' }}>
+                    <SearchField
+                        type="search"
+                        placeholder="name"
+                        className="search register-field"
+                        handleChange={handleInputChange}
+                        handleSubmit={handleSubmit}
+                    />
+                </div>
             </div>
             <div>
                 <SubjectListTemplate data={subjects} loading={loading} />

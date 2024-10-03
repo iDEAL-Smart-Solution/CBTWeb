@@ -26,7 +26,8 @@ import StudentResult from './Pages/Result/studentResult';
 import StudentClearancePage from './Pages/Student/studentClearance';
 import ErrorPage from '../errorPage';
 import Edit_Acad_Session from './Pages/Acad/edit_acad_session';
-
+import StaffSubjects from './Pages/Subject/staffSubjects';
+import StaffExams from './Pages/Exam/staffExams';
 
 
 function App() {
@@ -41,7 +42,7 @@ function App() {
         if (user) {
           switch (user.role) {
             case 1: return redirect("/class");
-            case 2: return redirect("/subject/list");
+            case 2: return redirect("/staff/subjects");
             case 3: return redirect("/my-exams");
             case 4: return redirect("/dev");
             default: return null;
@@ -77,6 +78,8 @@ function App() {
         { path: "/student-clearance", element: <StudentClearancePage /> },
         { path: "*", element: <ErrorPage /> },
         { path: "/edit-academic-session", element: <Edit_Acad_Session/> },
+        { path: "/staff/subjects", element: <StaffSubjects /> },
+        { path: "/staff/exams", element: <StaffExams /> },
       ]
     },
     {

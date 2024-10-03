@@ -23,14 +23,16 @@ export default function StudentList() {
 
     return (
         <div>
-            <div style={{ width: "50%" }}>
-                <SearchField
-                    type="search"
-                    placeholder="class name | subject name"
-                    className="search register-field"
-                    handleChange={handleInputChange}
-                    handleSubmit={handleSubmit}
-                />
+            <div style={{ width: '70%' }} className="box-shadow header-crumbs">
+                <div style={{ width: "90%", marginBottom: '-10px' }}>
+                    <SearchField
+                        type="search"
+                        placeholder="class name | subject name"
+                        className="search register-field"
+                        handleChange={handleInputChange}
+                        handleSubmit={handleSubmit}
+                    />
+                </div>
             </div>
             <div>
                 <StudentListTemplate data={students} loading={loading} />

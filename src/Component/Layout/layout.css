@@ -55,13 +55,18 @@ F.root-container {
      height: 90vh;
      padding-left: 10px;
      overflow-y: scroll; 
+     /* overflow-x: hidden; */
    }
-   .sidebar::-webkit-scrollbar{
-    display: none;
-   }
-   .sidebar::-moz-webkit-scrollbar{
-    display: none;
-   }
+   .sidebar::-webkit-scrollbar {
+    width: 6px; 
+  }
+  .sidebar::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px;
+  }
+
+
+
 
    /* **********************OUTLET******************************** */
    

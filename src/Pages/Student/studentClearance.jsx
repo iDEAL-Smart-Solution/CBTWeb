@@ -75,12 +75,15 @@ export default function StudentClearancePage() {
 
                <div>
                     {showConfirmation && (
-                         <div className="confirmation-dialog box-shadow-3">
-                              <p>{message}</p>
-                              <div className='form-grouping'>
-                                   <button onClick={acknowledge} className="confirm-submit submit-button-2  text-center color-light bold">Ok</button>
+                         <div className="modal-overlay">
+                              <div className="confirmation-dialog  box-shadow-3">
+                                   <p>{message}</p>
+                                   <div className='form-grouping'>
+                                        <button onClick={acknowledge} className="confirm-submit submit-button-2  text-center color-light bold">Ok</button>
+                                   </div>
                               </div>
                          </div>
+
                     )}
                     <ClearanceTableTemplate data={studentsForClearnce} loading={loading} handleClearance={handleClearance} />
                </div>

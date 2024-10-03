@@ -8,7 +8,7 @@ export default function CreateClass({handleSubmit, handleInputChange, fieldvalue
           <>
                     <form onSubmit={handleSubmit} className="box-shadow create-class-nav">
                          <div className='box-shadow class-name'>
-                              <input type="text" placeholder="name" name={fieldName} value={fieldvalue} onChange={handleInputChange}  />
+                              <input type="text" placeholder="class name" name={fieldName} value={fieldvalue} onChange={handleInputChange}  />
                          </div>
                          <div className='add-button bg-color-prim bold color-light'>
                               <input type="submit" value={loading ? "..." : "Add"} />

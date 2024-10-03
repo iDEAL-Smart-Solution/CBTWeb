@@ -8,16 +8,16 @@ import ColorPicker from '../../Component/Layout/colorPicker';
 const Root = () => {
   return (
     <div className='root-container'>
-      <div className='navbar box-shadow-3'>
+      <div className='navbar box-shadow'>
         <Navbar />
       </div>
       <div className='content-container'>
-        <div className='sidebar box-shadow-3'>
+        <div className='sidebar box-shadow'>
           <Sidebar />
         </div>
         <div className='outlet-container'>
           <Outlet />
-            <ColorPicker />
+          <ColorPicker />
         </div>
       </div>
     </div>

@@ -76,7 +76,7 @@ const Auth = (set, get) => ({
             loading: false,
           },
         }));
-        window.location.reload();
+        // window.location.reload();
     }
 });
 

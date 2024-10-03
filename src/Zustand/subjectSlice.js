@@ -56,6 +56,50 @@ const Subject = (set, get) => ({
                setLoading(false);
           }
      },
+     fetchStaffSubjects: async (id) => {
+          const { setLoading, setErrorMessage, setSubjects } = get().subject;
+          setLoading(true);
+          try {
+               var res = await axios.get(`${BASE_URL}/api/v1/Subject/get-staff-subjects?id=${id}`);
+               const fetchedSubjects = res.data.map((list) => ({
+                    id: list.id,
+                    name: list.name,
+                    code: list.code,
+                    description: list.description,
+                    numberOfExam: list.numberOfExam,
+                    className: list.className,
+               }));
+               setSubjects(fetchedSubjects)
+          } catch (error) {
+               console.error("Error fetching list of subjects:", error);
+               setErrorMessage(error.response?.data?.message || 'An error occurred make sure your server is up and running');
+          } finally {
+               setLoading(false);
+          }
+     },
+     filterStaffSubjecs: async (param, id) => {
+          const { setLoading, setErrorMessage, setSubjects } = get().subject;
+          setLoading(true);
+
+          try {
+               var res = await axios.get(`${BASE_URL}/api/v1/Subject/filter-staff-subjects?param=${param}&id=${id}`);
+               const fetchedSubjects = res.data.map((list) => ({
+                    id: list.id,
+                    name: list.name,
+                    code: list.code,    
+                    description: list.description,
+                    numberOfExam: list.numberOfExam,
+                    className: list.className,
+
+               }));
+               setSubjects(fetchedSubjects)
+          } catch (error) {
+               console.error("Error fetching list of subjects:", error);
+               setErrorMessage(error.response?.data?.message || 'An error occurred make sure your server is up and running');
+          } finally {
+               setLoading(false);
+          }
+     },
      filterList: async (param) => {
           const { setLoading, setErrorMessage, setSubjects } = get().subject;
           setLoading(true);

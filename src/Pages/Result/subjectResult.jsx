@@ -73,7 +73,7 @@ export default function SubjectResult() {
                                    optionLabel={`text`}
                                    firstOption={`Select Term`}
                               />
-                              <Submit className={`submit-button text-center color-light bolder`} loading={loading} isNotLoading={`check`} isloading={`on it...`} />
+                              <Submit className={`fetch-button text-center color-light bolder`} loading={loading} isNotLoading={`check`} isloading={`on it...`} />
                          </div>
                     </form>
                </div>

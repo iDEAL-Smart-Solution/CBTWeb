@@ -8,17 +8,17 @@ export default function ListOFStudentForClass({ data, index }) {
           2: "Female"
      };
      return (
-          <div>
-               <table className="list-in-single-class-box">
+          <div className="table-container">
+               <table className="styled-table">
                     <tbody>
-                         <tr key={data.id} className="list-in-single-class">
+                         <tr key={data.id}>
                               <td>
                                    {index + 1}. {data.studentName}
                               </td>
                               <td>{data.uin}</td>
                               <td>{gender[data.gender]}</td>
                               <td>
-                                   <img src={`${BASE_URL}/ProfilePictures/${data.profilePicture}`} width="50em" alt="image" />
+                                   <img src={`${BASE_URL}/ProfilePictures/${data.profilePicture}`} width="50px" height="50px" style={{borderRadius: '50%'}} alt="image" />
                               </td>
                          </tr>
                     </tbody>
@@ -26,3 +26,4 @@ export default function ListOFStudentForClass({ data, index }) {
           </div>
      )
 }
+

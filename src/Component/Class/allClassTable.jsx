@@ -12,7 +12,6 @@ export default function ListClass({ classes, loading, handleDelete }) {
     { key: 'delete', header: '' },
   ];
 
-  // const linkPath = (item) => `/class/${item.classId}`; 
   const handleMoreClick = (id) => {
     navigate(`/class/${id}`);
   };
@@ -24,7 +23,6 @@ export default function ListClass({ classes, loading, handleDelete }) {
         data={classes}
         columns={columns}
         width={`80%`}
-        // linkPath={linkPath}
         onMoreClick={handleMoreClick}
         loading={loading}
         handleDelete={handleDelete}

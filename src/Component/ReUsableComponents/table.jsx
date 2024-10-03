@@ -51,7 +51,7 @@ export function Table({
             style={{all: 'unset'}}
             onClick={() => onMoreClick(item.id || item.classId)}
           >
-            <MdMoreVert className='color-success' />
+            <MdMoreVert size={'28px'} className='color-success' />
           </button>
         );
         break;
@@ -79,7 +79,7 @@ export function Table({
               <button style={{all: 'unset'}}
             onClick={() => handleDelete(item.classId)} 
             >
-                <MdDelete className='color-danger' />
+                <MdDelete size={'25px'} className='color-danger' />
               </button>
             );
             break;

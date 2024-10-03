@@ -12,7 +12,6 @@ export function ExamListTemplate1({ data, loading, columns, termMap, typeMap, ha
     isAvailable: item.isAvailable ? 'Yes' : 'No',
   }));
   
-  // const linkPath = (item) => `/exam/${item.id}`; 
   const handleMoreClick = (id) => {
     navigate(`/exam/${id}`);     
 };
@@ -24,7 +23,6 @@ export function ExamListTemplate1({ data, loading, columns, termMap, typeMap, ha
       columns={columns}
       termMap={termMap}
       typeMap={typeMap}
-      // linkPath={linkPath} 
       onMoreClick={handleMoreClick}
       emptyText={`No Exam `}
       width={`100%`}

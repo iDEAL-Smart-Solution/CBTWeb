@@ -23,14 +23,16 @@ export default function StaffList() {
 
     return (
         <div>
-            <div style={{ width: "50%" }}>
-                <SearchField
-                    type="search"
-                    placeholder="search key (username, subject)"
-                    className="search register-field"
-                    handleChange={handleInputChange}
-                    handleSubmit={handleSubmit}
-                />
+            <div style={{ width: '70%' }} className="box-shadow header-crumbs">
+                <div style={{ width: "90%", marginBottom: '-10px' }}>
+                    <SearchField
+                        type="search"
+                        placeholder="search key (username, subject)"
+                        className="search register-field"
+                        handleChange={handleInputChange}
+                        handleSubmit={handleSubmit}
+                    />
+                </div>
             </div>
             <div>
                 <StaffListTemplate data={staffs} loading={loading} />

@@ -38,11 +38,55 @@ const Exam = (set, get) => ({
                setLoading(false);
           }
      },
-     fetchExamsLight: async () => {
+     fetchExams: async () => {
           const { setLoading, setErrorMessage, setExams } = get().exam;
           setLoading(true);
           try {
                var res = await axios.get(`${BASE_URL}/api/v1/Exam/get-all`);
+               const fetchedexams = res.data.map((list) => ({
+                    id: list.id,
+                    examName: list.examName,
+                    subjectCode: list.subjectCode,
+                    isAvailable: list.isAvailable,
+                    term: list.term,
+                    session: list.session,
+                    examType: list.examType,
+               }));
+               setExams(fetchedexams);
+          } catch (error) {
+               console.error("Error fetching list of exams:", error);
+               setErrorMessage(error.response?.data?.message || 'An error occurred make sure your server is up and running');
+          } finally {
+               setLoading(false);
+          }
+     },
+     fetchStaffExams: async (id) => {
+          const { setLoading, setErrorMessage, setExams } = get().exam;
+          setLoading(true);
+          try {
+               var res = await axios.get(`${BASE_URL}/api/v1/Exam/staff-exams?id=${id}`);
+               const fetchedexams = res.data.map((list) => ({
+                    id: list.id,
+                    examName: list.examName,
+                    subjectCode: list.subjectCode,
+                    isAvailable: list.isAvailable,
+                    term: list.term,
+                    session: list.session,
+                    examType: list.examType,
+               }));
+               setExams(fetchedexams);
+          } catch (error) {
+               console.error("Error fetching list of exams:", error);
+               setErrorMessage(error.response?.data?.message || 'An error occurred make sure your server is up and running');
+          } finally {
+               setLoading(false);
+          }
+     },
+     filterStaffExams: async (param, id) => {
+          const { setLoading, setErrorMessage, setExams } = get().exam;
+          setLoading(true);
+          try {
+               var res = await axios.get(`${BASE_URL}/api/v1/Exam/filter-staff-exams?param=${param}&id=${id}`);
                const fetchedexams = res.data.map((list) => ({
                     id: list.id,
                     examName: list.examName,
@@ -92,21 +136,20 @@ const Exam = (set, get) => ({
      filterList: async (param) => {
           const { setLoading, setErrorMessage, setExams } = get().exam;
           setLoading(true);
-
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/Subject/get-by-any?param=${param}`);
-               const fetchedSubjects = res.data.map((list) => ({
+               var res = await axios.get(`${BASE_URL}/api/v1/Exam/filter-exams?param=${param}`);
+               const fetchedexams = res.data.map((list) => ({
                     id: list.id,
-                    name: list.name,
-                    code: list.code,
-                    description: list.description,
-                    numberOfExam: list.numberOfExam,
-                    className: list.className,
-
+                    examName: list.examName,
+                    subjectCode: list.subjectCode,
+                    isAvailable: list.isAvailable,
+                    term: list.term,
+                    session: list.session,
+                    examType: list.examType,
                }));
-               setSubjects(fetchedSubjects)
+               setExams(fetchedexams);
           } catch (error) {
-               console.error("Error fetching list of subjects:", error);
+               console.error("Error fetching list of exams:", error);
                setErrorMessage(error.response?.data?.message || 'An error occurred make sure your server is up and running');
           } finally {
                setLoading(false);
@@ -146,16 +189,15 @@ const Exam = (set, get) => ({
           }
      },
      flipAvailability: async (id) => {
-          const { setLoading, setMessage, setErrorMessage } = get().exam;
+          const { setLoading, setErrorMessage } = get().exam;
           setLoading(true);
           try {
                var res = await axios.post(`${BASE_URL}/api/v1/Exam/flip-availability?key=${id}`);
                const messg = res.data.message;
-               setMessage(messg);
-               return true;
+               return { success: true, message: messg};
           } catch (error) {
                console.error(`Error occured updating availabilty.`, error);
-               setErrorMessage(error.response?.data?.message || 'An error occurred when fliping the availability');
+               return { success: false, message: error.response?.data?.message || 'An error occurred when updating the availability'}
           } finally {
                setLoading(false);
           }
