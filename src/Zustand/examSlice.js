@@ -124,7 +124,6 @@ const Exam = (set, get) => ({
           try {
                var res = await axios.get(`${BASE_URL}/api/v1/Exam/get-instructions?examKey=${examKey}&studentId=${id}`);
                const fetchedIntruction = res.data.data;
-               console.log(fetchedIntruction);
                setInstruction(fetchedIntruction);
           } catch (error) {
                console.error("Error fetching student available exams:", error);
@@ -162,7 +161,6 @@ const Exam = (set, get) => ({
                
                const res = await axios.get(`${BASE_URL}/api/v1/Exam/get-single-with-questions?examKey=${examKey}`);
                var response = res.data.data;
-               console.log(response);
                setSingleExam(response);
           } catch (error) {
                console.error(`Error occured when trying to fetch single subject.`, error);

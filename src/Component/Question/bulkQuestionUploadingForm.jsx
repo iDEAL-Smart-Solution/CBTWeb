@@ -10,7 +10,7 @@ import { useNotification } from "../../Context/notificationContext";
 export default function BulkQuestionUploadingForm() {
      const { question, uploadBulkQuestion } = useQuestion();
      const { subject, fetchSubjectCodes } = useSubject();
-     const { exam, fetchExamsLight } = useExam();
+     const { exam, fetchExams } = useExam();
      const { loading } = question;
 
      const { showSuccess, showError } = useNotification();
@@ -19,6 +19,7 @@ export default function BulkQuestionUploadingForm() {
           examId: "",
           subjectCode: "",
           question: null,
+          questionType: 0,
      });
      const handleInputChange = (event) => {
           const { name, value, files } = event.target;
@@ -37,7 +38,7 @@ export default function BulkQuestionUploadingForm() {
      }
      useEffect(() => {
           fetchSubjectCodes();
-          fetchExamsLight();
+          fetchExams();
      }, [])
 
      const { subjects } = subject;
@@ -47,8 +48,7 @@ export default function BulkQuestionUploadingForm() {
           e.preventDefault();
           try {
                let res = await uploadBulkQuestion(formData);
-               if(res.success) 
-               {
+               if (res.success) {
                     showSuccess(res.message);
                } else {
                     showError(res.message);
@@ -62,13 +62,18 @@ export default function BulkQuestionUploadingForm() {
                examId: "",
                subjectCode: "",
                question: null,
+               questionType: 0,
           })
      }
+     const queType = [
+          { value: 1, text: 'OBJ' },
+          { value: 2, text: 'Theory' },
+     ]
      return (
           <div className="page-center-2">
                <div className="register-box-3 box-shadow">
                     <form onSubmit={handleSubmit} className="form" >
-             
+
                          <div className="form-grouping">
                               <Dropdown
                                    name={`subjectCode`}
@@ -96,6 +101,20 @@ export default function BulkQuestionUploadingForm() {
                                    optionLabel='examName'
                                    mb={`15px`}
 
+                              />
+                         </div>
+                         <div className="form-grouping">
+                              <Dropdown
+                                   name={`questionType`}
+                                   value={formData.questionType}
+                                   handleChange={handleInputChange}
+                                   width={`100%`}
+                                   options={queType}
+                                   optionKey='value'
+                                   optionValue='value'
+                                   firstOption={`Select Question type`}
+                                   optionLabel='text'
+                                   mb={`15px`}
                               />
                          </div>
                          <div className="form-grouping">

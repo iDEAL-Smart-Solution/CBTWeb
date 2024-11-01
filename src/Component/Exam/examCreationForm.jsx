@@ -21,6 +21,8 @@ export default function ExamCreationForm() {
           durationHours: 0,
           durationMinutes: 0,
           obtainableScore: 0,
+          oBJScore: 0,
+          theoryScore: 0,
      });
 
      const handleInputChange = (event) => {
@@ -49,6 +51,7 @@ export default function ExamCreationForm() {
           };
 
           try {
+               console.log(dataToSubmit);
                let res = await createExam(dataToSubmit);
                if (res.success) {
                     showSuccess(res.message);
@@ -69,6 +72,8 @@ export default function ExamCreationForm() {
                durationHours: 0,
                durationMinutes: 0,
                ontainableScore: 0,
+               oBJScore: 0,
+               theoryScore: 0,
           });
      };
 
@@ -152,6 +157,32 @@ export default function ExamCreationForm() {
                          </div>
                          <InputField
                               type="number"
+                              name="oBJScore"
+                              value={formData.oBJScore}
+                              placeholder="OBJ Score"
+                              className="register-long-field"
+                              handleChange={handleInputChange}
+                              min="0"
+                              max="100"
+                              label={`Total OBJ Score`}
+                              width={`97.5%`}
+
+                         />
+                         <InputField
+                              type="number"
+                              name="theoryScore"
+                              value={formData.theoryScore}
+                              placeholder="Theory score"
+                              className="register-long-field"
+                              handleChange={handleInputChange}
+                              min="0"
+                              max="100"
+                              label={`Theory score, put 0 if this exam doesn't have theory`}
+                              width={`97.5%`}
+
+                         />
+                          <InputField
+                              type="number"
                               name="obtainableScore"
                               value={formData.obtainableScore}
                               placeholder="Obtainable Score"
@@ -163,7 +194,6 @@ export default function ExamCreationForm() {
                               width={`97.5%`}
 
                          />
-
                          <div className="form-grouping-buttom">
                               <input className="submit-button bg-color-mute text-center" type="reset" value="reset" onClick={handleReset} />
                               <Submit className={`submit-button text-center color-light`} loading={loading} isNotLoading={`submit`} isloading={`please wait...`} />

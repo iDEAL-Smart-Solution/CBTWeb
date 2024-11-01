@@ -11,9 +11,9 @@ import { useNotification } from "../../Context/notificationContext";
 export default function SingleQuestionUploadingForm() {
      const { question, uploadSingleQuestion } = useQuestion();
      const { subject, fetchSubjectCodes } = useSubject();
-     const { exam, fetchExamsLight } = useExam();
+     const { exam, fetchExams } = useExam();
      const { loading } = question;
-     const {showSuccess, showError} = useNotification();
+     const { showSuccess, showError } = useNotification();
      const [formData, setFormData] = useState({
           examId: "",
           subjectCode: "",
@@ -25,6 +25,7 @@ export default function SingleQuestionUploadingForm() {
           optionD: "",
           answer: "",
           pointPerQuestion: 0,
+          questionType: 0,
      });
      const handleInputChange = (event) => {
           const { name, value } = event.target;
@@ -36,19 +37,22 @@ export default function SingleQuestionUploadingForm() {
      }
      useEffect(() => {
           fetchSubjectCodes();
-          fetchExamsLight();
+          fetchExams();
      }, [])
 
      const { subjects } = subject;
      const { exams } = exam;
 
+     const queType = [
+          { value: 1, text: 'OBJ' },
+          { value: 2, text: 'Theory' },
+     ]
+
      const handleSubmit = async (e) => {
           e.preventDefault();
-
           try {
                let res = await uploadSingleQuestion(formData);
-               if(res.success) 
-               {
+               if (res.success) {
                     showSuccess(res.message);
                } else {
                     showError(res.message);
@@ -69,16 +73,14 @@ export default function SingleQuestionUploadingForm() {
                optionD: "",
                answer: "",
                pointPerQuestion: 0,
+               questionType: 0,
           })
      }
      return (
           <div className="page-center-2">
                <div className="register-box-3 box-shadow">
+                    <small className="bold color-mute" >Note: when uploading thoery question, kindly skip the options and answers field</small>
                     <form onSubmit={handleSubmit} className="form" >
-                         {/* <div style={{ height: "5vh" }}>
-                              {message && <p style={{ backgroundColor: "var(--primary-color)" }} className="color-light text-center bold">{message}</p>}
-                              {errorMessage && <p style={{ backgroundColor: "var(--danger-color)" }} className="color-light text-center bold">{errorMessage}</p>}
-                         </div> */}
                          <div className="form-grouping-2">
                               <Dropdown
                                    name={`subjectCode`}
@@ -103,6 +105,20 @@ export default function SingleQuestionUploadingForm() {
                                    optionValue='id'
                                    firstOption={`Select Exam`}
                                    optionLabel='examName'
+                              />
+                         </div>
+                         <div className="form-grouping-2">
+                              <Dropdown
+                                   name={`questionType`}
+                                   value={formData.questionType}
+                                   handleChange={handleInputChange}
+                                   width={`100%`}
+                                   options={queType}
+                                   optionKey='value'
+                                   optionValue='value'
+                                   firstOption={`Select Question type`}
+                                   optionLabel='text'
+                                   mb={`15px`}
                               />
                          </div>
                          <div className="form-grouping">

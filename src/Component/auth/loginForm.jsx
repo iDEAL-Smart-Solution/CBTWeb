@@ -7,7 +7,7 @@ import { useNotification } from "../../Context/notificationContext";
 export default function LoginForm() {
      const { login, auth } = useAuth();
      const { loading, isAuthenticated } = auth;
-     const { showSuccess, showError } = useNotification();
+     const { showSuccess, showError } = useNotification();  
      const [formData, setFormData] = useState({
           email: "",
           password: ""

@@ -4,6 +4,7 @@ import { BASE_URL } from '../Constant';
 
 export const useDoExam = create((set, get) => ({
   questions: [],
+  theory: [],
   loading: false,
   currentIndex: 0,
   userAnswers: {},
@@ -11,7 +12,7 @@ export const useDoExam = create((set, get) => ({
   examId: "",
   sessionId: "",
   subjectCode: "",
-  totalQuestion: 0,
+  totalOBJQuestion: 0,
   studentId: "",
   startTime: null,
   message: "",
@@ -25,8 +26,7 @@ export const useDoExam = create((set, get) => ({
 
       const res = await axios.get(`${BASE_URL}/api/v1/Exam/do-exam?examKey=${examKey}&studentId=${studentId}`);
       const incoming = res.data;
-
-      const questions = incoming.questionsPerStudents.map((list, index) => ({
+      const questions = incoming.objQuestionsPerStudent.map((list, index) => ({
         index,
         id: list.id,
         questionInstruction: list.questionInstruction,  
@@ -34,6 +34,14 @@ export const useDoExam = create((set, get) => ({
         questionImage: list.questionImage,
         options: [list.optionA, list.optionB, list.optionC, list.optionD],
       }));
+
+      const theory = incoming.thoeryQuestionsPerStudent.map((list, index) => ({
+        index,
+        id: list.id,
+        questionInstruction: list.questionInstruction,  
+        question: list.question,
+        questionImage: list.questionImage,
+      }))
 
       const maxDuration = incoming.duration;
 
@@ -47,12 +55,13 @@ export const useDoExam = create((set, get) => ({
 
       set({
         questions,
+        theory,
         loading: false,
         duration: totalSeconds,
         examId: incoming.examId,
         sessionId: incoming.sessionId,
         subjectCode: incoming.subjectCode,
-        totalQuestion: incoming.totalQuestion,
+        totalOBJQuestion: incoming.totalOBJQuestion,
         studentId: studentId,
         startTime: new Date().toISOString(),
         maxDuration: incoming.duration
@@ -88,7 +97,6 @@ submitExam: async () => {
      const startTime = new Date(state.startTime);
      const durationInSeconds = Math.floor((endTime - startTime) / 1000);
    
-     // Convert duration to "HH:mm:ss" format for TimeSpan
      const hours = Math.floor(durationInSeconds / 3600);
      const minutes = Math.floor((durationInSeconds % 3600) / 60);
      const seconds = durationInSeconds % 60;
@@ -108,7 +116,6 @@ submitExam: async () => {
    
      try {
        const response = await axios.post(`${BASE_URL}/api/v1/Exam/submit`, submissionData);
-       console.log('Exam submitted successfully:', response.data);
        return response.data;
      } catch (error) {
        console.error('Error submitting exam:', error);

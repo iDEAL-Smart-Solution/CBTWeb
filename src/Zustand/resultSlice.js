@@ -59,6 +59,29 @@ const Result = (set, get) => ({
           } finally {
                setLoading(false);
           }
+     },
+     uploadTheoryScore: async (formData) => {
+          const { setLoading } = get().result;
+          setLoading(true);
+          try {
+               const formDataToSend = new FormData();
+               Object.entries(formData).forEach(([key, value]) => {
+                    if (Array.isArray(value)) {
+                         formDataToSend.append(key, value[0]);
+                    } else {
+                         formDataToSend.append(key, value);
+                    }
+               });
+               
+               var res = await axios.post(`${BASE_URL}/api/v1/Result/upload-theory-score`, formDataToSend);
+               const messg = res.data.message
+               return{success: true, message: messg}
+          } catch (error) {
+               console.error(`Error occured uploading bulk question.`, error);
+               return{success: false, message: error.response.data.message || 'An error occurred uploading the theory result'};
+          } finally {
+               setLoading(false);
+          }
      }
 
 })

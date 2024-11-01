@@ -4,14 +4,16 @@ import { useState, useEffect } from "react";
 import { InputField, Submit } from "../ReUsableComponents/input";
 import { Dropdown } from "../ReUsableComponents/dropDown";
 import { useNotification } from "../../Context/notificationContext";
+import { useStaff } from "../../Zustand/staffSlice";
 
 export default function SubjectCreationForm() {
      const { subject, createSubject } = useSubject();
      const { schClass, fetchClassList } = useClass();
+     const { staff, fetchAllStaffsUsername } = useStaff();
      const { loading } = subject;
-
+     
      const { showSuccess, showError } = useNotification();
-
+     
      const [formData, setFormData] = useState({
           name: "",
           code: "",
@@ -21,8 +23,8 @@ export default function SubjectCreationForm() {
           testTotalScore: 0,
           examTotalScore: 0,
      });
-
-
+     
+     
      const handleInputChange = (event) => {
           const { name, value } = event.target;
           let parsedValue = value;
@@ -31,12 +33,14 @@ export default function SubjectCreationForm() {
                [name]: parsedValue
           });
      };
-
+     
      useEffect(() => {
           fetchClassList();
+          fetchAllStaffsUsername();
      }, [])
-
+     
      const { allschClass } = schClass;
+     const { staffsUsernames } = staff;
 
 
      const handleSubmit = async (e) => {
@@ -73,7 +77,7 @@ export default function SubjectCreationForm() {
                               <InputField type={`text`} name={`name`} value={formData.name} placeholder={`Name of Subject`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
                               <InputField type={`text`} name={`code`} value={formData.code} placeholder={`Subject Code`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
                               <InputField type={`text`} name={`description`} value={formData.description} placeholder={`Subject Description`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
-                              <InputField type={`text`} name={`userName`} value={formData.userName} placeholder={`Assigned staff user name`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
+                              {/* <InputField type={`text`} name={`userName`} value={formData.userName} placeholder={`Assigned staff user name`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} /> */}
 
                          <div className="form-grouping">
                               <Dropdown
@@ -86,6 +90,22 @@ export default function SubjectCreationForm() {
                                    optionKey={`classId`}
                                    optionValue={`className`}
                                    optionLabel={`className`}
+                                   mb={`20px`}
+                              />
+                         </div>
+
+                         <div className="form-grouping">
+                              <Dropdown
+                                   name={`userName`}
+                                   value={formData.userName}
+                                   handleChange={handleInputChange}
+                                   width={`100%`}
+                                   firstOption={`Select Staff`}
+                                   options={staffsUsernames}
+                                   optionKey={`id`}
+                                   optionValue={`userName`}
+                                   optionLabel={`userName`}
+                                   optionImage={`profilePicture`}
                                    mb={`20px`}
                               />
                          </div>

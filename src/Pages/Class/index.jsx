@@ -7,7 +7,7 @@ import { useNotification } from "../../Context/notificationContext";
 export default function Class() {
      const { fetchClassList, schClass, createClass, deleteClass } = useClass();
 
-     const {showSuccess, showError } = useNotification;
+     const {showSuccess, showError } = useNotification();
 
      const [name, setName] = useState('');
 
@@ -23,13 +23,14 @@ export default function Class() {
                let res = await createClass(name);
                if(res.success)
                {
+                    setName("");
                     showSuccess(res.message);
                     fetchClassList();
                } else {
                     showError(res.message);
                }
           } catch (error) {
-               showError(error)
+               console.error(error);
           }
      };
 
@@ -44,7 +45,8 @@ export default function Class() {
                     showError(res.message);
                }
           } catch (error) {
-               showError(error);
+               console.error(error);
+
           }
      }
 

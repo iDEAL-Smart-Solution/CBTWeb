@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { SearchField } from "../../Component/ReUsableComponents/input";
 import { useExam } from "../../Zustand/examSlice";
 import { ExamListTemplate1 } from "../../Component/Exam/examListTemplate";
+import { useNotification } from "../../Context/notificationContext";
 
 
 export default function ExamList() {
     const { exam, fetchExams, flipAvailability, filterList } = useExam();
     const { exams, loading } = exam;
+
+    const { showError, showSuccess } = useNotification();
 
     useEffect(() => {
         fetchExams();

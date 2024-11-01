@@ -18,9 +18,14 @@ const Question = (set, get) => ({
           const { setLoading } = get().question;
           setLoading(true);
           try {
-               var res = await axios.post(`${BASE_URL}/api/v1/Question/upload-single`, formData);
+               let res;
+               if(formData.questionType == "1")
+               {
+                    res = await axios.post(`${BASE_URL}/api/v1/Question/upload-single`, formData);
+               } else {
+                    res = await axios.post(`${BASE_URL}/api/v1/Question/upload-single-theory`, formData)
+               }
                const messg = res.data.message;
-               console.log(messg)
                return{success: true, message: messg}
 
           } catch (error) {
@@ -43,7 +48,13 @@ const Question = (set, get) => ({
                          formDataToSend.append(key, value);
                     }
                });
-               var res = await axios.post(`${BASE_URL}/api/v1/Question/upload-bulk`, formDataToSend);
+               let res;
+               if(formData.questionType == "1")
+               {
+                    res = await axios.post(`${BASE_URL}/api/v1/Question/upload-bulk`, formDataToSend);
+               } else {
+                    res = await axios.post(`${BASE_URL}/api/v1/Question/upload-bulk-theory`, formDataToSend)
+               }
                const messg = res.data.message;
                return{success: true, message: messg}
           } catch (error) {

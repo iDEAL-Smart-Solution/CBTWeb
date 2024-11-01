@@ -125,6 +125,9 @@ export default function StaffRegistrationForm() {
                               <input className="submit-button bg-color-mute text-center" type="reset" value="reset" onClick={handleReset} />
                               <Submit className={`submit-button text-center color-light`} loading={loading} isNotLoading={`submit`} isloading={`please wait...`} />
                          </div>
+                         <div style={{height: '3em'}}>
+
+                         </div>
                     </form>
                </div>
           </div>

@@ -116,13 +116,14 @@ export default function SingleExamTemplate({ loading, data, errorMessage, handle
                                    <p>Exam Name : {data.examName}</p>
                                    <p>Exam Term : {termMap[data.term]}</p>
                                    <p>Exam Session : {data.session}</p>
-                                   {/* <p>Start Time : {data.startTime}</p> */}
                                    <p>Available : {data.isAvailable ? "Yes" : "No"}</p>
+                                   <p>Exam Type : {typeMap[data.examType]}</p>
                               </div>
                               <div className="box-shadow-2 p-30 bold">
                                    <p>Duration of Exam : {data.duration}</p>
-                                   <p>Exam Type : {typeMap[data.examType]}</p>
                                    <p>Number of question for each Studnet : {data.numberOfQuestionsPerStudent}</p>
+                                   <p>Objective Score: {data.objScore}</p>
+                                   <p>Theory Score: {data.theoryScore}</p>
                                    <p>Max Obtainable Score: {data.obtainableScore}</p>
                                    <div style={{ position: "absolute", right: "-40%", bottom: "40px" }}>
                                         <FaEdit className="edit-icon" onClick={() => handleEditClick(data.id)} />

@@ -1,11 +1,11 @@
 
 import { Table } from "../ReUsableComponents/table"
 
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 
 
-export default function StaffListTemplate({ data, loading }) {
+export default function StaffListTemplate({ data, loading, handleDelete }) {
      const navigate = useNavigate();
 
      const columns = [
@@ -13,7 +13,9 @@ export default function StaffListTemplate({ data, loading }) {
           { key: 'userName', header: 'User Name' },
           { key: 'gender', header: 'Gender' },
           { key: 'uin', header: 'UIN' },
-          { key: 'more', header: 'more' },
+          { key: 'more', header: '' },
+          { key: 'delete', header: '' },
+
      ]
      const genderMap = {
           1: "Male",
@@ -21,7 +23,7 @@ export default function StaffListTemplate({ data, loading }) {
      };
 
      const handleMoreClick = (id) => {
-          navigate(`/staff/${id}`);     
+          navigate(`/staff/${id}`);
      };
 
      return (
@@ -33,6 +35,7 @@ export default function StaffListTemplate({ data, loading }) {
                onMoreClick={handleMoreClick}
                emptyText={`You have no Staff`}
                width={`75%`}
+               handleDelete={handleDelete}
           />
      )
 }

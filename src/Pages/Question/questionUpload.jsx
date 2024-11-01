@@ -7,7 +7,6 @@ export default function QuestionUpload() {
 
 
      const handleUploadTypeChange = (event) => {
-          console.log(event.target.value);
           setUploadType(event.target.value);
      };
      return (

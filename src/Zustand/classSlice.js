@@ -62,18 +62,17 @@ const Class = (set, get) => ({
           }
      },
      createClass: async (name) => {
-          const { setLoading, setMessage } = get().schClass;
+          const { setLoading } = get().schClass;
           setLoading(true);
           try {
                const res = await axios.post(`${BASE_URL}/api/v1/Class/Create?name=${name}`);
                const messg = res.data.message;
-               setLoading(false);
                return {success: true, message: messg};
           } catch (error) {
                console.error(`Error occured while creating class ${name}.`, error);
-               setMessage(error.response?.data?.message || 'An error occurred');
+               return {success: true, message: error.response?.data?.message || 'An error occurred'};
+          } finally {
                setLoading(false);
-               return {success: true, message: messg};
           }
      },
      deleteClass: async (id) => {

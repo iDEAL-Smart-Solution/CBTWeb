@@ -28,7 +28,7 @@ import ErrorPage from '../errorPage';
 import Edit_Acad_Session from './Pages/Acad/edit_acad_session';
 import StaffSubjects from './Pages/Subject/staffSubjects';
 import StaffExams from './Pages/Exam/staffExams';
-
+import UploadTheoryScore from './Pages/Result/uploadTheoryScore';
 
 function App() {
   const getUser = () => JSON.parse(sessionStorage.getItem("user"));
@@ -80,6 +80,7 @@ function App() {
         { path: "/edit-academic-session", element: <Edit_Acad_Session/> },
         { path: "/staff/subjects", element: <StaffSubjects /> },
         { path: "/staff/exams", element: <StaffExams /> },
+        { path: "/upload-thoery-score", element: <UploadTheoryScore /> },
       ]
     },
     {

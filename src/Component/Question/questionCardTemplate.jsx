@@ -111,13 +111,13 @@ export default function QuestionCard({ data, index, loading, handleDelele, handl
                          {data.questionImage && <img src={`${BASE_URL}/ProfilePictures/${data.questionImage}`} width="50%" alt="image" />}
 
                          <div className="p-l-20">
-                              <p>A. {data.optionA}</p>
-                              <p>B. {data.optionB}</p>
-                              <p>C. {data.optionC}</p>
-                              <p>D. {data.optionD}</p>
+                              {data.optionA?.trim() && <p>A. {data.optionA}</p>}
+                              {data.optionB?.trim() && <p>B. {data.optionB}</p>}
+                              {data.optionC?.trim() && <p>C. {data.optionC}</p>}
+                              {data.optionD?.trim() && <p>D. {data.optionD}</p>}
                          </div>
                          <p>Question Point: {data.pointPerQuestion}</p>
-                         <p>Correct Answer: {data.answer}</p>
+                         {data.answer?.trim() &&  <p>Correct Answer: {data.answer}</p>}
                          <div className="icon-container">
                               <FaEdit className="edit-icon" size={20} onClick={() => handleEditClick(data.questionId)} />
                               <MdDelete className="delete-icon" onClick={() => handleDelele(data.questionId)} />
