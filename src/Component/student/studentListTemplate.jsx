@@ -4,7 +4,7 @@ import { Table } from "../ReUsableComponents/table";
 import { useNavigate } from 'react-router-dom'; 
 
 
-export default function StudentListTemplate({ data, loading }) {
+export default function StudentListTemplate({ data, loading, handleDelete }) {
      const navigate = useNavigate();
 
      const columns = [
@@ -13,7 +13,8 @@ export default function StudentListTemplate({ data, loading }) {
           { key: 'studentName', header: 'Name' },
           { key: 'className', header: 'Class Name' },
           { key: 'gender', header: 'Gender' },
-          { key: 'more', header: 'More' }
+          { key: 'more', header: '' },
+          { key: 'delete', header: '' },
      ];
 
      const genderMap = {
@@ -35,7 +36,7 @@ export default function StudentListTemplate({ data, loading }) {
                genderMap={genderMap}
                emptyText="Enter valid keyword to search for student either by class name or subject"
                width={`80%`}
-
+               handleDelete={handleDelete}
           />
      )
 }

@@ -9,7 +9,7 @@ export const NotificationProvider = ({ children }) => {
     toast.success(message, {
       position: "top-right",
       autoClose: 3000,
-      hideProgressBar: false,
+      hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
@@ -21,7 +21,7 @@ export const NotificationProvider = ({ children }) => {
     toast.error(message, {
       position: "top-right",
       autoClose: 3000,
-      hideProgressBar: false,
+      hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,

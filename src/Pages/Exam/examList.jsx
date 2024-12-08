@@ -45,7 +45,7 @@ export default function ExamList() {
         { key: 'isAvailable', header: 'Available' },
         { key: 'examType', header: 'Type' },
         { key: 'more', header: '' },
-        { key: 'makeAvailable', header: '' }
+        { key: 'makeAvailable', header: 'Availability' }
     ];
     const termMap = {
         1: "1st_term",

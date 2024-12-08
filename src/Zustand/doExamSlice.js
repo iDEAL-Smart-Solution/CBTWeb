@@ -68,7 +68,7 @@ export const useDoExam = create((set, get) => ({
       });
     } catch (error) {
       console.error("Error fetching questions", error);
-      set({ loading: false, message: `${error.response.data}, Please contact the admin, if you haven't seat for the exam` });
+      set({ loading: false, message: `It seems you've attempteed the exam, Please contact the admin, if otherwise` });
       throw new Error(`${error.response.data} Please contact the admin`);
 
     }

@@ -29,10 +29,10 @@ const Student = (set, get) => ({
                });
                const res = await axios.post(`${BASE_URL}/api/v1/Student/create`, formDataToSend);
                const messg = res.data.message;
-               return {success: true, message: messg };
+               return { success: true, message: messg };
           } catch (error) {
                console.error(`Error occured registering new student.`, error);
-               return {success: false, message: error.response?.data?.message || 'An error occurred: kindly fill out all the required spaces'};
+               return { success: false, message: error.response?.data?.message || 'An error occurred: kindly fill out all the required spaces' };
           } finally {
                setLoading(false);
           }
@@ -107,7 +107,21 @@ const Student = (set, get) => ({
                setLoading(false);
           }
      },
+     deleteStudent: async (id) => {
+          const { setLoading } = get().student;
+          setLoading(true);
+          try {
+               var res = await axios.delete(`${BASE_URL}/api/v1/Student/delete?id=${id}`);
+               const messg = res.data;
+               return { success: true, message: messg }
+          } catch (error) {
+               console.error(`Error occured deleting student.`, error); s
+               return { success: false, message: error.response?.data?.message || 'An error occurred while trying to delete the student' }
+          } finally {
+               setLoading(false);
+          }
 
+     }
 })
 
 export const useStudent = create(Student);

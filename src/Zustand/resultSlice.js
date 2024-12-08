@@ -27,6 +27,7 @@ const Result = (set, get) => ({
                          exam_Score: result.exam_Score,
                          total_Score: result.total_Score,
                          term: result.term,
+                         studentName: result.studentName,
                 }))
                 setSubjectResults(results);
           } catch (error) {

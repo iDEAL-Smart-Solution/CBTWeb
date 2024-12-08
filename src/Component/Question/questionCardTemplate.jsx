@@ -105,7 +105,7 @@ export default function QuestionCard({ data, index, loading, handleDelele, handl
                          <div className="loader"></div>
                     </div>
                ) : (
-                    <div>
+                    <div style={{}}>
                          {data.questionInstruction?.trim() && <small className='bolder'>{data.questionInstruction}</small>}
                          <p>{index + 1}. {data.question}</p>
                          {data.questionImage && <img src={`${BASE_URL}/ProfilePictures/${data.questionImage}`} width="50%" alt="image" />}

@@ -77,7 +77,7 @@ export function Table({
           case 'delete':
             cellContent = (
               <button style={{all: 'unset'}}
-            onClick={() => handleDelete(item.classId || item.userId)} 
+            onClick={() => handleDelete(item.classId || item.userId || item.id)} 
             >
                 <MdDelete size={'25px'} className='color-danger' />
               </button>

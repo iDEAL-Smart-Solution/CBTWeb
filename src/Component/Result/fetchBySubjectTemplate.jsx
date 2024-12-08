@@ -3,6 +3,7 @@ import { Table } from "../ReUsableComponents/table";
 export default function SubjectResultTemplate({ data, loading }) {
      const columns = [
           { key: 'studentUin', header: 'Student UIN' },
+          { key: 'studentName', header: 'Name' },
           { key: 'first_CA_Score', header: 'First CA' },
           { key: 'second_CA_Score', header: 'Second CA' },
           { key: 'third_CA_Score', header: 'Third CA' },
