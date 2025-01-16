@@ -1,83 +1,12 @@
-import { useExam } from "../../Zustand/examSlice";
-import { useState, useEffect } from "react";
-import { InputField, Submit } from "../ReUsableComponents/input";
-import { useSubject } from "../../Zustand/subjectSlice";
+
+import { InputField, Submit, RadioButtonGroup } from "../ReUsableComponents/input";
 import examType from "../../lib/examTypeOption";
 import { Dropdown } from "../ReUsableComponents/dropDown";
-import { useNotification } from "../../Context/notificationContext";
 
-export default function ExamCreationForm() {
-     const { exam, createExam } = useExam();
-     const { subject, fetchSubjectsLight } = useSubject();
-     const { loading } = exam;
-
-     const { showSuccess, showError } = useNotification();
-
-     const [formData, setFormData] = useState({
-          subjectCode: "",
-          examType: 0,
-          examName: "",
-          NumberOfQuestionsPerStudent: 0,
-          durationHours: 0,
-          durationMinutes: 0,
-          obtainableScore: 0,
-          oBJScore: 0,
-          theoryScore: 0,
-     });
-
-     const handleInputChange = (event) => {
-          const { name, value } = event.target;
-          let parsedValue = value;
-          setFormData({
-               ...formData,
-               [name]: parsedValue
-          });
-     };
-
-     useEffect(() => {
-          fetchSubjectsLight();
-     }, []);
-
-     const { subjects } = subject;
-
-     const handleSubmit = async (e) => {
-          e.preventDefault();
-
-          const duration = `${String(formData.durationHours).padStart(2, '0')}:${String(formData.durationMinutes).padStart(2, '0')}:00`;
-
-          const dataToSubmit = {
-               ...formData,
-               duration
-          };
-
-          try {
-               console.log(dataToSubmit);
-               let res = await createExam(dataToSubmit);
-               if (res.success) {
-                    showSuccess(res.message);
-               } else {
-                    showError(res.message)
-               }
-          } catch (_error) {
-               console.log(_error);
-          }
-     };
-
-     const handleReset = async () => {
-          setFormData({
-               subjectCode: "",
-               examType: 0,
-               examName: "",
-               NumberOfQuestionsPerStudent: 0,
-               durationHours: 0,
-               durationMinutes: 0,
-               ontainableScore: 0,
-               oBJScore: 0,
-               theoryScore: 0,
-          });
-     };
+export default function ExamCreationForm({ handleInputChange, formData, handleSubmit, handleReset, subjects, loading }) {
 
      return (
+
           <div className="page-center-2 ">
                <div className="register-box box-shadow">
                     <form onSubmit={handleSubmit} className="form">
@@ -125,6 +54,16 @@ export default function ExamCreationForm() {
                               className="register-long-field"
                               handleChange={handleInputChange}
                               label={`Number of question per student`}
+                              width={`97.5%`}
+                         />
+                         <InputField
+                              type="number"
+                              name="NumberOfPassageQuestionsPerStudent"
+                              value={formData.NumberOfPassageQuestionsPerStudent}
+                              placeholder="Number of passage questions per student"
+                              className="register-long-field"
+                              handleChange={handleInputChange}
+                              label={`Number of passage question per student, leave has zero if exam has no passage`}
                               width={`97.5%`}
                          />
 
@@ -181,7 +120,7 @@ export default function ExamCreationForm() {
                               width={`97.5%`}
 
                          />
-                          <InputField
+                         <InputField
                               type="number"
                               name="obtainableScore"
                               value={formData.obtainableScore}
@@ -194,6 +133,17 @@ export default function ExamCreationForm() {
                               width={`97.5%`}
 
                          />
+                         <RadioButtonGroup
+                              label="Has Passage"
+                              name="HasPassage"
+                              options={[
+                                   { value: true, label: 'Yes' },
+                                   { value: false, label: 'No' },
+                              ]}
+                              selectedValue={formData.HasPassage}
+                              handleChange={handleInputChange}
+                         />
+
                          <div className="form-grouping-buttom">
                               <input className="submit-button bg-color-mute text-center" type="reset" value="reset" onClick={handleReset} />
                               <Submit className={`submit-button text-center color-light`} loading={loading} isNotLoading={`submit`} isloading={`please wait...`} />

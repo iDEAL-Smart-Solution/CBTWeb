@@ -11,6 +11,9 @@ export default function StudentNavbar() {
     const { academicSession, user } = auth;
     const { current_Session, current_Term } = academicSession;
     const { firstName, profilePicture } = user || {};
+      const { acad } = useAcad();
+        const { nameAndLogo } = acad;
+        const { name } = nameAndLogo || {};
     function handleSignOut() {
         logout();
         navigate('/');
@@ -24,7 +27,7 @@ export default function StudentNavbar() {
         <nav className="navbar">
             <div className="navbar-logo">
                 <img src="path-to-logo.png" alt="" />
-                <span className='color-primary'>{SCHOOL_NAME}</span>
+                <span className='color-primary'>{name || SCHOOL_NAME}</span>
             </div>
             <div>
                 <div>

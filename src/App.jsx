@@ -29,6 +29,9 @@ import Edit_Acad_Session from './Pages/Acad/edit_acad_session';
 import StaffSubjects from './Pages/Subject/staffSubjects';
 import StaffExams from './Pages/Exam/staffExams';
 import UploadTheoryScore from './Pages/Result/uploadTheoryScore';
+import FeedbackForm from './Pages/Feedback/feedbackform';
+import Passage from './Pages/Passage/passage';
+import AddNameAndLogo from './Pages/Acad/add_name_and_logo';
 
 function App() {
   const getUser = () => JSON.parse(sessionStorage.getItem("user"));
@@ -76,11 +79,14 @@ function App() {
         { path: "/subject-result", element: <SubjectResult /> },
         { path: "/student-result", element: <StudentResult /> },
         { path: "/student-clearance", element: <StudentClearancePage /> },
-        { path: "*", element: <ErrorPage /> },
         { path: "/edit-academic-session", element: <Edit_Acad_Session/> },
         { path: "/staff/subjects", element: <StaffSubjects /> },
         { path: "/staff/exams", element: <StaffExams /> },
         { path: "/upload-thoery-score", element: <UploadTheoryScore /> },
+        { path: "/send-feedback", element: <FeedbackForm /> },
+        { path: "*", element: <ErrorPage /> },
+        { path: "/passage", element: <Passage /> },
+        { path: "/add-name-and-logo", element: <AddNameAndLogo /> },
       ]
     },
     {

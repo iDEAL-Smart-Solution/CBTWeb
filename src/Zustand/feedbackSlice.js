@@ -1,4 +1,6 @@
-import { BASE_URL } from "../Constant";
+import { create } from 'zustand';
+import axios from 'axios';
+import { BASE_URL } from '../Constant';
 
 
 const Feedback = create((set, get) => ({
@@ -27,4 +29,6 @@ const Feedback = create((set, get) => ({
 
           }
      },
-}))
+}));
+
+export default Feedback;

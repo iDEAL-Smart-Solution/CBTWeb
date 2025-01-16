@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from '../Constant/index';
 import { create } from "zustand";
+import axiosInstance from "../Constant/axiosInstance";
 
 const Student = (set, get) => ({
      student: {
@@ -41,7 +42,7 @@ const Student = (set, get) => ({
           const { setLoading, setErrorMessage, setStudents } = get().student;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/Student/getstudent-by-any?param=${param}`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/Student/getstudent-by-any?param=${param}`);
                const fetchedStudents = res.data.map((list) => ({
                     id: list.id,
                     className: list.className,
@@ -51,9 +52,11 @@ const Student = (set, get) => ({
                     profilePicture: list.imageUrl,
                }));
                setStudents(fetchedStudents);
+               return {success: true, message: " "}
           } catch (error) {
                console.error("Error fetching student with the search parameter:", error);
-               setErrorMessage(error.response?.data?.message || 'An error occurred fetching student with that keyword');
+               setErrorMessage(error.message || 'An error occurred fetching student with that keyword');
+               return {success: false, message: `${error.response?.status} ${error.response?.statusText}` || error.message}
           } finally {
                setLoading(false);
           }

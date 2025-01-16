@@ -20,8 +20,16 @@ export default function StudentList() {
         setFilterKey(e.target.value);
     };
 
-    const handleSubmit = () => {
-        fetchStudents(filterKey);
+    const handleSubmit = async () => {
+        try {
+            let res = await fetchStudents(filterKey);
+            if(!res.success)
+                 {
+                      showError(res.message);
+                 }
+       } catch (_error) {
+            showError(_error);
+       }
     };
     const handleDelete = async (id) => {
         try {
