@@ -9,6 +9,29 @@ export function InputField({ type, placeholder, className, handleChange, value, 
      )
 }
 
+export function RadioButtonGroup({ label, name, options, selectedValue, handleChange }) {
+     return (
+         <>
+             <small className="color-mute bold">{label}</small>
+             <div className="radio-group">
+                 {options.map((option) => (
+                     <label key={option.value} style={{ marginRight: '10px' }}>
+                         <input
+                             type="radio"
+                             name={name}
+                             value={option.value}
+                             checked={selectedValue === option.value}
+                             onChange={(e) => handleChange(e)}
+                         />
+                         {option.label}
+                     </label>
+                 ))}
+             </div>
+         </>
+     );
+ }
+ 
+
 export function Submit({ name, loading, isloading, isNotLoading, className }) {
      return (
           <input type="submit" value={loading ? isloading : isNotLoading} name={name} loading={loading.toString()} className={className} />

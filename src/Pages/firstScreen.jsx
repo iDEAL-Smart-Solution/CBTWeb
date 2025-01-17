@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import logo1 from '../../src/assets/iDEAL_SOLUTIONS_2.gif';
+import { useAcad } from '../Zustand/acad_session';
+import { BASE_URL } from '../Constant';
+
 
 const FirstScreen = ({ logo }) => {
      return (
@@ -30,8 +34,17 @@ const FirstScreen = ({ logo }) => {
      );
 };
 
-const AppWrapper = ({ logo, appName, duration, children }) => {
+const AppWrapper = ({ appName, duration, children }) => {
      const [showSplash, setShowSplash] = useState(true);
+     const { getNameAndLogo, acad } = useAcad();
+     useEffect(() => {
+          getNameAndLogo();
+     }, [])
+     const { nameAndLogo, loading } = acad;
+     const { logo } = nameAndLogo || {};
+     const logo2 = `${BASE_URL}/ProfilePictures/${logo}`
+     const schoolLogo = logo ? logo2 : logo1
+
 
      useEffect(() => {
           const timer = setTimeout(() => {
@@ -42,7 +55,11 @@ const AppWrapper = ({ logo, appName, duration, children }) => {
      }, [duration]);
 
      return showSplash ? (
-          <FirstScreen logo={logo} appName={appName} />
+          loading ? <div className="loader-cell">
+               <div className="loader"></div>
+          </div> 
+          : 
+          <FirstScreen logo={schoolLogo} appName={appName} />
      ) : (
           children
      );
@@ -100,50 +117,50 @@ transition={{
 
 
 
-     // // const letters = appName.split("");
-     // return (
-     //      <div style={{
-     //           position: 'fixed',
-     //           top: 0,
-     //           left: 0,
-     //           right: 0,
-     //           bottom: 0,
-     //           display: 'flex',
-     //           flexDirection: 'column',
-     //           justifyContent: 'center',
-     //           alignItems: 'center',
-     //           backgroundColor: 'var(--secondary-color)',
-     //      }}>
-     //           <motion.div
-     //                initial={{ opacity: 0 }}
-     //                animate={{ opacity: 1 }}
-     //                exit={{ opacity: 0 }}
-     //                transition={{ duration: 1.0, ease: "easeInOut" }}
-     //                className=""
-     //           >
-     //                <div className="text-center">
-     //                     {/* <h1 className="bold color-primary display-1">
-     //                          {letters.map((letter, index) => (
-     //                               <motion.span
-     //                                    key={index}
-     //                                    initial={{ y: -200, opacity: 0 }}
-     //                                    animate={{ y: 0, opacity: 1 }}
-     //                                    transition={{
-     //                                         duration: 0.6,
-     //                                         delay: index * 0.4,
-     //                                         ease: "easeOut"
-     //                                    }}
-     //                                    style={{ display: 'inline-block' }}
-     //                               >
-     //                                    {letter}
-     //                               </motion.span>
-     //                          ))}
-     //                     </h1> */}
-     //                     <motion.span>
-     //                          <img src={logo} alt='ideal' />
-     //                     </motion.span>
+// // const letters = appName.split("");
+// return (
+//      <div style={{
+//           position: 'fixed',
+//           top: 0,
+//           left: 0,
+//           right: 0,
+//           bottom: 0,
+//           display: 'flex',
+//           flexDirection: 'column',
+//           justifyContent: 'center',
+//           alignItems: 'center',
+//           backgroundColor: 'var(--secondary-color)',
+//      }}>
+//           <motion.div
+//                initial={{ opacity: 0 }}
+//                animate={{ opacity: 1 }}
+//                exit={{ opacity: 0 }}
+//                transition={{ duration: 1.0, ease: "easeInOut" }}
+//                className=""
+//           >
+//                <div className="text-center">
+//                     {/* <h1 className="bold color-primary display-1">
+//                          {letters.map((letter, index) => (
+//                               <motion.span
+//                                    key={index}
+//                                    initial={{ y: -200, opacity: 0 }}
+//                                    animate={{ y: 0, opacity: 1 }}
+//                                    transition={{
+//                                         duration: 0.6,
+//                                         delay: index * 0.4,
+//                                         ease: "easeOut"
+//                                    }}
+//                                    style={{ display: 'inline-block' }}
+//                               >
+//                                    {letter}
+//                               </motion.span>
+//                          ))}
+//                     </h1> */}
+//                     <motion.span>
+//                          <img src={logo} alt='ideal' />
+//                     </motion.span>
 
-     //                </div>
-     //           </motion.div >
-     //      </div >
-     // );
+//                </div>
+//           </motion.div >
+//      </div >
+// );
