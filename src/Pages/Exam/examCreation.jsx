@@ -34,9 +34,13 @@ export default function ExamCreation() {
           });
      };
 
-     useEffect(() => {
-          fetchSubjectsLight();
-     }, []);
+     useEffect( async () => {
+          
+          let res = await fetchSubjectsLight();
+          if (!res.success) {
+               showSuccess(res.message);
+          }
+     }, [fetchSubjectsLight]);
 
      const { subjects } = subject;
 
@@ -51,7 +55,6 @@ export default function ExamCreation() {
           };
 
           try {
-               console.log(dataToSubmit);
                let res = await createExam(dataToSubmit);
                if (res.success) {
                     showSuccess(res.message);

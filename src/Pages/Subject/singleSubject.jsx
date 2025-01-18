@@ -30,7 +30,7 @@ export default function SingleSubject() {
         const handleDelele = async (id) => {
             try {
                 var res = await deleteSubject(id);
-                if(res)
+                if(res.success)
                 {
                     showSuccess(res.message);
                     navigate('/subject/list');

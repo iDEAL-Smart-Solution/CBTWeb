@@ -1,75 +1,8 @@
-import { useSubject } from "../../Zustand/subjectSlice";
-import { useClass } from "../../Zustand/classSlice";
-import { useState, useEffect } from "react";
 import { InputField, Submit } from "../ReUsableComponents/input";
 import { Dropdown } from "../ReUsableComponents/dropDown";
-import { useNotification } from "../../Context/notificationContext";
-import { useStaff } from "../../Zustand/staffSlice";
 
-export default function SubjectCreationForm() {
-     const { subject, createSubject } = useSubject();
-     const { schClass, fetchClassList } = useClass();
-     const { staff, fetchAllStaffsUsername } = useStaff();
-     const { loading } = subject;
+export default function SubjectCreationForm({handleReset, handleSubmit, staffsUsernames, allschClass, handleInputChange, formData, loading }) {
      
-     const { showSuccess, showError } = useNotification();
-     
-     const [formData, setFormData] = useState({
-          name: "",
-          code: "",
-          description: "",
-          className: "",
-          userName: "",
-          testTotalScore: 0,
-          examTotalScore: 0,
-     });
-     
-     
-     const handleInputChange = (event) => {
-          const { name, value } = event.target;
-          let parsedValue = value;
-          setFormData({
-               ...formData,
-               [name]: parsedValue
-          });
-     };
-     
-     useEffect(() => {
-          fetchClassList();
-          fetchAllStaffsUsername();
-     }, [])
-     
-     const { allschClass } = schClass;
-     const { staffsUsernames } = staff;
-
-
-     const handleSubmit = async (e) => {
-          e.preventDefault();
-
-          try {
-               let res = await createSubject(formData);
-               if(res.success)
-                    {
-                         showSuccess(res.message);
-                    } else {
-                         showError(res.message);
-                    }
-          } catch (_error) {
-               showError(_error);
-          }
-     };
-
-     const handleReset = async () => {
-          setFormData({
-               name: "",
-               code: "",
-               description: "",
-               className: "",
-               userName: "",
-               totalTestScore: 0,
-               totalExamScore: 0,
-          })
-     }
      return (
           <div className="page-center-2 ">
                <div className="register-box-2 my-mt box-shadow">

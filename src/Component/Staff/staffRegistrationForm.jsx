@@ -2,86 +2,10 @@
 import { InputField, Submit } from "../ReUsableComponents/input"
 import { ImageUploader } from "../ReUsableComponents/file";
 import genderOptions from "../../lib/genderOptions";
-import { useStaff } from "../../Zustand/staffSlice";
-import { useState } from "react";
 import { Dropdown } from "../ReUsableComponents/dropDown";
-import { useNotification } from "../../Context/notificationContext";
 
-export default function StaffRegistrationForm() {
-     const { staff, createSaff } = useStaff();
-     const { loading } = staff;
-
-     const { showSuccess, showError } = useNotification();
-
-     const [formData, setFormData] = useState({
-          firstName: "",
-          lastName: "",
-          userName: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-          phoneNumber: "",
-          profilePicture: null,
-          gender: 0,
-     });
-
-     const [passwordError, setPasswordError] = useState("");
-
-     const handleInputChange = (event) => {
-          const { name, value, files } = event.target;
-          let parsedValue = value;
-          if (name === "gender") {
-               parsedValue = parseInt(value);
-          }
-
-          if (name === "profilePicture") {
-               setFormData({
-                    ...formData,
-                    [name]: files[0]
-               });
-          } else {
-               setFormData({
-                    ...formData,
-                    [name]: parsedValue
-               });
-          }
-     };
-
-     const handleSubmit = async (e) => {
-          e.preventDefault();
-
-          if (formData.password !== formData.confirmPassword) {
-               setPasswordError("Password and confirm password do not match");
-               return;
-          }
-
-          setPasswordError("");
-          try {
-               let res = await createSaff(formData);
-               if(res.success)
-                    {
-                         showSuccess(res.message);
-                    } else {
-                         showError(res.message);
-                    }
-          } catch (_error) {
-               showError('Request failed');
-          }
-     };
-
-     const handleReset = async () => {
-          setFormData({
-               firstName: "",
-               lastName: "",
-               userName: "",
-               email: "",
-               password: "",
-               confirmPassword: "",
-               phoneNumber: "",
-               profilePicture: null,
-               gender: 0,
-          })
-     }
+export default function StaffRegistrationForm({ loading, formData, handleInputChange, handleSubmit, handleReset, passwordError }) {
+     
      return (
           <div className="page-center-2 ">
                <div className="register-box-3 box-shadow">

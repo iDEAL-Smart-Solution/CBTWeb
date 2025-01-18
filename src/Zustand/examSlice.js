@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from '../Constant/index';
 import { create } from "zustand";
+import axiosInstance from "../Constant/axiosInstance";
 
 
 const Exam = (set, get) => ({
@@ -26,7 +27,7 @@ const Exam = (set, get) => ({
                Object.entries(formData).forEach(([key, value]) => {
                     formDataToSend.append(key, value);
                });
-               var res = await axios.post(`${BASE_URL}/api/v1/Exam/create`, formDataToSend);
+               var res = await axiosInstance.post(`${BASE_URL}/api/v1/Exam/create`, formDataToSend);
                const messg = res.data.message;
                return{success: true, message: messg}
           } catch (error) {
@@ -42,7 +43,7 @@ const Exam = (set, get) => ({
           const { setLoading, setErrorMessage, setExams } = get().exam;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/Exam/get-all`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/Exam/get-all`);
                const fetchedexams = res.data.map((list) => ({
                     id: list.id,
                     examName: list.examName,
@@ -64,7 +65,7 @@ const Exam = (set, get) => ({
           const { setLoading, setErrorMessage, setExams } = get().exam;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/Exam/staff-exams?id=${id}`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/Exam/staff-exams?id=${id}`);
                const fetchedexams = res.data.map((list) => ({
                     id: list.id,
                     examName: list.examName,
@@ -86,7 +87,7 @@ const Exam = (set, get) => ({
           const { setLoading, setErrorMessage, setExams } = get().exam;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/Exam/filter-staff-exams?param=${param}&id=${id}`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/Exam/filter-staff-exams?param=${param}&id=${id}`);
                const fetchedexams = res.data.map((list) => ({
                     id: list.id,
                     examName: list.examName,
@@ -108,7 +109,7 @@ const Exam = (set, get) => ({
           const { setLoading, setErrorMessage, setExams } = get().exam;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/Exam/get-student-available?id=${id}`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/Exam/get-student-available?id=${id}`);
                const fetchedexams = res.data;
                setExams(fetchedexams);
           } catch (error) {
@@ -122,7 +123,7 @@ const Exam = (set, get) => ({
           const { setLoading, setInstruction, setErrorMessage } = get().exam;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/Exam/get-instructions?examKey=${examKey}&studentId=${id}`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/Exam/get-instructions?examKey=${examKey}&studentId=${id}`);
                const fetchedIntruction = res.data.data;
                setInstruction(fetchedIntruction);
           } catch (error) {
@@ -136,7 +137,7 @@ const Exam = (set, get) => ({
           const { setLoading, setErrorMessage, setExams } = get().exam;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/Exam/filter-exams?param=${param}`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/Exam/filter-exams?param=${param}`);
                const fetchedexams = res.data.map((list) => ({
                     id: list.id,
                     examName: list.examName,
@@ -159,7 +160,7 @@ const Exam = (set, get) => ({
           setLoading(true);
           try {
                
-               const res = await axios.get(`${BASE_URL}/api/v1/Exam/get-single-with-questions?examKey=${examKey}`);
+               const res = await axiosInstance.get(`${BASE_URL}/api/v1/Exam/get-single-with-questions?examKey=${examKey}`);
                var response = res.data.data;
                setSingleExam(response);
           } catch (error) {
@@ -173,7 +174,7 @@ const Exam = (set, get) => ({
           const { setLoading, setErrorMessage, setExams } = get().exam;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/Exam/get-all-light`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/Exam/get-all-light`);
                const fetchedexams = res.data.map((list) => ({
                     id: list.id,
                     examName: list.examName,
@@ -187,10 +188,10 @@ const Exam = (set, get) => ({
           }
      },
      flipAvailability: async (id) => {
-          const { setLoading, setErrorMessage } = get().exam;
+          const { setLoading } = get().exam;
           setLoading(true);
           try {
-               var res = await axios.post(`${BASE_URL}/api/v1/Exam/flip-availability?key=${id}`);
+               var res = await axiosInstance.post(`${BASE_URL}/api/v1/Exam/flip-availability?key=${id}`);
                const messg = res.data.message;
                return { success: true, message: messg};
           } catch (error) {
@@ -201,15 +202,16 @@ const Exam = (set, get) => ({
           }
      },
      deleteExam: async (id) => {
-          const { setLoading, setErrorMessage } = get().exam;
+          const { setLoading } = get().exam;
           setLoading(true);
           try {
-               var res = await axios.delete(`${BASE_URL}/api/v1/Exam/delete?id=${id}`);
+               var res = await axiosInstance.delete(`${BASE_URL}/api/v1/Exam/delete?id=${id}`);
                var mssg = res.data.message;
                return{success: true, message: mssg}
           } catch (error) {
                console.error("Error occured when attempting to delete question")
-               setErrorMessage(error.response.data.message || "An error occured, question could not be deleted");
+               return{success: false, message: response.data.message || "An error occured, question could not be deleted"}
+
           } finally {
                setLoading(false);
           }
@@ -222,13 +224,12 @@ const Exam = (set, get) => ({
                Object.entries(formData).forEach(([key, value]) => {
                          formDataToSend.append(key, value);
                });
-               var res = await axios.patch(`${BASE_URL}/api/v1/Exam/update`, formDataToSend);
+               var res = await axiosInstance.patch(`${BASE_URL}/api/v1/Exam/update`, formDataToSend);
                var mssg = res.data.message;
                return {success: true, message: mssg};
           } catch (error) {
                console.error("Error occured when trying to edit Exam : ", error);
-               setErrorMessage(error.response.data.message || "Error occured when trying to edit exam");
-               return {success: false, message: error.response.data};
+               return {success: false, message: error.response.data.message || "Error occured when trying to edit exam"};
           } finally {
                setLoading(false);
           }

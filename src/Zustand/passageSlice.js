@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import axios from 'axios';
 import { BASE_URL } from '../Constant';
+import axiosInstance from '../Constant/axiosInstance';
 
 
 
@@ -15,7 +16,7 @@ const Passage = create((set, get) => ({
                Object.entries(formData).forEach(([key, value]) => {
                     formDataToSend.append(key, value);
                });
-               const res = await axios.post(`${BASE_URL}/api/v1/Question/upload-passage`, formDataToSend);
+               const res = await axiosInstance.post(`${BASE_URL}/api/v1/Question/upload-passage`, formDataToSend);
                const messg = res.data.message;
                return { success: true, message: messg };
           } catch (error) {
@@ -37,7 +38,7 @@ const Passage = create((set, get) => ({
                          formDataToSend.append(key, value);
                     }
                });
-               const res = await axios.post(`${BASE_URL}/api/v1/Question/upload-passage-questions`, formDataToSend);
+               const res = await axiosInstance.post(`${BASE_URL}/api/v1/Question/upload-passage-questions`, formDataToSend);
                const messg = res.data.message;
                return { success: true, message: messg };
           } catch (error) {
@@ -51,7 +52,7 @@ const Passage = create((set, get) => ({
      fetchPassageTitleAndId: async () => {
           set({ loading: true })
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/Question/get-passage-light`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/Question/get-passage-light`);
                const passageTitleAndIds = res.data.map((list) => ({
                     id: list.id,
                     title: list.title,
