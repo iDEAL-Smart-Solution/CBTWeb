@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import axios from 'axios';
 import { BASE_URL } from '../Constant';
+import axiosInstance from '../Constant/axiosInstance';
 
 export const useDoExam = create((set, get) => ({
   questions: [],
@@ -25,7 +26,7 @@ export const useDoExam = create((set, get) => ({
       const studentId = user ? user.id : null;
 
 
-      const res = await axios.get(`${BASE_URL}/api/v1/Exam/do-exam?examKey=${examKey}&studentId=${studentId}`);
+      const res = await axiosInstance.get(`${BASE_URL}/api/v1/Exam/do-exam?examKey=${examKey}&studentId=${studentId}`);
       const incoming = res.data;
       const objQuestions = incoming.objQuestionsPerStudent.map((list, index) => ({
         index,

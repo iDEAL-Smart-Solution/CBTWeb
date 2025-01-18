@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from '../Constant/index';
 import { create } from "zustand";
+import axiosInstance from "../Constant/axiosInstance";
 
 const Class = (set, get) => ({
      schClass: {
@@ -17,7 +18,7 @@ const Class = (set, get) => ({
           const { setLoading, setAllschClass } = get().schClass;
           setLoading(true);
           try {
-               const res = await axios.get(`${BASE_URL}/api/v1/Class/get-all`);
+               const res = await axiosInstance.get(`${BASE_URL}/api/v1/Class/get-all`);
                const schClassList = res.data.map((list) => ({
                     className: list.cLassName,
                     classId: list.classId,
@@ -35,7 +36,7 @@ const Class = (set, get) => ({
           const { setLoading, setSingleClass } = get().schClass;
           setLoading(true);
           try {
-               const res = await axios.get(`${BASE_URL}/api/v1/Class/Get?name_id=${param}`);
+               const res = await axiosInstance.get(`${BASE_URL}/api/v1/Class/Get?name_id=${param}`);
                const incoming = res.data.data;
                const data = {
                     name: incoming.name,
@@ -65,7 +66,7 @@ const Class = (set, get) => ({
           const { setLoading } = get().schClass;
           setLoading(true);
           try {
-               const res = await axios.post(`${BASE_URL}/api/v1/Class/Create?name=${name}`);
+               const res = await axiosInstance.post(`${BASE_URL}/api/v1/Class/Create?name=${name}`);
                const messg = res.data.message;
                return {success: true, message: messg};
           } catch (error) {
@@ -79,7 +80,7 @@ const Class = (set, get) => ({
           const { setLoading, setMessage } = get().schClass;
           setLoading(true);
           try {
-               const res = await axios.delete(`${BASE_URL}/api/v1/Class/delete?name_id=${id}`);
+               const res = await axiosInstance.delete(`${BASE_URL}/api/v1/Class/delete?name_id=${id}`);
                const messg = res.data.message;
                setMessage(messg);
                setLoading(false);

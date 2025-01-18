@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from '../Constant/index';
 import { create } from "zustand";
+import axiosInstance from "../Constant/axiosInstance";
 
 
 const Question = (set, get) => ({
@@ -21,9 +22,9 @@ const Question = (set, get) => ({
                let res;
                if(formData.questionType == "1")
                {
-                    res = await axios.post(`${BASE_URL}/api/v1/Question/upload-single`, formData);
+                    res = await axiosInstance.post(`${BASE_URL}/api/v1/Question/upload-single`, formData);
                } else {
-                    res = await axios.post(`${BASE_URL}/api/v1/Question/upload-single-theory`, formData)
+                    res = await axiosInstance.post(`${BASE_URL}/api/v1/Question/upload-single-theory`, formData)
                }
                const messg = res.data.message;
                return{success: true, message: messg}
@@ -51,9 +52,9 @@ const Question = (set, get) => ({
                let res;
                if(formData.questionType == "1")
                {
-                    res = await axios.post(`${BASE_URL}/api/v1/Question/upload-bulk`, formDataToSend);
+                    res = await axiosInstance.post(`${BASE_URL}/api/v1/Question/upload-bulk`, formDataToSend);
                } else {
-                    res = await axios.post(`${BASE_URL}/api/v1/Question/upload-bulk-theory`, formDataToSend)
+                    res = await axiosInstance.post(`${BASE_URL}/api/v1/Question/upload-bulk-theory`, formDataToSend)
                }
                const messg = res.data.message;
                return{success: true, message: messg}
@@ -65,23 +66,21 @@ const Question = (set, get) => ({
           }
      },
      deleteQuestion: async (id) => {
-          const { setLoading, setMessage, setErrorMessage } = get().question;
+          const { setLoading } = get().question;
           setLoading(true);
           try {
                var res = await axios.delete(`${BASE_URL}/api/v1/Question/delete?id=${id}`);
                var mssg = res.data.message;
-               setMessage(mssg);
-               return true;
+               return {success: true, message: mssg }
           } catch (error) {
                console.error("Error occured when attempting to delete question")
-               setErrorMessage(error.response.data.message || "An error occured, question could not be deleted");
-               return false;
+               return { success: false, message: error.response.data.message || "An error occured, question could not be deleted"}
           } finally {
                setLoading(false);
           }
      },
      editQuestion: async (formData) => {
-          const {setLoading, setMessage, setErrorMessage } = get().question;
+          const {setLoading} = get().question;
           setLoading(true);
           try {
                const formDataToSend = new FormData();
@@ -92,13 +91,11 @@ const Question = (set, get) => ({
                          formDataToSend.append(key, value);
                     }
                });
-               var res = await axios.patch(`${BASE_URL}/api/v1/Question/update-question`, formDataToSend);
+               var res = await axiosInstance.patch(`${BASE_URL}/api/v1/Question/update-question`, formDataToSend);
                var mssg = res.data.message;
-               setMessage(mssg);
                return {success: true, message: mssg};
           } catch (error) {
                console.error("Error occured when trying to edit question : ", error);
-               setErrorMessage(error.response.data.message || "Error occured when trying to edit the question");
                let mssg = error.response.data.errors.QuestionInstruction[0];
                return {sucess: false, message: mssg };
           } finally {
@@ -109,7 +106,7 @@ const Question = (set, get) => ({
           const { setLoading } = get().question;
           setLoading(true);
           try {
-               var res = await axios.patch(`${BASE_URL}/api/v1/Question/update-question-image`, formData);
+               var res = await axiosInstance.patch(`${BASE_URL}/api/v1/Question/update-question-image`, formData);
                var mssg = res.data.message;
                return{success: true, message: mssg}
           } catch (error) {

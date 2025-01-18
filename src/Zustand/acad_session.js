@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from '../Constant/index';
 import { create } from "zustand";
+import axiosInstance from "../Constant/axiosInstance";
 
 const Acad = (set, get) => ({
      acad: {
@@ -14,7 +15,7 @@ const Acad = (set, get) => ({
           const { setLoading, setMessage } = get().acad;
           setLoading(true);
           try {
-               var res = await axios.post(`${BASE_URL}/api/v1/Academic_Session/adjust-calendar?newTerm=${term}&newSession=${session}`);
+               var res = await axiosInstance.post(`${BASE_URL}/api/v1/Academic_Session/adjust-calendar?newTerm=${term}&newSession=${session}`);
                const messg = res.data.message;
                setMessage(`${messg}, \n Kindly log out and login again to reflect your changes`);
           } catch (error) {
@@ -36,7 +37,7 @@ const Acad = (set, get) => ({
                          formDataToSend.append(key, value);
                     }
                });
-               var res = await axios.post(`${BASE_URL}/api/v1/Academic_Session/add-name-and-logo`, formDataToSend);
+               var res = await axiosInstance.post(`${BASE_URL}/api/v1/Academic_Session/add-name-and-logo`, formDataToSend);
                const messg = res.data.message;
                return { success: true, message: messg }
           } catch (error) {
@@ -50,7 +51,7 @@ const Acad = (set, get) => ({
           const { setLoading } = get().acad;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/Academic_Session/get`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/Academic_Session/get`);
                const incoming = res.data.data;
                const nameAndLogo = {
                     name: incoming.schoolName,

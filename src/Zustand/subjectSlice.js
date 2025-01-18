@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from '../Constant/index';
 import { create } from "zustand";
+import axiosInstance from "../Constant/axiosInstance";
 
 const Subject = (set, get) => ({
      subject: {
@@ -24,7 +25,7 @@ const Subject = (set, get) => ({
                Object.entries(formData).forEach(([key, value]) => {
                     formDataToSend.append(key, value);
                });
-               var res = await axios.post(`${BASE_URL}/api/v1/Subject/create`, formDataToSend);
+               var res = await axiosInstance.post(`${BASE_URL}/api/v1/Subject/create`, formDataToSend);
                const messg = res.data.message;
                return {success: true, message: messg}
           } catch (error) {
@@ -35,10 +36,10 @@ const Subject = (set, get) => ({
           }
      },
      fetchSubjectsLight: async () => {
-          const { setLoading, setErrorMessage, setSubjects } = get().subject;
+          const { setLoading, setSubjects } = get().subject;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/Subject/get-all`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/Subject/get-all`);
                const fetchedSubjects = res.data.map((list) => ({
                     id: list.id,
                     name: list.name,
@@ -47,11 +48,11 @@ const Subject = (set, get) => ({
                     numberOfExam: list.numberOfExam,
                     className: list.className,
                }));
-               // console.log(fetchedSubjects);
                setSubjects(fetchedSubjects)
+               return { success: true, message: 'retrieved successfully'}
           } catch (error) {
                console.error("Error fetching list of subjects:", error);
-               setErrorMessage(error.response?.data?.message || 'An error occurred make sure your server is up and running');
+               return { success: false, message: 'Error fetching list of subjects'}
           } finally {
                setLoading(false);
           }
@@ -60,7 +61,7 @@ const Subject = (set, get) => ({
           const { setLoading, setErrorMessage, setSubjects } = get().subject;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/Subject/get-staff-subjects?id=${id}`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/Subject/get-staff-subjects?id=${id}`);
                const fetchedSubjects = res.data.map((list) => ({
                     id: list.id,
                     name: list.name,
@@ -70,9 +71,10 @@ const Subject = (set, get) => ({
                     className: list.className,
                }));
                setSubjects(fetchedSubjects)
+               return { success: true, message: ''}
           } catch (error) {
                console.error("Error fetching list of subjects:", error);
-               setErrorMessage(error.response?.data?.message || 'An error occurred make sure your server is up and running');
+               return { success: false, message: `${error.response?.data?.message}` || 'An error occurred make sure your server is up and running'}
           } finally {
                setLoading(false);
           }
@@ -82,7 +84,7 @@ const Subject = (set, get) => ({
           setLoading(true);
 
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/Subject/filter-staff-subjects?param=${param}&id=${id}`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/Subject/filter-staff-subjects?param=${param}&id=${id}`);
                const fetchedSubjects = res.data.map((list) => ({
                     id: list.id,
                     name: list.name,
@@ -105,7 +107,7 @@ const Subject = (set, get) => ({
           setLoading(true);
 
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/Subject/get-by-any?param=${param}`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/Subject/get-by-any?param=${param}`);
                const fetchedSubjects = res.data.map((list) => ({
                     id: list.id,
                     name: list.name,
@@ -128,7 +130,7 @@ const Subject = (set, get) => ({
           setLoading(true);
           try {
                
-               const res = await axios.get(`${BASE_URL}/api/v1/Subject/get-by-id?id=${id}`);
+               const res = await axiosInstance.get(`${BASE_URL}/api/v1/Subject/get-by-id?id=${id}`);
                var response = res.data.data;
                setSingleSubject(response);
           } catch (error) {
@@ -142,7 +144,7 @@ const Subject = (set, get) => ({
           const { setLoading, setErrorMessage, setSubjects } = get().subject;
           setLoading(true);
           try {
-               const res = await axios.get(`${BASE_URL}/api/v1/Subject/get-codes`);
+               const res = await axiosInstance.get(`${BASE_URL}/api/v1/Subject/get-codes`);
                const fetchedSubjectCodes = res.data.map((list, index) => ({
                     id: index,
                     code: list,
@@ -160,7 +162,7 @@ const Subject = (set, get) => ({
           const { setLoading, setErrorMessage } = get().subject;
           setLoading(true);
           try {
-               var res = await axios.delete(`${BASE_URL}/api/v1/Subject/delete?id=${id}`);
+               var res = await axiosInstance.delete(`${BASE_URL}/api/v1/Subject/delete?id=${id}`);
                var mssg = res.data.message;
                return{success: true, message: mssg}
           } catch (error) {
@@ -183,7 +185,7 @@ const Subject = (set, get) => ({
                          formDataToSend.append(key, value);
                     }
                });
-               var res = await axios.patch(`${BASE_URL}/api/v1/Subject/update`, formDataToSend);
+               var res = await axiosInstance.patch(`${BASE_URL}/api/v1/Subject/update`, formDataToSend);
                var mssg = res.data.message;
                return {success: true, message: mssg};
           } catch (error) {

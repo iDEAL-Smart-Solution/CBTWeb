@@ -2,84 +2,10 @@
 import { InputField, Submit } from "../ReUsableComponents/input"
 import { ImageUploader } from "../ReUsableComponents/file";
 import genderOptions from "../../lib/genderOptions";
-import { useStudent } from "../../Zustand/studentSlice";
-import { useClass } from "../../Zustand/classSlice";
-import { useEffect, useState } from "react";
 import { Dropdown } from "../ReUsableComponents/dropDown";
-import { useNotification } from "../../Context/notificationContext";
 
-export default function StudentRegistrationForm() {
-     const { student, createStudent } = useStudent();
-     const { schClass, fetchClassList } = useClass();
-     const { loading } = student;
-     const { showSuccess, showError } = useNotification();
-
-     const [formData, setFormData] = useState({
-          registrationNumber: "",
-          className: "",
-          firstName: "",
-          lastName: "",
-          email: "",
-          phoneNumber: "",
-          profilePicture: null,
-          gender: 0,
-     });
-
-     const handleInputChange = (event) => {
-          const { name, value, files } = event.target;
-          let parsedValue = value;
-          if (name === "gender") {
-               parsedValue = parseInt(value);
-          }
-
-          if (name === "profilePicture") {
-               setFormData({
-                    ...formData,
-                    [name]: files[0]
-               });
-          } else {
-               setFormData({
-                    ...formData,
-                    [name]: parsedValue
-               });
-          }
-     };
-
-     useEffect(() => {
-          fetchClassList();
-     }, [])
-
-     const { allschClass } = schClass;
-
-
-     const handleSubmit = async (e) => {
-          e.preventDefault();
-
-          try {
-               let res = await createStudent(formData);
-               if(res.success)
-                    {
-                         showSuccess(res.message);
-                    } else {
-                         showError(res.message);
-                    }
-          } catch (_error) {
-               showError(_error);
-          }
-     };
-
-     const handleReset = async () => {
-          setFormData({
-               registrationNumber: "",
-               className: "",
-               firstName: "",
-               lastName: "",
-               email: "",
-               phoneNumber: "",
-               profilePicture: null,
-               gender: 0,
-          })
-     }
+export default function StudentRegistrationForm({ formData, handleInputChange, handleSubmit, handleReset, loading, allschClass }) {
+     
      return (
           <div className="page-center-2 ">
                <div className="register-box-3 box-shadow">

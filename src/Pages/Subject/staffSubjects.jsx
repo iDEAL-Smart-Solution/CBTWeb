@@ -3,6 +3,7 @@ import { SearchField } from "../../Component/ReUsableComponents/input";
 import { useSubject } from "../../Zustand/subjectSlice";
 import SubjectListTemplate from "../../Component/Subject/subjectListTemplate";
 import { useAuth } from '../../Zustand/auth' 
+import { useNotification } from "../../Context/notificationContext";
 
 
 export default function StaffSubjects() {
@@ -12,9 +13,15 @@ export default function StaffSubjects() {
     const { user } = auth || {};
 
     const id = user?.id;
+
+    const { showError } = useNotification
     
-    useEffect(() => {
-     fetchStaffSubjects(id);
+    useEffect(async () => {
+            let res = await fetchStaffSubjects(id);
+            if(!res.success) {
+                showError(res.message);
+            }
+        
     }, [fetchStaffSubjects]);
 
     const [filterKey, setFilterKey] = useState('');

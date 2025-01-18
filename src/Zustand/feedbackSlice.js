@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import axios from 'axios';
 import { BASE_URL } from '../Constant';
+import axiosInstance from '../Constant/axiosInstance';
 
 
 const Feedback = create((set, get) => ({
@@ -18,7 +19,7 @@ const Feedback = create((set, get) => ({
                          formDataToSend.append(key, value);
                     }
                });
-               const res = await axios.post(`${BASE_URL}/api/v1/Feedback/send-feedback`, formDataToSend);
+               const res = await axiosInstance.post(`${BASE_URL}/api/v1/Feedback/send-feedback`, formDataToSend);
                const messg = res.data.message;
                return { success: true, message: messg };
           } catch (error) {
