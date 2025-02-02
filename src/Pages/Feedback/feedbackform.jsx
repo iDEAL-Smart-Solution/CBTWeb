@@ -1,4 +1,4 @@
-import Feedbacktemplate from "../../Component/feedback/feedbacktemplate";
+import Feedbacktemplate from "../../Component/Feedback/feedbacktemplate";
 import { SCHOOL_NAME } from "../../Constant";
 import { useNotification } from "../../Context/notificationContext";
 import Feedback from "../../Zustand/feedbackSlice";
