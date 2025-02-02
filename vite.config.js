@@ -32,6 +32,10 @@ export default defineConfig({
       },
     },
     emptyOutDir: true,
+    minify: false, 
+    rollupOptions: {
+      treeshake: false, 
+    }
   },
   server: {
     hmr: {
