@@ -138,7 +138,24 @@
 
 
 /* ************************************* Side Bar**************************** */
+.active-link {
+  all: unset;
+  color: black; /* Highlighted color */
+  font-size: xx-large;
+}
+.side-bar-dec:hover{
+  all: unset;
+  color: black; /* Highlighted color */
+  font-size: xx-large;
+  cursor: pointer;
+}
+.color-mute {
+  color: gray; /* Default link color */
+}
 
+.text-dec-none {
+  text-decoration: none;
+}
 
 /* ************************** registration / creation forms ********************* */
 /* .form{

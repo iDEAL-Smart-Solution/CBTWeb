@@ -21,6 +21,7 @@ export default function SubjectList() {
     const handleSubmit = () => {
         filterList(filterKey);
     };
+    console.log(subjects);
 
     return (
         <div>

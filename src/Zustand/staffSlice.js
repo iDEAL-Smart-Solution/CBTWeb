@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from '../Constant/index';
 import { create } from "zustand";
+import axiosInstance from "../Constant/axiosInstance";
 
 const Staff = (set, get) => ({
      staff: {
@@ -27,7 +28,7 @@ const Staff = (set, get) => ({
                          formDataToSend.append(key, value);
                     }
                });
-               const res = await axios.post(`${BASE_URL}/api/v1/Staff/Create`, formDataToSend);
+               const res = await axiosInstance.post(`${BASE_URL}/api/v1/Staff/Create`, formDataToSend);
                const messg = res.data.message;
                return {success: true, message: messg}
           } catch (error) {
@@ -41,7 +42,7 @@ const Staff = (set, get) => ({
           const { setLoading, setStaffs, setErrorMessage } = get().staff;
           setLoading(true);
           try {
-               const res = await axios.get(`${BASE_URL}/api/v1/Staff/get-all`);
+               const res = await axiosInstance.get(`${BASE_URL}/api/v1/Staff/get-all`);
                const allStaffs = res.data.map((list) => ({
                     userId: list.userId,
                     userName: list.userName,
@@ -58,10 +59,10 @@ const Staff = (set, get) => ({
           }
      },
      filterAllStaff: async (param) => {
-          const { setLoading, setStaffs, staffs } = get().staff;
+          const { setLoading, setStaffs } = get().staff;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/staff/get-by-any?param=${param}`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/staff/get-by-any?param=${param}`);
                const filteredStaff = res.data.map((list) => ({
                     userId: list.userId,
                     userName: list.userName,
@@ -80,7 +81,7 @@ const Staff = (set, get) => ({
           const { setLoading } = get().staff;
           setLoading(true);
           try {
-               var res = await axios.delete(`${BASE_URL}/api/v1/Staff/delete?id=${id}`);
+               var res = await axiosInstance.delete(`${BASE_URL}/api/v1/Staff/delete?id=${id}`);
                const messg = res.data;
                return {success: true, message: messg}
           } catch (error) {
@@ -94,7 +95,7 @@ const Staff = (set, get) => ({
           const { setLoading, setStaffsUsernames, setErrorMessage } = get().staff;
           setLoading(true);
           try {
-               const res = await axios.get(`${BASE_URL}/api/v1/Staff/get-all`);
+               const res = await axiosInstance.get(`${BASE_URL}/api/v1/Staff/get-all`);
                const allStaffs = res.data.map((list) => ({
                     userName: list.userName,
                     profilePicture: list.profilePicture,

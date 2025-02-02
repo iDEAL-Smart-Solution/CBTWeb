@@ -12,7 +12,7 @@ export default function QuestionUpload() {
      return (
           <div className="">
                <h1 className="text-center color-primary">Upload Questions</h1>
-                    <div className="toggle-form">
+                    <div className="toggle-form" style={{marginBottom: '70px'}}>
                          <label>
                               <input
                                    type="radio"

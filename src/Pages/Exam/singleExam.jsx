@@ -148,8 +148,11 @@ export default function SingleExam() {
      const handleQuestionDelele = async (iden) => {
           try {
                let res = await deleteQuestion(iden);
-               if (res) {
+               if (res.success) {
                     fetchSingleExam(id);
+                    showSuccess(res.message);
+               } else {
+                    showError(res.message);
                }
           } catch (error) {
                showError(error);

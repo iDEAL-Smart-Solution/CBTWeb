@@ -1,10 +1,12 @@
 import { create } from 'zustand';
 import axios from 'axios';
 import { BASE_URL } from '../Constant';
+import axiosInstance from '../Constant/axiosInstance';
 
 export const useDoExam = create((set, get) => ({
   questions: [],
   theory: [],
+  passage: {},
   loading: false,
   currentIndex: 0,
   userAnswers: {},
@@ -24,16 +26,32 @@ export const useDoExam = create((set, get) => ({
       const studentId = user ? user.id : null;
 
 
-      const res = await axios.get(`${BASE_URL}/api/v1/Exam/do-exam?examKey=${examKey}&studentId=${studentId}`);
+      const res = await axiosInstance.get(`${BASE_URL}/api/v1/Exam/do-exam?examKey=${examKey}&studentId=${studentId}`);
       const incoming = res.data;
-      const questions = incoming.objQuestionsPerStudent.map((list, index) => ({
+      const objQuestions = incoming.objQuestionsPerStudent.map((list, index) => ({
         index,
         id: list.id,
         questionInstruction: list.questionInstruction,  
         question: list.question,
         questionImage: list.questionImage,
+        isPassageQuestion: list.isPassageQuestion,
         options: [list.optionA, list.optionB, list.optionC, list.optionD],
       }));
+      
+      const passageQuestions = incoming.passageQuestionsPerStudent.map((list, index) => ({
+        index,
+        id: list.id,
+        questionInstruction: list.questionInstruction,  
+        question: list.question,
+        questionImage: list.questionImage,
+        isPassageQuestion: list.isPassageQuestion,
+        options: [list.optionA, list.optionB, list.optionC, list.optionD],
+      }));
+      
+      const questions = incoming.passageQuestionsPerStudent.length > 0 
+        ? [...passageQuestions, ...objQuestions] 
+        : objQuestions;
+      
 
       const theory = incoming.thoeryQuestionsPerStudent.map((list, index) => ({
         index,
@@ -42,6 +60,7 @@ export const useDoExam = create((set, get) => ({
         question: list.question,
         questionImage: list.questionImage,
       }))
+      const passage = incoming.passage;
 
       const maxDuration = incoming.duration;
 
@@ -56,12 +75,13 @@ export const useDoExam = create((set, get) => ({
       set({
         questions,
         theory,
+        passage,
         loading: false,
         duration: totalSeconds,
         examId: incoming.examId,
         sessionId: incoming.sessionId,
         subjectCode: incoming.subjectCode,
-        totalOBJQuestion: incoming.totalOBJQuestion,
+        totalOBJQuestion: incoming.totalOBJQuestion + incoming.totalPassageQuestion,
         studentId: studentId,
         startTime: new Date().toISOString(),
         maxDuration: incoming.duration

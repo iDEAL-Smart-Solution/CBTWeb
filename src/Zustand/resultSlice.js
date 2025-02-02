@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from '../Constant/index';
 import { create } from "zustand";
+import axiosInstance from "../Constant/axiosInstance";
 
 
 const Result = (set, get) => ({ 
@@ -18,7 +19,7 @@ const Result = (set, get) => ({
           const { setErrorMessage,  setLoading, setSubjectResults } = get().result;
           setLoading(true);
           try {
-               var resposne = await axios.get(`${BASE_URL}/api/v1/Result/get-subject-result?subjectCode=${subjectCode}&term=${term}`);
+               var resposne = await axiosInstance.get(`${BASE_URL}/api/v1/Result/get-subject-result?subjectCode=${subjectCode}&term=${term}`);
                const results = resposne.data.map((result) => ({
                          studentUin: result.studentUin,
                          first_CA_Score: result.first_CA_Score,
@@ -41,7 +42,7 @@ const Result = (set, get) => ({
           const { setErrorMessage,  setLoading, setStudentResults } = get().result;
           setLoading(true);
           try {
-               var resposne = await axios.get(`${BASE_URL}/api/v1/Result/get-student-result?studentKey=${key}&term=${term}`);
+               var resposne = await axiosInstance.get(`${BASE_URL}/api/v1/Result/get-student-result?studentKey=${key}&term=${term}`);
                const results = resposne.data.map((result) => ({
                          studentUin: result.studentUin,
                          subjectCode: result.subjectCode,
@@ -74,7 +75,7 @@ const Result = (set, get) => ({
                     }
                });
                
-               var res = await axios.post(`${BASE_URL}/api/v1/Result/upload-theory-score`, formDataToSend);
+               var res = await axiosInstance.post(`${BASE_URL}/api/v1/Result/upload-theory-score`, formDataToSend);
                const messg = res.data.message
                return{success: true, message: messg}
           } catch (error) {

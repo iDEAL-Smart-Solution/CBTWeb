@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from '../Constant/index';
 import { create } from "zustand";
+import axiosInstance from "../Constant/axiosInstance";
 
 const Student = (set, get) => ({
      student: {
@@ -16,7 +17,7 @@ const Student = (set, get) => ({
           setLoading: (value) => set((state) => ({ ...state, student: { ...state.student, loading: value } })),
      },
      createStudent: async (formData) => {
-          const { setLoading, setMessage, setErrorMessage } = get().student;
+          const { setLoading } = get().student;
           setLoading(true);
           try {
                const formDataToSend = new FormData();
@@ -27,7 +28,7 @@ const Student = (set, get) => ({
                          formDataToSend.append(key, value);
                     }
                });
-               const res = await axios.post(`${BASE_URL}/api/v1/Student/create`, formDataToSend);
+               const res = await axiosInstance.post(`${BASE_URL}/api/v1/Student/create`, formDataToSend);
                const messg = res.data.message;
                return { success: true, message: messg };
           } catch (error) {
@@ -41,7 +42,7 @@ const Student = (set, get) => ({
           const { setLoading, setErrorMessage, setStudents } = get().student;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/Student/getstudent-by-any?param=${param}`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/Student/getstudent-by-any?param=${param}`);
                const fetchedStudents = res.data.map((list) => ({
                     id: list.id,
                     className: list.className,
@@ -51,9 +52,11 @@ const Student = (set, get) => ({
                     profilePicture: list.imageUrl,
                }));
                setStudents(fetchedStudents);
+               return {success: true, message: " "}
           } catch (error) {
                console.error("Error fetching student with the search parameter:", error);
-               setErrorMessage(error.response?.data?.message || 'An error occurred fetching student with that keyword');
+               setErrorMessage(error.message || 'An error occurred fetching student with that keyword');
+               return {success: false, message: `${error.response?.status} ${error.response?.statusText}` || error.message}
           } finally {
                setLoading(false);
           }
@@ -62,7 +65,7 @@ const Student = (set, get) => ({
           const { setLoading, setErrorMessage, setStudentsForClearnce } = get().student;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/SubmittedExam/get-student-for-clearance?examId=${examId}`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/SubmittedExam/get-student-for-clearance?examId=${examId}`);
                const fetchedStudents = res.data.map((list) => ({
                     className: list.className,
                     uin: list.uin,
@@ -82,7 +85,7 @@ const Student = (set, get) => ({
           const { setLoading, setErrorMessage, setMessage } = get().student;
           setLoading(true);
           try {
-               var res = await axios.delete(`${BASE_URL}/api/v1/SubmittedExam/clear-single-student?studentId=${studentId}&examId=${examId}`);
+               var res = await axiosInstance.delete(`${BASE_URL}/api/v1/SubmittedExam/clear-single-student?studentId=${studentId}&examId=${examId}`);
                var mssg = res.data.message;
                setMessage(mssg);
                return true;
@@ -97,7 +100,7 @@ const Student = (set, get) => ({
           const { setLoading, setErrorMessage, setMessage } = get().student;
           setLoading(true);
           try {
-               var res = await axios.get(`${BASE_URL}/api/v1/SubmittedExam/clear-multiple-student?subjectCode=${subjectCode}&examId=${examId}`);
+               var res = await axiosInstance.get(`${BASE_URL}/api/v1/SubmittedExam/clear-multiple-student?subjectCode=${subjectCode}&examId=${examId}`);
                var mssg = res.data.message;
                setMessage(mssg);
           } catch (error) {
@@ -111,7 +114,7 @@ const Student = (set, get) => ({
           const { setLoading } = get().student;
           setLoading(true);
           try {
-               var res = await axios.delete(`${BASE_URL}/api/v1/Student/delete?id=${id}`);
+               var res = await axiosInstance.delete(`${BASE_URL}/api/v1/Student/delete?id=${id}`);
                const messg = res.data;
                return { success: true, message: messg }
           } catch (error) {
