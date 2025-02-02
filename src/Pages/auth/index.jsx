@@ -49,7 +49,7 @@ import { BASE_URL } from "../../Constant";
 export default function Auth() {
      return (
           <div>
-               <AppWrapper logo={logo1} duration={14500}>
+               <AppWrapper logo={logo1} duration={7000}>
                     <LoginForm />
                </AppWrapper>  
           </div>
