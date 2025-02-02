@@ -17,10 +17,10 @@ const Acad = (set, get) => ({
           try {
                var res = await axiosInstance.post(`${BASE_URL}/api/v1/Academic_Session/adjust-calendar?newTerm=${term}&newSession=${session}`);
                const messg = res.data.message;
-               setMessage(`${messg}, \n Kindly log out and login again to reflect your changes`);
+               return {success: true, message: `${messg}, \n Kindly log out and login again to reflect your changes`}
           } catch (error) {
                console.error(`Error occured while deleting class.`, error);
-               setMessage(error.response?.data?.message || 'An error occurred, class cant be deleted');
+               return { success: false, message: error.response?.data?.message || 'An error occurred, class cant be deleted' }
           } finally {
                setLoading(false);
           }
@@ -63,6 +63,17 @@ const Acad = (set, get) => ({
                sessionStorage.removeItem('name_and_logo');
           } finally {
                setLoading(false);
+          }
+     },
+     nextSession: async () => {
+          const { setLoading } = get().acad;
+          setLoading(true);
+          try {
+               var res = await axiosInstance.post('');
+               return { success: true, message: res.data.message}
+          } catch (error) {
+               console.error(`An error occurred: ${error}`)
+               return { success: false, message: error.response?.data?.message || 'An error occurred'}               
           }
      }
 });
