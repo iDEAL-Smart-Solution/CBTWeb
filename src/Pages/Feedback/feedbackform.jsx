@@ -39,7 +39,6 @@ export default function FeedbackForm() {
                showError(_error);
           }
           console.log(formData);
-          // handleReset();
 
      };
      const handleReset = async () => {

@@ -49,7 +49,6 @@ export default function StudentClearancePage() {
 
      const { studentsForClearnce, loading, message } = student;
      const { exams } = exam;
-     // console.log(exams)
      return (
           <div>
                <div className="box-shadow header-crumbs">

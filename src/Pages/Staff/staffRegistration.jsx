@@ -1,7 +1,7 @@
 import StaffRegistrationForm from "../../Component/Staff/staffRegistrationForm"
 import { useStaff } from "../../Zustand/staffSlice";
 import { useNotification } from "../../Context/notificationContext";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function StaffRegistration() {
      const { staff, createSaff } = useStaff();

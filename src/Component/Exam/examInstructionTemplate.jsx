@@ -2,7 +2,6 @@ import { Link, useParams } from "react-router-dom"
 import { BASE_URL } from "../../Constant";
 
 export default function ExamInstructionTemplate({ data }) {
-     // const id = data.examKey;
 
      const termMap = {
           1: "1st Term",

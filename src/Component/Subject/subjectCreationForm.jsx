@@ -10,7 +10,6 @@ export default function SubjectCreationForm({handleReset, handleSubmit, staffsUs
                               <InputField type={`text`} name={`name`} value={formData.name} placeholder={`Name of Subject`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
                               <InputField type={`text`} name={`code`} value={formData.code} placeholder={`Subject Code`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
                               <InputField type={`text`} name={`description`} value={formData.description} placeholder={`Subject Description`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
-                              {/* <InputField type={`text`} name={`userName`} value={formData.userName} placeholder={`Assigned staff user name`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} /> */}
 
                          <div className="form-grouping">
                               <Dropdown

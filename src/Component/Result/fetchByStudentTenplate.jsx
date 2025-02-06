@@ -23,10 +23,7 @@ export default function StudentByResultTemplate({ data, loading }) {
    ...item,
    term: termMap[item.term],
  }))
-//  const transformedData = data.map(item => ({
-//    ...item,
-//    isAvailable: item.isAvailable ? 'Yes' : 'No',
-//  }));
+ 
      return (
      <Table 
            data={alteredData}

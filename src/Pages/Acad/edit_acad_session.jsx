@@ -39,7 +39,6 @@ export default function Edit_Acad_Session() {
           <div>
                <div className="page-center-2">
               <div style={{width: '60%', padding: '50px'}} className="box-shadow">
-              {/* {message && <p className="bg-color-prim color-light">{message}</p>} */}
                     <form onSubmit={handleSubmit} className="">
                          <InputField type={`number`} name={`newTerm`} label={`Enter term in digits`} value={formData.newTerm} placeholder={`New Term`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
                          <InputField type={`text`} name={`newSession`} value={formData.newSession} placeholder={`New Session`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />

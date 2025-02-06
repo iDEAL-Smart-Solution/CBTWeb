@@ -30,12 +30,10 @@ export default defineConfig({
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]',
       },
+      treeshake: false, 
     },
     emptyOutDir: true,
     minify: false, 
-    rollupOptions: {
-      treeshake: false, 
-    }
   },
   server: {
     hmr: {

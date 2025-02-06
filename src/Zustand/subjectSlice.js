@@ -58,7 +58,7 @@ const Subject = (set, get) => ({
           }
      },
      fetchStaffSubjects: async (id) => {
-          const { setLoading, setErrorMessage, setSubjects } = get().subject;
+          const { setLoading, setSubjects } = get().subject;
           setLoading(true);
           try {
                var res = await axiosInstance.get(`${BASE_URL}/api/v1/Subject/get-staff-subjects?id=${id}`);

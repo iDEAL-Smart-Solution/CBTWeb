@@ -30,14 +30,3 @@ export function FileUploader ({className, name, value, handleChange, width}) {
           />
      )
 }
-
-
-
-{/* <div className={className}  style={{
-     width: width,
-}}>
-     <label htmlFor="file-upload" className="custom-file-upload">
-          choose the file that contains question for the exam
-     </label>
-     <input id="file-upload" type="file" name={name} value={value} onChange={handleChange} />
-</div> */}

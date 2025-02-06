@@ -57,7 +57,6 @@
      border-radius: 10px;
      margin-bottom: 30px;
      overflow-y: scroll;
-     /* padding: 20px; */
 }
 
 .single-class-box::-webkit-scrollbar {
@@ -89,7 +88,6 @@
 .styled-table td {
      padding: 10px;
      text-align: left;
-     /* border: 1px solid #ddd; */
 }
 
 .styled-table td:nth-child(1) {

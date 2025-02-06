@@ -68,11 +68,7 @@ export default function PassageQuestion() {
 
      return (
           <div>
-               {/* <div className="page-center-2"> */}
-                    {/* <div style={{ width: '60%', padding: '30px' }} className="box-shadow"> */}
                          <PassageQuestionForm handleInputChange={handleInputChange} handleReset={handleReset} handleSubmit={handleSubmit} formData={formData} passageTitlesAndIds={passageTitleAndIds} exams={exams} loading={loading} />
                     </div>
-               // </div>
-          // </div>
      )
 }

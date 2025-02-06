@@ -17,7 +17,7 @@ const Root = () => {
         </div>
         <div className='outlet-container'>
           <Outlet />
-          <ColorPicker />
+          {/* <ColorPicker /> */}
         </div>
       </div>
     </div>

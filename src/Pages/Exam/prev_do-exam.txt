@@ -1,604 +1,108 @@
-// import React, { useEffect } from 'react';
-// import { useDoExam } from '../../Zustand/doExamSlice';
-// import { useParams } from 'react-router-dom';
+{/* {showPassage ? (
+        <>
+          <h1 className='text-center color-primary'>Passage</h1>
+
+          <div className="exam-question-box">
+            <div className='left-fraction'>
+              <h2>{passage.passageTitle}</h2>
+              <p>{passage.passageContent}</p>
+            </div>
+            <div className='right-fraction'>
+              {timeLeft !== null && <p className="box-shadow-3 exam-time text-center">{formatTime(timeLeft)}</p>}
+
+
+              {showPassage && <button onClick={() => setShowObj(!showObj)} className="toggle-theory-button"
+                style={{
+                  all: 'unset',
+                  width: '10%',
+                  textAlign: 'center',
+                  padding: '10px',
+                  color: 'var(--primary-color)',
+                  fontWeight: 'bold',
+                  borderRadius: '10px',
+                  border: '3px solid var(--primary-color)'
+                }}>
+                {showPassage ? 'Show Questions' : 'Show Passage'}
+              </button>}
+            </div>
+          </div> </>
+      ) :
+        showTheory ? (
+          <>
+            <h1 className='text-center color-primary'>Theory Questions</h1>
+
+            <div className="exam-question-box">
+              <div className='left-fraction'>
+                <h2>Theory Section</h2>
+                {theory.map((item, index) => (
+                  <div key={index} className="text-big-3">
+                    {item.questionInstruction &&
+                      item.questionInstruction == '--' ? "" : <p> {item.questionInstruction}</p>
+                    }
+
+                    <p> {index + 1}. {item.question}</p>
+                    {item.questionImage && <img src={`${BASE_URL}/ProfilePictures/${item.questionImage}`} width="50%" alt="Theory Image" />}
+                  </div>
+                ))}
+              </div>
+
+              <div className='right-fraction'>
+                {timeLeft !== null && <p className="box-shadow-3 exam-time text-center" >{formatTime(timeLeft)}</p>}
+
+                <button onClick={handleExamSubmit} className="submit-exam-button text-center color-light bolder" >Submit Exam</button>
+              </div>
+            </div>
+          </>
+
+        ) : (
+          <>
+            <h1 className='text-center color-primary'>OBJ Questions</h1>
+
+            <div className='exam-question-box'>
+              <div className='left-fraction'>
+                {currentQuestion.questionInstruction?.trim() && currentQuestion.questionInstruction == "--" ? "" : <small className='bolder'>{currentQuestion.questionInstruction}</small>}
+                <p className='text-big-3'>{currentIndex + 1}. {currentQuestion.question}</p>
+                {currentQuestion.questionImage && <img src={`${BASE_URL}/ProfilePictures/${currentQuestion.questionImage}`} width="50%" alt="image" />}
+
+                {currentQuestion.options.map((option, index) => (
+                  <div key={index}>
+                    <label className='text-big-3'>
+                      <input
+                        type="radio"
+                        name={`question_${currentQuestion.id}`}
+                        value={option}
+                        checked={userAnswers[currentQuestion.id] === option}
+                        onChange={() => setAnswer(currentQuestion.id, option)}
+                      />
+                      {option}
+                    </label>
+                  </div>
+                ))}
+              </div>
+
+              <div className='right-fraction'>
+                {timeLeft !== null && <p className="box-shadow-3 exam-time text-center">{formatTime(timeLeft)}</p>}
+
+                {!showTheory && (
+                  <div className="exam-question-numbers">
+                    {totalOBJQuestion > 0 && renderQuestionButtons()}
+                  </div>
+                )}
+
+                <div className='form-grouping'>
+                  <button onClick={prevQuestion} disabled={currentIndex === 0} className='submit-button-2 text-center color-light bold' style={{
+                    backgroundColor: currentIndex === 0 ? 'rgba(161, 161, 161, 0.844)' : 'var(--primary-color)',
+                    color: currentIndex === 0 ? 'black' : 'white'
+                  }}>Previous</button>
+                  <button onClick={nextQuestion} disabled={currentIndex === questions.length - 1} className='submit-button-2 text-center color-light bold' style={{
+                    backgroundColor: currentIndex === questions.length - 1 ? 'rgba(161, 161, 161, 0.844)' : 'var(--primary-color)',
+                    color: currentIndex === questions.length - 1 ? 'black' : 'white'
+                  }}>Next</button>
+                </div>
 
-// const DoExam = () => {
-//   const { examKey } = useParams();
-//   const { questions, loading, currentIndex, userAnswers, fetcQuestionsToDo, nextQuestion, prevQuestion, setAnswer } = useDoExam();
+                <button onClick={handleExamSubmit} className="submit-exam-button text-center color-light bolder">Submit Exam</button>
+              </div>
+            </div>
+          </>
 
-//   useEffect(() => {
-//     fetcQuestionsToDo(examKey);
-//   }, [examKey, fetcQuestionsToDo]);
-//   // console.log(questions);
-//   const renderQuestion = () => {
-//     if (loading) {
-//       return (
-//         <div className="loader-cell">
-//           <div className="loader"></div>
-//         </div>
-//       )
-//     }
-//     if (questions.length === 0) return <p className='text-center'>No questions available</p>;
-
-//     const currentQuestion = questions[currentIndex];
-
-//     return (
-//       <div>
-//         <p>{currentIndex+1}. {currentQuestion.question}</p>
-
-//         {currentQuestion.options.map((option, index) => (
-//           <div key={index}>
-//             <label>
-//               <input
-//                 type="radio"
-//                 name={`question_${currentQuestion.id}`}
-//                 value={option}
-//                 checked={userAnswers[currentQuestion.id] === option}
-//                 onChange={() => setAnswer(currentQuestion.id, option)}
-//               />
-//               {option}
-//             </label>
-//           </div>
-//         ))}
-
-
-//         <div>
-//           <button onClick={prevQuestion} disabled={currentIndex === 0}>Previous</button>
-//           <button onClick={nextQuestion} disabled={currentIndex === questions.length - 1}>Next</button>
-//         </div>
-//       </div>
-//     );
-//   };
-
-//   return (
-//     <div>
-//       <h1 className='text-center color-primary'>Questions</h1>
-//       {renderQuestion()}
-//     </div>
-//   );
-// };
-
-// export default DoExam;
-
-
-
-
-
-
-
-// import React, { useEffect, useState } from 'react';
-// import { useDoExam } from '../../Zustand/doExamSlice';
-// import { useParams } from 'react-router-dom';
-
-// const DoExam = () => {
-//   const { examKey } = useParams();
-//   const { questions, loading, currentIndex, userAnswers, fetcQuestionsToDo, nextQuestion, prevQuestion, setAnswer, duration, totalQuestion } = useDoExam();
-
-//   const [timeLeft, setTimeLeft] = useState(null);
-
-//   useEffect(() => {
-//     fetcQuestionsToDo(examKey);
-//   }, [examKey, fetcQuestionsToDo]);
-
-//   useEffect(() => {
-//     if (duration > 0) {
-//       setTimeLeft(duration);
-//     }
-//   }, [duration]);
-
-//   useEffect(() => {
-//     if (timeLeft === null || timeLeft <= 0) return;
-//     const timerId = setInterval(() => {
-//       setTimeLeft((prevTime) => prevTime - 1);
-//     }, 1000);
-
-//     return () => clearInterval(timerId);
-//   }, [timeLeft]);
-
-//   const formatTime = (seconds) => {
-//     const h = Math.floor(seconds / 3600);
-//     const m = Math.floor((seconds % 3600) / 60);
-//     const s = seconds % 60;
-//     return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-//   };
-
-//   // const questionNumbers(totalQuestion) {
-
-//   // }
-
-//   const renderQuestion = () => {
-//     if (loading) {
-//       return (
-//         <div className="loader-cell">
-//           <div className="loader"></div>
-//         </div>
-//       );
-//     }
-//     if (questions.length === 0) return <p className='text-center'>No questions available</p>;
-
-//     const currentQuestion = questions[currentIndex];
-
-//     return (
-//       <div>
-//         <p>{currentIndex + 1}. {currentQuestion.question}</p>
-
-//         {currentQuestion.options.map((option, index) => (
-//           <div key={index}>
-//             <label>
-//               <input
-//                 type="radio"
-//                 name={`question_${currentQuestion.id}`}
-//                 value={option}
-//                 checked={userAnswers[currentQuestion.id] === option}
-//                 onChange={() => setAnswer(currentQuestion.id, option)}
-//               />
-//               {option}
-//             </label>
-//           </div>
-//         ))}
-
-//         <div>
-//           <button onClick={prevQuestion} disabled={currentIndex === 0}>Previous</button>
-//           <button onClick={nextQuestion} disabled={currentIndex === questions.length - 1}>Next</button>
-//         </div>
-//       </div>
-//     );
-//   };
-
-//   return (
-//     <div>
-//       <h1 className='text-center color-primary'>Questions</h1>
-//       {/* {totalQuestion ? <h3>{totalQuestion} questions</h3> : ''} */}
-//       <div className="text-center">
-//         {totalQuestion > 0 && Array.from({ length: totalQuestion }, (_, i) => i + 1).join(' ')}
-//       </div>
-//       {timeLeft !== null && <p className="text-center">Time Left: {formatTime(timeLeft)}</p>}
-//       {renderQuestion()}
-//     </div>
-//   );
-// };
-
-// export default DoExam;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useEffect, useState } from 'react';
-// import { useDoExam } from '../../Zustand/doExamSlice';
-// import { useParams } from 'react-router-dom';
-
-// const DoExam = () => {
-//   const { examKey } = useParams();
-//   const { questions, loading, currentIndex, userAnswers, fetcQuestionsToDo, nextQuestion, prevQuestion, setAnswer, duration, totalQuestion, setCurrentIndex } = useDoExam();
-
-//   const [timeLeft, setTimeLeft] = useState(null);
-
-//   useEffect(() => {
-//     fetcQuestionsToDo(examKey);
-//   }, [examKey, fetcQuestionsToDo]);
-
-//   console.log(userAnswers)
-//   useEffect(() => {
-//     if (duration > 0) {
-//       setTimeLeft(duration);
-//     }
-//   }, [duration]);
-
-//   useEffect(() => {
-//     if (timeLeft === null || timeLeft <= 0) return;
-//     const timerId = setInterval(() => {
-//       setTimeLeft((prevTime) => prevTime - 1);
-//     }, 1000);
-
-//     return () => clearInterval(timerId);
-//   }, [timeLeft]);
-
-//   const formatTime = (seconds) => {
-//     const h = Math.floor(seconds / 3600);
-//     const m = Math.floor((seconds % 3600) / 60);
-//     const s = seconds % 60;
-//     return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-//   };
-
-//   const handleQuestionClick = (index) => {
-//     if (index >= 0 && index < questions.length) {
-//       setCurrentIndex(index);
-//     }
-//   };
-
-//   const renderQuestionButtons = () => {
-//     return Array.from({ length: totalQuestion }, (_, index) => (
-//       <button
-//         key={index}
-//         onClick={() => handleQuestionClick(index)}
-//         style={{
-//           backgroundColor: userAnswers[questions[index]?.id] ? 'lightblue' : 'white',
-//           margin: '2px',
-//         }}
-//       >
-//         {index + 1}
-//       </button>
-//     ));
-//   };
-
-//   const renderQuestion = () => {
-//     if (loading) {
-//       return (
-//         <div className="loader-cell">
-//           <div className="loader"></div>
-//         </div>
-//       );
-//     }
-//     if (questions.length === 0) return <p className='text-center'>No questions available</p>;
-
-//     const currentQuestion = questions[currentIndex];
-
-//     return (
-//       <div>
-//         <p>{currentIndex + 1}. {currentQuestion.question}</p>
-
-//         {currentQuestion.options.map((option, index) => (
-//           <div key={index}>
-//             <label>
-//               <input
-//                 type="radio"
-//                 name={`question_${currentQuestion.id}`}
-//                 value={option}
-//                 checked={userAnswers[currentQuestion.id] === option}
-//                 onChange={() => setAnswer(currentQuestion.id, option)}
-//               />
-//               {option}
-//             </label>
-//           </div>
-//         ))}
-
-//         <div>
-//           <button onClick={prevQuestion} disabled={currentIndex === 0}>Previous</button>
-//           <button onClick={nextQuestion} disabled={currentIndex === questions.length - 1}>Next</button>
-//         </div>
-//       </div>
-//     );
-//   };
-
-//   return (
-//     <div>
-//       <h1 className='text-center color-primary'>Questions</h1>
-//       {timeLeft !== null && <p className="text-center">Time Left: {formatTime(timeLeft)}</p>}
-//       <div className="text-center">
-//         {totalQuestion > 0 && renderQuestionButtons()}
-//       </div>
-//       {renderQuestion()}
-//     </div>
-//   );
-// };
-
-// export default DoExam;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import React, { useEffect, useState } from 'react';
-import { useDoExam } from '../../Zustand/doExamSlice';
-import { useParams, useNavigate } from 'react-router-dom';
-
-const DoExam = () => {
-  const { examKey } = useParams();
-  const {
-    questions,
-    loading,
-    currentIndex,
-    userAnswers,
-    fetcQuestionsToDo,
-    nextQuestion,
-    prevQuestion,
-    setAnswer,
-    maxDuration,
-    totalQuestion,
-    setCurrentIndex,
-    submitExam,
-    startTime,
-  } = useDoExam();
-
-  const [timeLeft, setTimeLeft] = useState(null);
-  // const [startTime] = useState(Date.now());
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        await fetcQuestionsToDo(examKey);
-      } catch (err) {
-        setError(err.message);
-        // Optionally, redirect to an error page or login page
-        // navigate('/error');
-      }
-    };
-    fetchQuestions();
-  }, [examKey, fetcQuestionsToDo, navigate]);
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  useEffect(() => {
-    if (!startTime || !maxDuration) return;
-
-    const calculateTimeLeft = () => {
-      const start = new Date(startTime);
-      const now = new Date();
-      const elapsedSeconds = Math.floor((now - start) / 1000);
-
-      const [hours, minutes, seconds] = maxDuration.split(':').map(Number);
-      const maxDurationInSeconds = hours * 3600 + minutes * 60 + seconds;
-
-      const remainingSeconds = Math.max(maxDurationInSeconds - elapsedSeconds, 0);
-
-      return remainingSeconds;
-    };
-
-    const timerId = setInterval(() => {
-      const remainingTime = calculateTimeLeft();
-      setTimeLeft(remainingTime);
-
-      if (remainingTime === 0) {
-        clearInterval(timerId);
-        // handleExamSubmit();
-      }
-    }, 1000);
-
-    return () => clearInterval(timerId);
-  }, [startTime, maxDuration]);
-
-  const handleExamSubmit = async () => {
-    try {
-      await submitExam();
-      navigate('/exam-submited');
-    } catch (error) {
-      console.error('Failed to submit exam:', error);
-      setError('Failed to submit exam. Please try again.');
-    }
-  };
-
-  const formatTime = (seconds) => {
-    const h = Math.floor(seconds / 3600);
-    const m = Math.floor((seconds % 3600) / 60);
-    const s = seconds % 60;
-    return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-  };
-
-  useEffect(() => {
-    console.log(userAnswers);
-  }, [userAnswers]);
-
-  const handleQuestionClick = (index) => {
-    if (index >= 0 && index < questions.length) {
-      setCurrentIndex(index);
-    }
-  };
-
-  // const renderQuestionButtons = () => {
-  //   const buttonStyle = (index) => ({
-  //     padding: '8px',
-  //     width: '48px',
-  //     height: '48px',
-  //     textAlign: 'center',
-  //     borderRadius: '4px',
-  //     backgroundColor: userAnswers[questions[index]?.id] ? 'var(--primary-color)' : 'white',
-  //     border: '1px solid rgba(0, 0, 0, 0.2)',
-  //     boxShadow: '0 0 10px rgba(0, 0, 0, 0.3);',
-  //     margin: '4px',
-  //     cursor: 'pointer',
-  //     color: userAnswers[questions[index]?.id] ? 'white' : 'var(--primary-color)',
-  //     display: 'grid',
-      
-      
-  //   });
-  //   return Array.from({ length: totalQuestion }, (_, index) => (
-  //     <button
-  //       key={index}
-  //       onClick={() => handleQuestionClick(index)}
-  //       style={buttonStyle(index)}
-  //       className='bold'
-  //     >
-  //       {index + 1}
-  //     </button>
-  //   ));
-  // };
-  const renderQuestionButtons = () => {
-    const buttonStyle = {
-      padding: '8px',
-      width: '40px',
-      height: '40px',
-      textAlign: 'center',
-      borderRadius: '4px',
-      border: '1px solid rgba(0, 0, 0, 0.2)',
-      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-      margin: '4px',
-      cursor: 'pointer',
-      fontWeight: 'bold',
-    };
-  
-    const rowStyle = {
-      display: 'flex',
-      justifyContent: 'center',
-      margin: '8px 0',
-    };
-  
-    const rows = [];
-    for (let i = 0; i < totalQuestion; i += 3) {
-      const rowButtons = [];
-      for (let j = i; j < i + 3 && j < totalQuestion; j++) {
-        rowButtons.push(
-          <button
-            key={j}
-            onClick={() => handleQuestionClick(j)}
-            style={{
-              ...buttonStyle,
-              backgroundColor: userAnswers[questions[j]?.id] ? 'var(--primary-color)' : 'white',
-              color: userAnswers[questions[j]?.id] ? 'white' : 'var(--primary-color)'
-            }}
-          >
-            {j + 1}
-          </button>
-        );
-      }
-      rows.push(<div key={i} style={rowStyle}>{rowButtons}</div>);
-    }
-  
-    return <div>{rows}</div>;
-  };
-  // const renderQuestion = () => {
-  //   if (loading) {
-  //     return (
-  //       <div className="loader-cell">
-  //         <div className="loader"></div>
-  //       </div>
-  //     );
-  //   }
-  //   if (questions.length === 0) return <p className='text-center'>No questions available</p>;
-
-  //   const currentQuestion = questions[currentIndex];
-
-  //   return (
-  //     <div>
-  //       <p>{currentIndex + 1}. {currentQuestion.question}</p>
-
-  //       {currentQuestion.options.map((option, index) => (
-  //         <div key={index}>
-  //           <label>
-  //             <input
-  //               type="radio"
-  //               name={`question_${currentQuestion.id}`}
-  //               value={option}
-  //               checked={userAnswers[currentQuestion.id] === option}
-  //               onChange={() => setAnswer(currentQuestion.id, option)}
-  //             />
-  //             {option}
-  //           </label>
-  //         </div>
-  //       ))}
-
-  //       <div>
-  //         <button onClick={prevQuestion} disabled={currentIndex === 0}>Previous</button>
-  //         <button onClick={nextQuestion} disabled={currentIndex === questions.length - 1}>Next</button>
-  //       </div>
-  //     </div>
-  //   );
-  // };
-
-  if (loading) {
-    return (
-      <div className="loader-cell">
-        <div className="loader"></div>
-      </div>
-    );
-  }
-  if (questions.length === 0) return <p className='text-center'>No questions available</p>;
-
-  const currentQuestion = questions[currentIndex];
-
-  return (
-    <div>
-      <h1 className='text-center color-primary'>Questions</h1>
-      {timeLeft !== null && <p className="text-center">{formatTime(timeLeft)}</p>}
-      <div className="text-center">
-        {totalQuestion > 0 && renderQuestionButtons()}
-      </div>
-      {/* {renderQuestion()} */}
-      <div>
-        <p>{currentIndex + 1}. {currentQuestion.question}</p>
-
-        {currentQuestion.options.map((option, index) => (
-          <div key={index}>
-            <label>
-              <input
-                type="radio"
-                name={`question_${currentQuestion.id}`}
-                value={option}
-                checked={userAnswers[currentQuestion.id] === option}
-                onChange={() => setAnswer(currentQuestion.id, option)}
-              />
-              {option}
-            </label>
-          </div>
-        ))}
-
-        <div>
-          <button onClick={prevQuestion} disabled={currentIndex === 0}>Previous</button>
-          <button onClick={nextQuestion} disabled={currentIndex === questions.length - 1}>Next</button>
-        </div>
-      </div>
-      <button onClick={handleExamSubmit} className="submit-exam-button">Submit Exam</button>
-    </div>
-  );
-};
-
-export default DoExam;
+        )} */}

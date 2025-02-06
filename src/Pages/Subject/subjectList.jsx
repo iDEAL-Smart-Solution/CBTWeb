@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-// import { SearchField } from "../../Component/UI/input";
-// import { InputField, Submit } from "../../Component/ReUsableComponents/input";
 import { SearchField } from "../../Component/ReUsableComponents/input";
 import { useSubject } from "../../Zustand/subjectSlice";
 import SubjectListTemplate from "../../Component/Subject/subjectListTemplate";

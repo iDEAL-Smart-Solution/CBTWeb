@@ -12,7 +12,7 @@ const StudentLayout = () => {
       </div>
       <div className='outlet-container'>
           <Outlet />
-            <ColorPicker />
+            {/* <ColorPicker /> */}
         </div>
     </div>
   )

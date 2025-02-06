@@ -1,33 +1,3 @@
-
-
-// export function Dropdown({ name, value, handleChange, options, width, firstOption, optionKey, optionValue, optionLabel, mb }) {
-//      return (
-//           <select
-//                name={name}
-//                value={value}
-//                onChange={handleChange}
-//                style={{
-//                     height: '45px',
-//                     border: '1px solid var(--muted-color)',
-//                     width: width,
-//                     padding: '10px',
-//                     fontSize: '16px',
-//                     borderRadius: '5px',
-//                     outline: 'none',
-//                     cursor: 'pointer',
-//                     marginBottom: mb,
-
-//                }}  >
-//                <option value="">{firstOption}</option>
-//                {options.map((option) => (
-//                     <option key={option[optionKey]} value={option[optionValue]}>
-//                     {option[optionLabel]}
-//                     </option>
-//                ))}
-//           </select>
-//      )
-// }
-
 import { useState } from 'react';
 import { BASE_URL } from '../../Constant';
 

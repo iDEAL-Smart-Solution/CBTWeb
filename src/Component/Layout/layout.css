@@ -82,7 +82,7 @@ F.root-container {
      position: fixed;
      bottom: 20px;
      right: 20px;
-     z-index: 1000; /* Ensure it appears above other components */
+     z-index: 1000; 
  }
  
  .color-picker-input {

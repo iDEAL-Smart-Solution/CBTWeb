@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../Zustand/auth";
 import { useNotification } from "../../Context/notificationContext";
-
+import logo from '../../assets/iDEAL-logo.jpg'
 
 
 export default function LoginForm() {
      const { login, auth } = useAuth();
      const { loading, isAuthenticated } = auth;
-     const { showSuccess, showError } = useNotification();  
+     const { showSuccess, showError } = useNotification();
      const [formData, setFormData] = useState({
           email: "",
           password: ""
@@ -24,12 +24,11 @@ export default function LoginForm() {
           e.preventDefault();
           try {
                let res = await login(formData);
-               if(res.success)
-                    {
-                         showSuccess(res.message);
-                    } else {
-                         showError(res.message);
-                    }
+               if (res.success) {
+                    showSuccess(res.message);
+               } else {
+                    showError(res.message);
+               }
           } catch (_error) {
                showError(_error);
           }
@@ -41,25 +40,36 @@ export default function LoginForm() {
      }, [isAuthenticated]);
 
      return (
-          <div className="page-center">
-               <form className="login-box" onSubmit={handleSubmit}>
-                    <div className="login-box-inner">
-                         <h1 className="font-primary color-primary text-center">Welcome Back</h1>
-                         <div>
-                              <input type="text" className="login-field" name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} />
-                         </div>
-                         <div>
-                              <input type="password" className="login-field" name="password" placeholder="password" value={formData.password} onChange={handleInputChange} />
-                         </div>
-                         <button type="submit" loading={loading.toString()}>
-                              {!loading ? "Login" : "please wait..."}
-                         </button>
+          <>
 
-                         {/* <div className="mb">
-                              <a href="#">forgot password</a>
-                         </div> */}
+               <div className="page-center">
+                    <form className="login-box" onSubmit={handleSubmit}>
+                         <div className="login-box-inner">
+                              <h1 className="font-primary color-primary text-center">Welcome Back</h1>
+                              <div>
+                                   <input type="text" className="login-field" name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} />
+                              </div>
+                              <div>
+                                   <input type="password" className="login-field" name="password" placeholder="password" value={formData.password} onChange={handleInputChange} />
+                              </div>
+                              <button type="submit" loading={loading.toString()}>
+                                   {!loading ? "Login" : "please wait..."}
+                              </button>
+
+                         </div>
+                    </form>
+
+                   
+               </div>
+
+                {/* Footer Section */}
+                <div style={{marginTop: '-10%'}} className="text-center">
+                    <div className="">
+                         <small><b>Powered by</b></small> <br />
+                         <img src={logo} alt="iDEAL logo" className="img-fluid" style={{ height: '80px', width:'160px' }} />
                     </div>
-               </form>
-          </div>
+               </div>
+          </>
+
      )
 }
