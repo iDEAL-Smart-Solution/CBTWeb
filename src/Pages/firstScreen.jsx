@@ -55,9 +55,7 @@ const AppWrapper = ({ appName, duration, children }) => {
      }, [duration]);
 
      return showSplash ? (
-          loading ? <div className="loader-cell">
-               <div className="loader"></div>
-          </div> 
+          loading ? ''
           : 
           <FirstScreen logo={schoolLogo} appName={appName} />
      ) : (
