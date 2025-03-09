@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import logo1 from '../../src/assets/iDEAL_SOLUTIONS_2.gif';
+import logo1 from '../../src/assets/ideal-presentation.gif';
 import { useAcad } from '../Zustand/acad_session';
 import { BASE_URL } from '../Constant';
 

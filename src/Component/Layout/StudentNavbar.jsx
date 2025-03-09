@@ -4,6 +4,7 @@ import { useAuth } from '../../Zustand/auth';
 import { BASE_URL } from '../../Constant';
 import { SCHOOL_NAME } from '../../Constant';
 import { useNavigate } from 'react-router-dom';
+import { useAcad } from '../../Zustand/acad_session';
 
 export default function StudentNavbar() {
     const { logout, auth } = useAuth();
