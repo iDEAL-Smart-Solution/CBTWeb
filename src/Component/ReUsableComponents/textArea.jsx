@@ -1,3 +1,4 @@
+import React from "react";
 
 
 export function TextArea({ rows, cols, width, placeholder, mb, className, handleChange, value, name, ml }) {

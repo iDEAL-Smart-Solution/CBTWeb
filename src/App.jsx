@@ -32,6 +32,7 @@ import UploadTheoryScore from './Pages/Result/uploadTheoryScore';
 import FeedbackForm from './Pages/Feedback/feedbackform';
 import Passage from './Pages/Passage/passage';
 import AddNameAndLogo from './Pages/Acad/add_name_and_logo';
+import NextTermOrSession from './Pages/Acad/next-term-or-session';
 
 function App() {
   const getUser = () => JSON.parse(sessionStorage.getItem("user"));
@@ -87,6 +88,8 @@ function App() {
         { path: "*", element: <ErrorPage /> },
         { path: "/passage", element: <Passage /> },
         { path: "/add-name-and-logo", element: <AddNameAndLogo /> },
+        { path: "/next-term-or-session", element: <NextTermOrSession /> },
+        
       ]
     },
     {

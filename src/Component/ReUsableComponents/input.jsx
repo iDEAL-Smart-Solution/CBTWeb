@@ -1,3 +1,4 @@
+import React from "react";
 
 
 export function InputField({ type, placeholder, className, handleChange, value, name, label, width }) {

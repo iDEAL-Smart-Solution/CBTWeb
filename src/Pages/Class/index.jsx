@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ListClass from "../../Component/Class/allClassTable";
 import CreateClass from "../../Component/Class/createClassForm";
 import { useClass } from "../../Zustand/classSlice";

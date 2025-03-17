@@ -1,3 +1,4 @@
+import React from "react";
 import { useAcad } from "../../Zustand/acad_session";
 import { InputField } from "../../Component/ReUsableComponents/input";
 import { Submit } from "../../Component/ReUsableComponents/input";
@@ -32,7 +33,6 @@ export default function AddNameAndLogo() {
      const handleSubmit = async (e) => {
           e.preventDefault();
           try {
-               console.log(formData);
                var res = await addNameAndLogo(formData);
                if(res.success){
                     showSuccess(res.message);
@@ -40,7 +40,7 @@ export default function AddNameAndLogo() {
                     showError(res.message);
                }
           } catch (_error) {
-               console.log(_error);
+               console.error(_error);
           }
      };
      return (

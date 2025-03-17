@@ -1,5 +1,5 @@
 import './class.css';
-
+import React from 'react';
 
 
 export default function CreateClass({handleSubmit, handleInputChange, fieldvalue, fieldName, loading}) {
