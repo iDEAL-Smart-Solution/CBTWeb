@@ -229,7 +229,7 @@ export default function Sidebar() {
                 paddingLeft: '20px',
                 paddingRight: '20px'
             }}>
-                <small className='bolder color-mute'>version 1.3</small>
+                <small className='bolder color-mute'>version 1.4</small>
             </div>
         </div>
     );
