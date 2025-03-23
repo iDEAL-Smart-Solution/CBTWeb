@@ -28,7 +28,7 @@ export default function Edit_Acad_Session() {
           e.preventDefault();
           try {
                let res = await editAcadSession(formData.newTerm, formData.newSession);
-               if(res.success) {
+               if (res.success) {
                     showSuccess(res.message);
                } else {
                     showError(res.message);
@@ -39,16 +39,29 @@ export default function Edit_Acad_Session() {
      };
      return (
           <div>
-               <div className="page-center-2">
-              <div style={{width: '60%', padding: '50px'}} className="box-shadow">
-                    <form onSubmit={handleSubmit} className="">
-                         <InputField type={`number`} name={`newTerm`} label={`Enter term in digits`} value={formData.newTerm} placeholder={`New Term`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
-                         <InputField type={`text`} name={`newSession`} value={formData.newSession} placeholder={`New Session`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
-                         <div className="">
-                              <Submit className={`submit-button text-center color-light`} loading={loading} isNotLoading={`submit`} isloading={`please wait...`} />
+               <div style={{ width: '100%', height: '80vh', display: 'flex', placeItems: 'center', placeContent: 'center', gap: '30px' }}>
+                    <div style={{ width: '40%', padding: '50px' }} className="box-shadow">
+                         <form onSubmit={handleSubmit} className="">
+                              <InputField type={`number`} name={`newTerm`} label={`Enter term in digits`} value={formData.newTerm} placeholder={`New Term`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
+                              <InputField type={`text`} name={`newSession`} value={formData.newSession} placeholder={`New Session`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
+                              <div className="">
+                                   <Submit className={`submit-button text-center color-light`} loading={loading} isNotLoading={`submit`} isloading={`please wait...`} />
+                              </div>
+                         </form>
+                    </div>
+                    <div style={{ width: '40%', padding: '50px' }} className="box-shadow">
+                              <p>Migrate to new Term or session, click the button below to move to new term or session</p>
+                              <small className="color-mute bold ">Note: new session will automatically promote all student to the next class</small> <br /> <br />
+                         <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                              <button style={{ padding: '10px 20px', border: 'none', backgroundColor:' var(--primary-color)', color: 'white', borderRadius: '5px', cursor: 'pointer' }}>
+                                   Next Term
+                              </button>
+                              <button style={{ padding: '10px 20px', border: 'none', backgroundColor: ' var(--primary-color)', color: 'white', borderRadius: '5px', cursor: 'pointer' }}>
+                                   Next Session
+                              </button>
                          </div>
-                    </form>
-              </div>
+                    </div>
+
                </div>
           </div>
      )
