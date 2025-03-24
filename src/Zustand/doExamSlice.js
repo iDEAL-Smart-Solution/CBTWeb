@@ -135,7 +135,8 @@ submitExam: async () => {
      };
    
      try {
-       const response = await axios.post(`${BASE_URL}/api/v1/Exam/submit`, submissionData);
+       const response = await axiosInstance.post(`${BASE_URL}/api/v1/Exam/submit`, submissionData);
+      //  const response = await axios.post(`${BASE_URL}/api/v1/Exam/submit`, submissionData);
        return response.data;
      } catch (error) {
        console.error('Error submitting exam:', error);
