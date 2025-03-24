@@ -5,9 +5,7 @@ import './index.css';
 import { NotificationProvider } from './Context/notificationContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  // <React.StrictMode>
     <NotificationProvider>
       <App />
     </NotificationProvider>
-  //  </React.StrictMode>
 );
