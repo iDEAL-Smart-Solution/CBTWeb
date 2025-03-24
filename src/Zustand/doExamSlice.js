@@ -24,7 +24,7 @@ export const useDoExam = create((set, get) => ({
     try {
       const user = JSON.parse(sessionStorage.getItem('user'));
       const studentId = user ? user.id : null;
-
+ console.log(examKey)
 
       const res = await axiosInstance.get(`${BASE_URL}/api/v1/Exam/do-exam?examKey=${examKey}&studentId=${studentId}`);
       const incoming = res.data;
