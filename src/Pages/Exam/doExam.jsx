@@ -326,6 +326,7 @@ import React, { useEffect, useState } from 'react';
 import { useDoExam } from '../../Zustand/doExamSlice';
 import { useParams, useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../../Constant';
+import { useNotification } from '../../Context/notificationContext';
 
 const DoExam = () => {
   const { examKey } = useParams();
@@ -352,6 +353,7 @@ const DoExam = () => {
   const [error, setError] = useState(null);
   const [showTheory, setShowTheory] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const { showError } = useNotification();
   const navigate = useNavigate();
 
   // Add keyboard controls
@@ -445,7 +447,7 @@ const DoExam = () => {
           navigate('/exam-submitted');
         } catch (error) {
           console.error('Failed to submit exam:', error);
-          setError('Failed to submit exam. Please try again.');
+          showError('Failed to submit exam. Please try again.');
         }
       }
     }, 1000);

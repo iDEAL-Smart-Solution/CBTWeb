@@ -69,7 +69,7 @@ const Question = (set, get) => ({
           const { setLoading } = get().question;
           setLoading(true);
           try {
-               var res = await axios.delete(`${BASE_URL}/api/v1/Question/delete?id=${id}`);
+               var res = await axiosInstance.delete(`${BASE_URL}/api/v1/Question/delete?id=${id}`);
                var mssg = res.data.message;
                return {success: true, message: mssg }
           } catch (error) {

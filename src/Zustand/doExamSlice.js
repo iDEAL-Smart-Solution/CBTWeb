@@ -24,7 +24,7 @@ export const useDoExam = create((set, get) => ({
     try {
       const user = JSON.parse(sessionStorage.getItem('user'));
       const studentId = user ? user.id : null;
-
+ console.log(examKey)
 
       const res = await axiosInstance.get(`${BASE_URL}/api/v1/Exam/do-exam?examKey=${examKey}&studentId=${studentId}`);
       const incoming = res.data;
@@ -135,7 +135,7 @@ submitExam: async () => {
      };
    
      try {
-       const response = await axios.post(`${BASE_URL}/api/v1/Exam/submit`, submissionData);
+       const response = await axiosInstance.post(`${BASE_URL}/api/v1/Exam/submit`, submissionData);
        return response.data;
      } catch (error) {
        console.error('Error submitting exam:', error);
