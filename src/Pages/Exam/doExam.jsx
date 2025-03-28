@@ -32,9 +32,41 @@ const DoExam = () => {
   const { showError } = useNotification();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (showTheory || showConfirmation) return; 
+      
+      const currentQuestion = questions[currentIndex];
+      const optionMap = {
+        'a': 0,
+        'b': 1,
+        'c': 2,
+        'd': 3,
+      };
+
+      if (optionMap[event.key] !== undefined) {
+        const optionIndex = optionMap[event.key];
+        if (optionIndex < currentQuestion.options.length) {
+          setAnswer(currentQuestion.id, currentQuestion.options[optionIndex]);
+        }
+      }
+
+      if (event.key === 'n' && currentIndex < questions.length - 1) {
+        nextQuestion();
+      }
+      if (event.key === 'p' && currentIndex > 0) {
+        prevQuestion();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [currentIndex, questions, setAnswer, nextQuestion, prevQuestion, showTheory, showConfirmation]);
+
   const handleExamSubmit = async () => {
     setShowConfirmation(true);
   };
+
   const confirmSubmit = async () => {
     try {
       await submitExam();
@@ -74,7 +106,6 @@ const DoExam = () => {
       const maxDurationInSeconds = hours * 3600 + minutes * 60 + seconds;
 
       const remainingSeconds = Math.max(maxDurationInSeconds - elapsedSeconds, 0);
-
       return remainingSeconds;
     };
 
@@ -221,7 +252,6 @@ const DoExam = () => {
 
       {/* OBJ */}
       {!showTheory && (
-
         <div className='exam-question-box'>
           <div className='left-fraction'>
             {currentQuestion.isPassageQuestion ? <>
@@ -244,10 +274,13 @@ const DoExam = () => {
                     checked={userAnswers[currentQuestion.id] === option}
                     onChange={() => setAnswer(currentQuestion.id, option)}
                   />
-                  {option}
+                  {String.fromCharCode(97 + index)}. {option} {/* Adds a, b, c, d labels */}
                 </label>
               </div>
             ))}
+            <div style={{ marginTop: '20px' }}>
+              <small>Press 'a', 'b', 'c', or 'd' to select an option, 'n' for next, 'p' for previous</small>
+            </div>
           </div>
 
           <div className='right-fraction'>
@@ -259,11 +292,11 @@ const DoExam = () => {
               <button onClick={prevQuestion} disabled={currentIndex === 0} className='submit-button-2 text-center color-light bold' style={{
                 backgroundColor: currentIndex === 0 ? 'rgba(161, 161, 161, 0.844)' : 'var(--primary-color)',
                 color: currentIndex === 0 ? 'black' : 'white'
-              }}>Previous</button>
+              }}>Previous (p)</button>
               <button onClick={nextQuestion} disabled={currentIndex === questions.length - 1} className='submit-button-2 text-center color-light bold' style={{
                 backgroundColor: currentIndex === questions.length - 1 ? 'rgba(161, 161, 161, 0.844)' : 'var(--primary-color)',
                 color: currentIndex === questions.length - 1 ? 'black' : 'white'
-              }}>Next</button>
+              }}>Next (n)</button>
             </div>
 
             <button onClick={handleExamSubmit} className="submit-exam-button text-center color-light bolder">Submit Exam</button>
@@ -274,8 +307,8 @@ const DoExam = () => {
         <div className="confirmation-dialog box-shadow-3">
           <p>Are you sure you want to submit the exam?</p>
           <div className='form-grouping'>
-            <button onClick={confirmSubmit} className="confirm-submit submit-button-2  text-center color-light bold">Yes, Submit</button>
-            <button onClick={cancelSubmit} className="cancel-button submit-button-2  text-center color-light bold">No, Cancel</button>
+            <button onClick={confirmSubmit} className="confirm-submit submit-button-2 text-center color-light bold">Yes, Submit</button>
+            <button onClick={cancelSubmit} className="cancel-button submit-button-2 text-center color-light bold">No, Cancel</button>
           </div>
         </div>
       )}
@@ -284,4 +317,3 @@ const DoExam = () => {
 };
 
 export default DoExam;
-
