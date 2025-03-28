@@ -3,24 +3,28 @@ import react from '@vitejs/plugin-react-swc';
 import { resolve } from 'path';
 import { copyFileSync } from 'fs';
 
+const isIIS = process.env.IS_IIS === 'true';
+
 export default defineConfig({
   plugins: [
     react(),
     {
-      name: 'copy-web-config', 
+      name: 'copy-web-config',
       generateBundle() {
-        const webConfigPath = resolve(__dirname, 'web.config');
-        const distPath = resolve(__dirname, 'dist/web.config');
-        try {
-          copyFileSync(webConfigPath, distPath);
-          console.log('web.config copied to dist folder');
-        } catch (error) {
-          console.error('Error copying web.config:', error);
+        if (isIIS) {
+          const webConfigPath = resolve(__dirname, 'web.config');
+          const distPath = resolve(__dirname, 'dist/web.config');
+          try {
+            copyFileSync(webConfigPath, distPath);
+            console.log('web.config copied to dist folder');
+          } catch (error) {
+            console.error('Error copying web.config:', error);
+          }
         }
       },
     },
   ],
-  base: './',
+  base: isIIS ? './' : '/', 
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
@@ -30,15 +34,17 @@ export default defineConfig({
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]',
       },
-      treeshake: false, 
+      treeshake: false,
     },
     emptyOutDir: true,
-    minify: false, 
+    minify: false,
   },
   server: {
     hmr: {
-      overlay: false, 
+      overlay: false,
     },
-    historyApiFallback: true,
+    fs: {
+      allow: ['.'],
+    },
   },
 });
