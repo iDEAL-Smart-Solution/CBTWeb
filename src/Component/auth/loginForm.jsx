@@ -47,7 +47,7 @@ export default function LoginForm() {
                          <div className="login-box-inner">
                               <h1 className="font-primary color-primary text-center">Welcome Back</h1>
                               <div>
-                                   <input type="text" className="login-field" name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} />
+                                   <input type="text" className="login-field" name="email" placeholder="UIN Number" value={formData.email} onChange={handleInputChange} />
                               </div>
                               <div>
                                    <input type="password" className="login-field" name="password" placeholder="password" value={formData.password} onChange={handleInputChange} />

@@ -12,7 +12,7 @@ export default function ExamCompleted() {
         <div>
             <div style={{ 
                 position: 'absolute', 
-                top: '20px', 
+                top: '80px', 
                 left: '20px' 
             }}>
                 <button 
