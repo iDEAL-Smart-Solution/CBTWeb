@@ -11,7 +11,7 @@ import { useNotification } from "../../Context/notificationContext";
 export default function SingleQuestionUploadingForm() {
      const { question, uploadSingleQuestion } = useQuestion();
      const { subject, fetchSubjectCodes } = useSubject();
-     const { exam, fetchExams } = useExam();
+     const { exam, fetchExamNamesAndId } = useExam();
      const { loading } = question;
      const { showSuccess, showError } = useNotification();
      const [formData, setFormData] = useState({
@@ -37,7 +37,7 @@ export default function SingleQuestionUploadingForm() {
      }
      useEffect(() => {
           fetchSubjectCodes();
-          fetchExams();
+          fetchExamNamesAndId();
      }, [])
 
      const { subjects } = subject;

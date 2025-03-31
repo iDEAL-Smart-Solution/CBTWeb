@@ -16,13 +16,20 @@ export default function StaffSubjects() {
 
     const { showError } = useNotification
     
-    useEffect(async () => {
-            let res = await fetchStaffSubjects(id);
-            if(!res.success) {
-                showError(res.message);
+    useEffect(() => {
+        async function getStaffSubjects() {
+            try {
+                let res = await fetchStaffSubjects(id);
+                if (!res.success) {
+                    showError(res.message);
+                }
+            } catch (error) {
+                showError(error.message); 
             }
-        
-    }, [fetchStaffSubjects]);
+        }
+    
+        getStaffSubjects(); 
+    }, [id]); 
 
     const [filterKey, setFilterKey] = useState('');
 

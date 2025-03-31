@@ -24,7 +24,6 @@ export const useDoExam = create((set, get) => ({
     try {
       const user = JSON.parse(sessionStorage.getItem('user'));
       const studentId = user ? user.id : null;
- console.log(examKey)
 
       const res = await axiosInstance.get(`${BASE_URL}/api/v1/Exam/do-exam?examKey=${examKey}&studentId=${studentId}`);
       const incoming = res.data;
@@ -88,7 +87,7 @@ export const useDoExam = create((set, get) => ({
       });
     } catch (error) {
       console.error("Error fetching questions", error);
-      set({ loading: false, message: `It seems you've attempteed the exam, Please contact the admin, if otherwise` });
+      set({ loading: false, message: error.response.data });
       throw new Error(`${error.response.data} Please contact the admin`);
 
     }

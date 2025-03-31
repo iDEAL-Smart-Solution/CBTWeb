@@ -5,16 +5,15 @@ import { BASE_URL } from '../../Constant';
 import { SCHOOL_NAME } from '../../Constant';
 import { useNavigate } from 'react-router-dom';
 import { useAcad } from '../../Zustand/acad_session';
+import defaultLogo from '../../assets/iDEAL-logo.jpg';
 
 export default function StudentNavbar() {
     const { logout, auth } = useAuth();
     const navigate = useNavigate();
     const { academicSession, user } = auth;
-    const { current_Session, current_Term } = academicSession;
+  const { current_Session, current_Term, logoUrl, schoolName } = academicSession || {};
     const { firstName, profilePicture } = user || {};
-      const { acad } = useAcad();
-        const { nameAndLogo } = acad;
-        const { name } = nameAndLogo || {};
+
     function handleSignOut() {
         logout();
         navigate('/');
@@ -24,12 +23,18 @@ export default function StudentNavbar() {
         2: "2nd_term",
         3: "3rd_term",
     };
+      const myLogoUrl = logoUrl ? `${BASE_URL}/ProfilePictures/${logoUrl}` : defaultLogo;
     return (
         <nav className="navbar">
             <div className="navbar-logo">
-                <img src="path-to-logo.png" alt="" />
-                <span className='color-primary'>{name || SCHOOL_NAME}</span>
-            </div>
+        <img
+          src={myLogoUrl}
+          alt="School Logo"
+          onError={(e) => {
+            e.target.src = defaultLogo;
+          }} /> 
+           <span className='color-primary'>{schoolName || SCHOOL_NAME}</span>
+      </div>
             <div>
                 <div>
                     {current_Session && <small className='bolder color-primary'>{current_Session}</small>}

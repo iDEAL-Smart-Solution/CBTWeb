@@ -155,7 +155,7 @@ export function Table({
           <tr>
             {columns.map((column, index) => (
               <th
-                key={column.key}
+                key={index}
                 className={
                   index === 0
                     ? 'b-r-l'
@@ -172,13 +172,13 @@ export function Table({
         </thead>
         <tbody>
           {loading ? (
-            <tr>
+            <tr key={paginatedData.id}>
               <td colSpan={columns.length} className="loader-cell">
                 <div className="loader"></div>
               </td>
             </tr>
           ) : !paginatedData || paginatedData.length === 0 ? (
-            <tr>
+            <tr key={paginatedData.id}>
               <td colSpan={columns.length} style={{ textAlign: 'center' }}>
                 {emptyText}
               </td>
@@ -199,7 +199,7 @@ export function Table({
             backgroundColor: '#eee'
           }}
         >
-          <tr>
+          <tr key={paginatedData.id}>
             <td colSpan={columns.length}>
               <div
                 style={{

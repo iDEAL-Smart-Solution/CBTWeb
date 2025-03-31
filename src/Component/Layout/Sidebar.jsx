@@ -165,7 +165,7 @@ export default function Sidebar() {
 
     const roleRoutes = {
         1: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list", "/question/create", "/subject-result", "/student-result", "/upload-thoery-score", "/student-clearance", "/edit-academic-session", "/send-feedback", "/passage", "/add-name-and-logo", "/next-term-or-session"],
-        2: ["/dashboard", "/staff/list", "/student/registration", "/student/list", "/staff/subjects", "/exam/create", "/question/create", "/staff/exams", "/subject-result", "/student-result", "/send-feedback", ],
+        2: ["/dashboard", "/staff/list", "/student/registration", "/student/list", "/staff/subjects", "/exam/create", "/question/create", "/staff/exams", "/subject-result", "/send-feedback", ],
         4: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list", "/question/create", "/subject-result", "/student-result", "/upload-thoery-score", "/student-clearance", "/edit-academic-session", "/send-feedback", "/passage", "/add-name-and-logo"],
     };
 
@@ -229,7 +229,7 @@ export default function Sidebar() {
                 paddingLeft: '20px',
                 paddingRight: '20px'
             }}>
-                <small className='bolder color-mute'>version 1.4</small>
+                <small className='bolder color-mute'>version 1.5</small>
             </div>
         </div>
     );

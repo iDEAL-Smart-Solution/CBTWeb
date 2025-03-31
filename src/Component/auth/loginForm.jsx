@@ -3,11 +3,11 @@ import { useAuth } from "../../Zustand/auth";
 import { useNotification } from "../../Context/notificationContext";
 import logo from '../../assets/iDEAL-logo.jpg'
 
-
 export default function LoginForm() {
      const { login, auth } = useAuth();
      const { loading, isAuthenticated } = auth;
      const { showSuccess, showError } = useNotification();
+
      const [formData, setFormData] = useState({
           email: "",
           password: ""
@@ -37,6 +37,7 @@ export default function LoginForm() {
           if (isAuthenticated) {
                window.location.reload();
           }
+          
      }, [isAuthenticated]);
 
      return (
@@ -62,7 +63,6 @@ export default function LoginForm() {
                    
                </div>
 
-                {/* Footer Section */}
                 <div style={{marginTop: '-10%'}} className="text-center">
                     <div className="">
                          <small><b>Powered by</b></small> <br />

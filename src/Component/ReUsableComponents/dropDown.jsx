@@ -4,12 +4,19 @@ import { BASE_URL } from '../../Constant';
 
 export function Dropdown({ name, value, handleChange, options, width, firstOption, optionKey, optionValue, optionLabel, optionImage, mb }) {
     const [isOpen, setIsOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
     const selectedOption = options.find(option => option[optionValue] === value);
 
     const handleSelect = (optionValue) => {
         handleChange({ target: { name, value: optionValue } });
         setIsOpen(false);
+        setSearchTerm(''); 
     };
+
+    const filteredOptions = options.filter(option =>
+        option[optionLabel].toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div style={{ width: width, position: 'relative', marginBottom: mb }}>
             <div
@@ -38,9 +45,9 @@ export function Dropdown({ name, value, handleChange, options, width, firstOptio
 
             {isOpen && (
                 <ul
-                className="custom-scrollbar"
+                    className="custom-scrollbar"
                     style={{
-                         all: 'unset',
+                        all: 'unset',
                         position: 'absolute',
                         top: '100%',
                         left: 0,
@@ -53,6 +60,23 @@ export function Dropdown({ name, value, handleChange, options, width, firstOptio
                         backgroundColor: '#eee',
                     }}
                 >
+                    <li style={{ padding: '10px' }}>
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="Search..."
+                            onClick={(e) => e.stopPropagation()}
+                            style={{
+                                width: '100%',
+                                padding: '5px',
+                                border: '1px solid #ccc',
+                                borderRadius: '4px',
+                                boxSizing: 'border-box'
+                            }}
+                        />
+                    </li>
+
                     <li
                         onClick={() => handleSelect('')}
                         style={{ padding: '10px', cursor: 'pointer', backgroundColor: 'var(--primary-color)', color: 'var(--secondary-color)' }}
@@ -60,7 +84,8 @@ export function Dropdown({ name, value, handleChange, options, width, firstOptio
                     >
                         {firstOption}
                     </li>
-                    {options.map(option => (
+
+                    {filteredOptions.map(option => (
                         <li
                             key={option[optionKey]}
                             onClick={() => handleSelect(option[optionValue])}

@@ -14,7 +14,7 @@ export default function SubjectResultTemplate({ data, loading }) {
         ];
         const alteredData = data.map(item => ({
          ...item,
-         total_Score: Number(item.total_Score).toFixed(1)
+         total_Score: Number(item.total_Score).toFixed(2)
       }))
  
      return (

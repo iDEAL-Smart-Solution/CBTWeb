@@ -10,9 +10,11 @@ const Result = (set, get) => ({
           loading: false,
           subjectResults: [],
           studentResults: [],
+          staffSubjectResult: [],
           setErrorMessage: (data) => set((state) => ({ ...state, result: { ...state.result, errorMessage: data } })),
           setLoading: (value) => set((state) => ({ ...state, result: { ...state.result, loading: value } })),
           setSubjectResults: (data) => set((state) => ({...state, result: { ...state.result, subjectResults: data } })),
+          setStaffSubjectResult: (data) => set((state) => ({...state, result: { ...state.result, staffSubjectResult: data } })),
           setStudentResults: (data) => set((state) => ({...state, result: { ...state.result, studentResults: data } })),
      },
      fetchSubjectResults: async (subjectCode, term) => {
@@ -34,6 +36,29 @@ const Result = (set, get) => ({
           } catch (error) {
                console.error("Error fetching subject result:", error);
                setErrorMessage(error.response?.data?.message);
+          } finally {
+               setLoading(false);
+          }
+     },
+     fetchStaffSubjectResults: async (subjectCode, term, userId, showError) => {
+          const { setLoading, setStaffSubjectResult } = get().result;
+          setLoading(true);
+          try {
+               var resposne = await axiosInstance.get(`${BASE_URL}/api/v1/Result/get-staff-subject-result?subjectCode=${subjectCode}&term=${term}&userId=${userId}`);
+               const results = resposne.data.map((result) => ({
+                         studentUin: result.studentUin,
+                         first_CA_Score: result.first_CA_Score,
+                         second_CA_Score: result.second_CA_Score,
+                         third_CA_Score: result.third_CA_Score,
+                         exam_Score: result.exam_Score,
+                         total_Score: result.total_Score,
+                         term: result.term,
+                         studentName: result.studentName,
+                }))
+                setStaffSubjectResult(results);
+          } catch (error) {
+               console.error("Error fetching subject result:", error);
+               showError(error.response?.data)
           } finally {
                setLoading(false);
           }

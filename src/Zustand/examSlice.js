@@ -20,7 +20,7 @@ const Exam = (set, get) => ({
           setSingleExam: (data) => set((state) => ({ ...state, exam: { ...state.exam, singleExam: data } })),
      },
      createExam: async (formData) => {
-          const { setLoading, setMessage, setErrorMessage } = get().exam;
+          const { setLoading, setErrorMessage } = get().exam;
           setLoading(true);
           try {
                const formDataToSend = new FormData();

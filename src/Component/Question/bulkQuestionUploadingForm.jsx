@@ -10,7 +10,7 @@ import { useNotification } from "../../Context/notificationContext";
 export default function BulkQuestionUploadingForm() {
      const { question, uploadBulkQuestion } = useQuestion();
      const { subject, fetchSubjectCodes } = useSubject();
-     const { exam, fetchExams } = useExam();
+     const { exam, fetchExamNamesAndId } = useExam();
      const { loading } = question;
 
      const { showSuccess, showError } = useNotification();
@@ -38,7 +38,7 @@ export default function BulkQuestionUploadingForm() {
      }
      useEffect(() => {
           fetchSubjectCodes();
-          fetchExams();
+          fetchExamNamesAndId();
      }, [])
 
      const { subjects } = subject;
