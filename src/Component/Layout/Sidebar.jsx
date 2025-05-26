@@ -156,6 +156,31 @@ const navLinksItem = [
                 }
             ]
         },
+        {
+            name: "Administration",
+            subLinks: [
+                {
+                    link: "/create-school",
+                    name: "Create",
+                    icon: <FaPlus/>
+                },
+                {
+                    link: "/school-list",
+                    name: "List",
+                    icon: <FaUsers />
+                },
+                {
+                    link: "/admin/create",
+                    name: "Create Admin",
+                    icon: <FaPlus />
+                },
+                {
+                    link: "/admin/users",
+                    name: "Admin Users",
+                    icon: <FaUsers />
+                }
+            ]
+        }
         
     ]
 
@@ -166,13 +191,13 @@ export default function Sidebar() {
     const roleRoutes = {
         1: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list", "/question/create", "/subject-result", "/student-result", "/upload-thoery-score", "/student-clearance", "/edit-academic-session", "/send-feedback", "/passage", "/add-name-and-logo", "/next-term-or-session"],
         2: ["/dashboard", "/staff/list", "/student/registration", "/student/list", "/staff/subjects", "/exam/create", "/question/create", "/staff/exams", "/subject-result", "/send-feedback", ],
-        4: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list", "/question/create", "/subject-result", "/student-result", "/upload-thoery-score", "/student-clearance", "/edit-academic-session", "/send-feedback", "/passage", "/add-name-and-logo"],
+        4: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list", "/question/create", "/subject-result", "/student-result", "/upload-thoery-score", "/student-clearance", "/edit-academic-session", "/send-feedback", "/passage", "/add-name-and-logo", "/next-term-or-session", "/create-school", "/school-list","/admin/create", "/admin/users"],
     };
 
     const routeNames = {
         1: ["Class", "Staff", "Student", "Subject", "Questions", "Examination", "Result", "Setting", "Feedback"],
         2: ["Subject", "Questions", "Examination", "Result", "Feedback"],
-        4: ["Class", "Staff", "Student", "Subject", "Questions", "Examination", "Result", "Setting", "Feedback"],
+        4: ["Class", "Staff", "Student", "Subject", "Questions", "Examination", "Result", "Setting", "Feedback", "Administration"],
     };
 
     const allowedRoutes = roleRoutes[user?.role] || [];

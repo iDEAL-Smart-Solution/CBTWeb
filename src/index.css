@@ -1,3 +1,6 @@
+@import "tailwindcss";
+
+
 :root {
   --primary-font: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   --primary-color: rgba(118, 177, 247, 1);

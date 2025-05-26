@@ -5,25 +5,22 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-export default function StaffListTemplate({ data, loading, handleDelete }) {
+export default function AdminUserListTemplate({ data, loading, handleDelete }) {
      const navigate = useNavigate();
 
      const columns = [
-          { key: 'profilePicture', header: 'Profile Picture' },
-          { key: 'userName', header: 'User Name' },
-          { key: 'gender', header: 'Gender' },
+          { key: 'name', header: 'Name' },
+          { key: 'schoolName', header: 'School Name' },
           { key: 'uin', header: 'UIN' },
+          { key: 'phoneNumber', header: 'Phone Number' },
+          { key: 'email', header: 'Email' },
           { key: 'more', header: 'More' },
           { key: 'delete', header: 'Delete' },
 
      ]
-     const genderMap = {
-          1: "Male",
-          2: "Female"
-     };
-
+   
      const handleMoreClick = (id) => {
-          navigate(`/staff/${id}`);
+          navigate(`/admin/user/${id}`);
      };
 
      return (
@@ -31,9 +28,8 @@ export default function StaffListTemplate({ data, loading, handleDelete }) {
                data={data}
                loading={loading}
                columns={columns}
-               genderMap={genderMap}
                onMoreClick={handleMoreClick}
-               emptyText={`You have no Staff`}
+               emptyText={`You have no admin user yet`}
                width={`75%`}
                handleDelete={handleDelete}
           />

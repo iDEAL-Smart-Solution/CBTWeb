@@ -8,8 +8,8 @@ export default function ListClass({ classes, loading, handleDelete }) {
     { key: 'className', header: 'Class Name' },
     { key: 'numberOfSubjects', header: 'Number of Subjects' },
     { key: 'numberOfStudents', header: 'Number of Student' },
-    { key: 'more', header: '' },
-    { key: 'delete', header: '' },
+    { key: 'more', header: 'More' },
+    { key: 'delete', header: 'Delete' },
   ];
 
   const handleMoreClick = (id) => {

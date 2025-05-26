@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import { BASE_URL } from './index';
 
@@ -9,9 +8,11 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = sessionStorage.getItem('token');
+    const schoolId = sessionStorage.getItem('SchoolId');
 
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
+      config.headers['SchoolID'] = schoolId;
     }
 
     return config;

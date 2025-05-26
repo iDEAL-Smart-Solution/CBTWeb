@@ -33,6 +33,10 @@ import FeedbackForm from './Pages/Feedback/feedbackform';
 import Passage from './Pages/Passage/passage';
 import AddNameAndLogo from './Pages/Acad/add_name_and_logo';
 import NextTermOrSession from './Pages/Acad/next-term-or-session';
+import SchoolRegistration from './Pages/School/School-Registraton';
+import SchoolList from './Pages/School/School-list';
+import AdminUserCreation from './Pages/Admin/admin-user-creation';
+import AdminUserList from './Pages/Admin/admin-user-list';
 
 function App() {
   const getUser = () => JSON.parse(sessionStorage.getItem("user"));
@@ -89,7 +93,10 @@ function App() {
         { path: "/passage", element: <Passage /> },
         { path: "/add-name-and-logo", element: <AddNameAndLogo /> },
         { path: "/next-term-or-session", element: <NextTermOrSession /> },
-        
+        { path: "/create-school", element: <SchoolRegistration />},
+        { path: "/school-list", element: <SchoolList /> },
+        { path: "/admin/create", element: <AdminUserCreation /> },
+        { path: "/admin/users", element: <AdminUserList /> },
       ]
     },
     {

@@ -26,6 +26,7 @@ const Auth = (set, get) => ({
             const { user, token, academicSession } = data;
             sessionStorage.setItem('token', token);
             sessionStorage.setItem('user', JSON.stringify(user));
+            sessionStorage.setItem('SchoolId', user.schoolId);
             sessionStorage.setItem('academicSession', JSON.stringify(academicSession));
             set((state) => ({
                 ...state,
@@ -65,6 +66,7 @@ const Auth = (set, get) => ({
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('academicSession');
+        sessionStorage.removeItem('SchoolId');
     
         set((state) => ({
             ...state,
