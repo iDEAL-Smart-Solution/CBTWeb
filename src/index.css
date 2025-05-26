@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #76B1F7; 
+  --color-secondary: #ffffff;
+  --color-muted: rgba(161, 161, 161, 0.844);
+  --font-family-inter-system: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.test-primary {
+  background-color: var(--color-primary);
+}
 
 :root {
   --primary-font: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -136,7 +146,7 @@ body{
 }
 
 
-/* ***************************USER LOGIN FORM *************************** */
+
 
 .page-center{
     width: 100%;

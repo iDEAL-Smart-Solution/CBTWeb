@@ -148,7 +148,7 @@ export default function LoginForm() {
           <div>
             <input
               type="text"
-              className="w-full p-3 border-b-4 border-blue-500 focus:outline-none text-lg mb-6 font-inter placeholder-muted"
+              className="w-full p-3 border-b-4 border-primary focus:outline-none text-lg mb-6 font-inter placeholder-muted"
               name="email"
               placeholder="UIN Number"
               value={formData.email}
@@ -158,7 +158,7 @@ export default function LoginForm() {
           <div>
             <input
               type="password"
-              className="w-full p-3 border-b-4 border-blue-500 focus:outline-none text-lg mb-6 font-inter placeholder-muted"
+              className="w-full p-3 border-b-4 border-primary focus:outline-none text-lg mb-6 font-inter placeholder-muted"
               name="password"
               placeholder="Password"
               value={formData.password}
@@ -167,7 +167,7 @@ export default function LoginForm() {
           </div>
           <button
             type="submit"
-            className="w-full py-3 bg-blue-500 text-white rounded-lg text-lg font-inter font-bold hover:bg-blue-600 transition-colors"
+            className="w-full py-3 bg-primary text-white rounded-lg text-lg font-inter font-bold hover:bg-blue-600 transition-colors"
             disabled={loading}
           >
             {!loading ? "Login" : "Please wait..."}

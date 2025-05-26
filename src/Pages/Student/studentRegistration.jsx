@@ -80,7 +80,6 @@ export default function StudentRegistration() {
      }
      return (
           <div>
-               <h1 className="text-center color-primary">Student</h1>
                <StudentRegistrationForm formData={formData} handleInputChange={handleInputChange} handleReset={handleReset} handleSubmit={handleSubmit} loading={loading} allschClass={allschClass} />
           </div>
      )

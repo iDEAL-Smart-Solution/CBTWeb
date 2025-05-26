@@ -52,7 +52,6 @@ export default function SchoolRegistration() {
      }
      return (
           <div>
-               <h1 className="text-center color-primary">School</h1>
                <SchoolCreateForm loading={loading} formData={formData} handleInputChange={handleInputChange} handleSubmit={handleSubmit} handleReset={handleReset} />
           </div>
      )

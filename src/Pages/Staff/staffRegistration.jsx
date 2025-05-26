@@ -80,7 +80,6 @@ export default function StaffRegistration() {
      }
      return(
           <div>
-                    <h1 className="text-center color-primary">Staff</h1>
                <StaffRegistrationForm loading={loading} formData={formData} handleInputChange={handleInputChange} handleSubmit={handleSubmit} handleReset={handleReset} passwordError={passwordError} />
           </div>
      )
