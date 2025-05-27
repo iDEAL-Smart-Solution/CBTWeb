@@ -21,16 +21,16 @@ const Subject = (set, get) => ({
           const { setLoading } = get().subject;
           setLoading(true);
           try {
-               const formDataToSend = new FormData();
-               Object.entries(formData).forEach(([key, value]) => {
-                    formDataToSend.append(key, value);
-               });
-               var res = await axiosInstance.post(`${BASE_URL}/api/v1/Subject/create`, formDataToSend);
+               // const formDataToSend = new FormData();
+               // Object.entries(formData).forEach(([key, value]) => {
+               //      formDataToSend.append(key, value);
+               // });
+               var res = await axiosInstance.post(`${BASE_URL}/api/v1/Subject/create`, formData);
                const messg = res.data.message;
                return {success: true, message: messg}
           } catch (error) {
                console.error(`Error occured creating new subject.`, error);
-               return {success: false, message: error.response?.data?.message || 'An error occurred: make sure form was filled appropriately'}
+               return {success: false, message: error.message }
           } finally {
                setLoading(false);
           }
@@ -52,7 +52,7 @@ const Subject = (set, get) => ({
                return { success: true, message: 'retrieved successfully'}
           } catch (error) {
                console.error("Error fetching list of subjects:", error);
-               return { success: false, message: 'Error fetching list of subjects'}
+               return { success: false, message: error.message }
           } finally {
                setLoading(false);
           }
@@ -74,7 +74,7 @@ const Subject = (set, get) => ({
                return { success: true, message: ''}
           } catch (error) {
                console.error("Error fetching list of subjects:", error);
-               return { success: false, message: `${error.response?.data?.message}` || 'An error occurred make sure your server is up and running'}
+               return { success: false, message: error.message }
           } finally {
                setLoading(false);
           }
@@ -97,7 +97,7 @@ const Subject = (set, get) => ({
                setSubjects(fetchedSubjects)
           } catch (error) {
                console.error("Error fetching list of subjects:", error);
-               setErrorMessage(error.response?.data?.message || 'An error occurred make sure your server is up and running');
+               setErrorMessage(error.message );
           } finally {
                setLoading(false);
           }
@@ -120,7 +120,7 @@ const Subject = (set, get) => ({
                setSubjects(fetchedSubjects)
           } catch (error) {
                console.error("Error fetching list of subjects:", error);
-               setErrorMessage(error.response?.data?.message || 'An error occurred make sure your server is up and running');
+               setErrorMessage(error.message );
           } finally {
                setLoading(false);
           }
@@ -135,7 +135,7 @@ const Subject = (set, get) => ({
                setSingleSubject(response);
           } catch (error) {
                console.error(`Error occured when trying to fetch single subject.`, error);
-               setErrorMessage(error.request.response || 'subject not found');
+               setErrorMessage(error.message );
           } finally {
                setLoading(false);
           }
@@ -153,7 +153,7 @@ const Subject = (set, get) => ({
                setSubjects(fetchedSubjectCodes);
           } catch (error) {
                console.error("Error fetching subject codes:", error);
-               setErrorMessage(error.response?.data?.message);
+               setErrorMessage(error.message );
           } finally {
                setLoading(false);
           }
@@ -168,7 +168,7 @@ const Subject = (set, get) => ({
           } catch (error) {
                console.error("Error occured when attempting to delete question")
                setErrorMessage(error.response.data.message || "An error occured, question could not be deleted");
-               return{success: false, message: error.response.data.message}
+               return{success: false, message: error.message }
           } finally {
                setLoading(false);
           }
@@ -190,7 +190,7 @@ const Subject = (set, get) => ({
                return {success: true, message: mssg};
           } catch (error) {
                console.error("Error occured when trying to edit question : ", error);
-               return {success: false, message: error.response.data.message || "Error occured when trying to edit the question"};
+               return {success: false, message: error.message };
           } finally {
                setLoading(false);
           }

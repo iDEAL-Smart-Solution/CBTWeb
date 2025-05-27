@@ -1,5 +1,3 @@
-
-
 import { useExam } from "../../Zustand/examSlice";
 import { useResult } from "../../Zustand/resultSlice";
 import { useNotification } from "../../Context/notificationContext";
@@ -7,10 +5,6 @@ import { useState, useEffect } from "react";
 import { Dropdown } from "../ReUsableComponents/dropDown";
 import { FileUploader } from "../ReUsableComponents/file";
 import { Submit } from "../ReUsableComponents/input";
-
-
-
-
 
 
 export default function UploadBulkTheoryScore() {
@@ -64,9 +58,8 @@ export default function UploadBulkTheoryScore() {
           })
      }
      return(
-          <div className="page-center-2">
-          <div className="register-box-3 box-shadow">
-               <form onSubmit={handleSubmit} className="form" >
+           <div className="bg-white shadow-lg rounded-lg p-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
                     <small className="bold color-mute">Please update batch by batch</small>
                     <div className="form-grouping">
                          <Dropdown
@@ -91,13 +84,23 @@ export default function UploadBulkTheoryScore() {
                               width='100%'
                          />
                     </div>
-                    <div className="form-grouping-buttom">
-                         <input className="submit-button bg-color-mute text-center" type="reset" value="reset" onClick={handleReset} />
-                         <Submit className={`submit-button text-center color-light`} loading={loading} isNotLoading={`submit`} isloading={`please wait...`} />
-                    </div>
+                    <div className="flex flex-col md:flex-row gap-4">
+                    <button
+                        type="reset"
+                        onClick={handleReset}
+                        className="w-full md:w-auto px-6 py-2 bg-gray-300 text-gray-800 font-semibold rounded-md hover:bg-gray-400 transition-colors duration-200 shadow-sm"
+                    >
+                        Reset
+                    </button>
+                    <Submit
+                        className="w-full md:w-auto"
+                        loading={loading}
+                        isNotLoading="Submit"
+                        isloading="Please wait..."
+                    />
+                </div>
                </form>
           </div>
-     </div>
 
      )
 }
