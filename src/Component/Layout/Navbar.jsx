@@ -24,7 +24,7 @@ export default function Navbar() {
   const myLogoUrl = logoUrl ? `${BASE_URL}/ProfilePictures/${logoUrl}` : defaultLogo;
 
   return (
-    <nav className="flex items-center justify-between w-full p-2 md:p-4">
+    <nav className="flex items-center justify-between w-full">
       <div className="flex items-center space-x-2 md:space-x-4">
         <img
           src={myLogoUrl}
@@ -53,7 +53,7 @@ export default function Navbar() {
       <div className="flex items-center">
         <button
           onClick={handleSignOut}
-          className="bg-blue-500 text-white px-3 py-1 md:px-4 md:py-2 rounded-md hover:bg-blue-600 transition-colors duration-200 text-sm md:text-base"
+          className="bg-blue-600 text-white px-3 py-1 md:px-4 md:py-2 rounded-md hover:bg-blue-600 transition-colors duration-200 text-sm md:text-base"
         >
           Sign Out
         </button>

@@ -44,9 +44,9 @@ export default function SubjectResult() {
         e.preventDefault();
 
         try {
-          if (role === 1 || role === 4) {
-                 await fetchSubjectResults(formData.subjectCode, formData.term, showError);
-               } else if (role === 2) {
+            if (role === 1 || role === 4) {
+                await fetchSubjectResults(formData.subjectCode, formData.term, showError);
+            } else if (role === 2) {
                 await fetchStaffSubjectResults(formData.subjectCode, formData.term, userId, showError);
             }
         } catch (_error) {
@@ -89,71 +89,71 @@ export default function SubjectResult() {
 
     if (!hasAccess) {
         return (
-            <div>
-                <h2>Access Denied</h2>
-                <p>Sorry, students are not authorized to view this page.</p>
+            <div className="min-h-screen bg-gray-100 py-6 px-4 md:px-6 flex items-center justify-center">
+                <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full text-center">
+                    <h2 className="text-xl font-bold text-gray-800 mb-4">Access Denied</h2>
+                    <p className="text-gray-600">Sorry, students are not authorized to view this page.</p>
+                </div>
             </div>
         );
     }
 
     return (
-        <div>
-            <div className="box-shadow header-crumbs">
-                <form onSubmit={handleSubmit}>
-                    <small className="color-mute bold mb-3">Note: To check all terms select a term and vice versa</small>
-                    <div className="result-form-group">
-                        <Dropdown
-                            name="subjectCode"
-                            value={formData.subjectCode}
-                            handleChange={handleInputChange}
-                            width="54%"
-                            firstOption="Select subject code"
-                            options={subjects}
-                            optionKey="id"
-                            optionValue="code"
-                            optionLabel="code"
-                            mb="15px"
-                        />
-                        <Dropdown
-                            name={`term`}
-                            value={formData.term}
-                            handleChange={handleInputChange}
-                            options={term}
-                            width={`54%`}
-                            optionValue={`value`}
-                            optionLabel={`text`}
-                            firstOption={`Select Term`}
-                        />
-                        <Submit 
-                            className={`fetch-button text-center color-light bolder`} 
-                            loading={loading} 
-                            isNotLoading={`check`} 
-                            isloading={`on it...`} 
-                        />
-                    </div>
-                </form>
+        <div className="min-h-screen bg-gray-100 py-6 px-4 md:px-6 relative z-0">
+            <div className="max-w-5xl mx-auto">
+                <h1 className="text-2xl font-bold text-gray-800 mb-6">Subject Results</h1>
+                <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <p className="text-sm text-gray-600 italic mb-4">
+                            Note: To check all terms, select a term and vice versa.
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <Dropdown
+                                name="subjectCode"
+                                value={formData.subjectCode}
+                                handleChange={handleInputChange}
+                                width="100%"
+                                firstOption="Select subject code"
+                                options={subjects}
+                                optionKey="id"
+                                optionValue="code"
+                                optionLabel="code"
+                                className="mb-4"
+                            />
+                            <Dropdown
+                                name="term"
+                                value={formData.term}
+                                handleChange={handleInputChange}
+                                options={term}
+                                width="100%"
+                                optionValue="value"
+                                optionLabel="text"
+                                firstOption="Select Term"
+                                className="mb-4"
+                            />
+                            <Submit 
+                                className="w-full md:w-auto mt-4 md:mt-0"
+                                loading={loading} 
+                                isNotLoading="Check Results" 
+                                isloading="Fetching..." 
+                            />
+                        </div>
+                    </form>
+                </div>
                 {resultsToDisplay && resultsToDisplay.length > 0 && (
-                    <button
-                        onClick={downloadPdf}
-                        style={{
-                            all: 'unset',
-                            width: '20%',
-                            backgroundColor: 'var(--primary-color)',
-                            display: 'flex',
-                            placeContent: 'center',
-                            placeItems: 'center',
-                            color: 'var(--secondary-color)',
-                            padding: '10px',
-                            borderRadius: '10px',
-                            fontWeight: 'bold'
-                        }}
-                    >
-                        Download PDF
-                    </button>
+                    <div className="flex justify-end mb-6">
+                        <button
+                            onClick={downloadPdf}
+                            className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-200 shadow-sm"
+                        >
+                            Download PDF
+                        </button>
+                    </div>
                 )}
+                <div className="bg-white shadow-lg rounded-lg">
+                    <SubjectResultTemplate data={resultsToDisplay} loading={loading} />
+                </div>
             </div>
-
-            <SubjectResultTemplate data={resultsToDisplay} loading={loading} />
         </div>
     );
 }

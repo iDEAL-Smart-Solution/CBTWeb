@@ -47,7 +47,8 @@ const navLinksItem = [
     subLinks: [
       { link: "/exam/create", name: "Create", icon: <Plus size={20} /> },
       { link: "/exam/list", name: "List", icon: <Clipboard size={20} /> },
-      { link: "/staff/exams", name: "My Exams", icon: <List size={20} /> }
+      { link: "/staff/exams", name: "My Exams", icon: <List size={20} /> },
+      { link: "/student-clearance", name: "Exam Clearance", icon: <Settings size={20} /> },
     ]
   },
   {
@@ -61,10 +62,7 @@ const navLinksItem = [
   {
     name: "Setting",
     subLinks: [
-      { link: "/student-clearance", name: "Exam Clearance", icon: <Settings size={20} /> },
-      { link: "/edit-academic-session", name: "Academic Session", icon: <Settings size={20} /> },
-      { link: "/add-name-and-logo", name: "Name and Logo", icon: <Settings size={20} /> },
-      { link: "/next-term-or-session", name: "Term and Session", icon: <Settings size={20} /> }
+      { link: "/edit-academic-session", name: "Academic Settings", icon: <Settings size={20} /> },
     ]
   },
   {
@@ -90,9 +88,9 @@ export default function Sidebar({ isOpen, setIsOpen }) {
   const location = useLocation();
 
   const roleRoutes = {
-    1: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list", "/question/create", "/subject-result", "/student-result", "/upload-thoery-score", "/student-clearance", "/edit-academic-session", "/send-feedback", "/passage", "/add-name-and-logo", "/next-term-or-session"],
+    1: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list", "/question/create", "/subject-result", "/student-result", "/upload-thoery-score", "/student-clearance", "/edit-academic-session", "/send-feedback", "/passage",],
     2: ["/dashboard", "/staff/list", "/student/registration", "/student/list", "/staff/subjects", "/exam/create", "/question/create", "/staff/exams", "/subject-result", "/send-feedback"],
-    4: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list", "/question/create", "/subject-result", "/student-result", "/upload-thoery-score", "/student-clearance", "/edit-academic-session", "/send-feedback", "/passage", "/add-name-and-logo", "/next-term-or-session", "/create-school", "/school-list", "/admin/create", "/admin/users"]
+    4: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list", "/question/create", "/subject-result", "/student-result", "/upload-thoery-score", "/student-clearance", "/send-feedback", "/passage", "/add-name-and-logo", "/create-school", "/school-list", "/admin/create", "/admin/users"]
   };
 
   const routeNames = {
@@ -106,7 +104,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
 
   return (
 
-    <aside className={`w-64 bg-white shadow-lg h-[92.5vh] fixed md:static transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out ${
+    <aside className={`w-64 bg-white shadow-lg h-[92.5vh] fixed md:static transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50 ${
       isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
     } flex flex-col`}>
         
@@ -150,7 +148,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
         </ul>
       </div>
 
-      <div className="bg-gray-100 p-4 text-center">
+      <div className="bg-gray-200 text-center">
         <small className="text-gray-500 font-bold">Version 1.5</small>
       </div>
     </aside>

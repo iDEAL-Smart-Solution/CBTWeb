@@ -85,16 +85,18 @@ export default function ExamCreation() {
     };
 
     return (
-        <div>
-            <h1 className="text-center color-primary" style={{ marginBottom: "8%" }}>Exam</h1>
-            <ExamCreationForm 
-                handleInputChange={handleInputChange} 
-                handleReset={handleReset} 
-                handleSubmit={handleSubmit} 
-                formData={formData} 
-                subjects={subjects} 
-                loading={loading} 
-            />
+        <div className="min-h-screen bg-gray-100 py-6 px-4 md:px-6 relative z-0">
+            <div className="max-w-2xl mx-auto">
+                <h1 className="text-2xl font-bold text-gray-800 mb-6">Exam Creation</h1>
+                <ExamCreationForm 
+                    handleInputChange={handleInputChange} 
+                    handleReset={handleReset} 
+                    handleSubmit={handleSubmit} 
+                    formData={formData} 
+                    subjects={subjects} 
+                    loading={loading} 
+                />
+            </div>
         </div>
     );
 }

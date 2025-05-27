@@ -79,8 +79,17 @@ export default function StudentRegistration() {
           })
      }
      return (
-          <div>
-               <StudentRegistrationForm formData={formData} handleInputChange={handleInputChange} handleReset={handleReset} handleSubmit={handleSubmit} loading={loading} allschClass={allschClass} />
+          <div className="min-h-screen bg-gray-100 py-6 px-4 md:px-6">
+          <div className="max-w-2xl mx-auto">
+              <h1 className="text-2xl font-bold text-gray-800 mb-6">Register Student</h1>
+               <StudentRegistrationForm 
+               formData={formData} 
+               handleInputChange={handleInputChange} 
+               handleReset={handleReset} 
+               handleSubmit={handleSubmit} 
+               loading={loading} 
+               allschClass={allschClass} />
+          </div>
           </div>
      )
 }

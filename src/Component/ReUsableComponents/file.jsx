@@ -1,36 +1,28 @@
 import React from "react";
+
 export function ImageUploader({ className, name, value, handleChange, width }) {
-     return (
-          <input type="file" className={className} name={name} value={value} onChange={handleChange}  
-               data-testid="image-uploader"
-               style={{
-                    height: '30px',
-                    width: width,
-                    padding: '10px',
-                    fontSize: '16px',
-                    borderRadius: '5px',
-                    outline: 'none',
-                    cursor: 'pointer',
-                    backgroundColor: 'rgba(200, 200, 200, 0.300)'
-               }}  
-          />
-     )
+    return (
+        <input
+            type="file"
+            className={`w-full border-2 border-dashed border-gray-300 rounded-md p-4 text-gray-600 hover:border-blue-500 transition-colors duration-200 cursor-pointer bg-gray-100 ${className}`}
+            name={name}
+            value={value}
+            onChange={handleChange}
+            data-testid="image-uploader"
+            style={{ width: width }}
+        />
+    );
 }
 
-
-export function FileUploader ({className, name, value, handleChange, width}) {
-     return(
-          <input type="file" className={className} name={name} value={value} onChange={handleChange}  
-          style={{
-               height: '20vh',
-               width: width,
-               padding: '10px',
-               fontSize: '16px',
-               borderRadius: '5px',
-               outline: 'none',
-               cursor: 'pointer',
-               backgroundColor: 'rgba(200, 200, 200, 0.300)'
-          }}  
-          />
-     )
+export function FileUploader({ className, name, value, handleChange, width }) {
+    return (
+        <input
+            type="file"
+            className={`w-full border-2 border-dashed border-gray-300 rounded-md p-4 text-gray-600 hover:border-blue-500 transition-colors duration-200 cursor-pointer bg-gray-100 ${className}`}
+            name={name}
+            value={value}
+            onChange={handleChange}
+            style={{ width: width, height: '20vh' }}
+        />
+    );
 }

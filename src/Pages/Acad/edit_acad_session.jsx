@@ -1,68 +1,587 @@
-import React from "react";
+     // import React from "react";
+     // import { useAcad } from "../../Zustand/acad_session";
+     // import { InputField } from "../../Component/ReUsableComponents/input";
+     // import { Submit } from "../../Component/ReUsableComponents/input";
+     // import { useState } from "react";
+     // import { useNotification } from "../../Context/notificationContext";
+
+
+     // export default function Edit_Acad_Session() {
+     //      const { acad, editAcadSession } = useAcad();
+     //      const { loading, message } = acad;
+     //      const [formData, setFormData] = useState({
+     //           newTerm: 0,
+     //           newSession: "",
+     //      });
+
+     //      const { showSuccess, showError } = useNotification();
+
+     //      const handleInputChange = (event) => {
+     //           const { name, value } = event.target;
+     //           let parsedValue = value;
+     //           setFormData({
+     //                ...formData,
+     //                [name]: parsedValue
+     //           });
+     //      };
+     //      const handleSubmit = async (e) => {
+     //           e.preventDefault();
+     //           try {
+     //                let res = await editAcadSession(formData.newTerm, formData.newSession);
+     //                if (res.success) {
+     //                     showSuccess(res.message);
+     //                } else {
+     //                     showError(res.message);
+     //                }
+     //           } catch (_error) {
+     //                console.log(_error);
+     //           }
+     //      };
+     //      return (
+     //           <div>
+     //                <div style={{ width: '100%', height: '80vh', display: 'flex', placeItems: 'center', placeContent: 'center', gap: '30px' }}>
+     //                     <div style={{ width: '40%', padding: '50px' }} className="box-shadow">
+     //                          <form onSubmit={handleSubmit} className="">
+     //                               <InputField type={`number`} name={`newTerm`} label={`Enter term in digits`} value={formData.newTerm} placeholder={`New Term`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
+     //                               <InputField type={`text`} name={`newSession`} value={formData.newSession} placeholder={`New Session`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
+     //                               <div className="">
+     //                                    <Submit className={`submit-button text-center color-light`} loading={loading} isNotLoading={`submit`} isloading={`please wait...`} />
+     //                               </div>
+     //                          </form>
+     //                     </div>
+     //                     <div style={{ width: '40%', padding: '50px' }} className="box-shadow">
+     //                               <p>Migrate to new Term or session, click the button below to move to new term or session</p>
+     //                               <small className="color-mute bold ">Note: new session will automatically promote all student to the next class</small> <br /> <br />
+     //                          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+     //                               <button style={{ padding: '10px 20px', border: 'none', backgroundColor:' var(--primary-color)', color: 'white', borderRadius: '5px', cursor: 'pointer' }}>
+     //                                    Next Term
+     //                               </button>
+     //                               <button style={{ padding: '10px 20px', border: 'none', backgroundColor: ' var(--primary-color)', color: 'white', borderRadius: '5px', cursor: 'pointer' }}>
+     //                                    Next Session
+     //                               </button>
+     //                          </div>
+     //                     </div>
+
+     //                </div>
+     //           </div>
+     //      )
+     // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//      import React, { useState } from "react";
+// import { useAcad } from "../../Zustand/acad_session";
+// import { InputField } from "../../Component/ReUsableComponents/input";
+// import { Submit } from "../../Component/ReUsableComponents/input";
+// import { useNotification } from "../../Context/notificationContext";
+
+// export default function Edit_Acad_Session() {
+//     const { acad, editAcadSession } = useAcad();
+//     const { loading, message } = acad;
+//     const [formData, setFormData] = useState({
+//         newTerm: 0,
+//         newSession: "",
+//     });
+
+//     const { showSuccess, showError } = useNotification();
+
+//     const handleInputChange = (event) => {
+//         const { name, value } = event.target;
+//         let parsedValue = value;
+//         setFormData({
+//             ...formData,
+//             [name]: parsedValue
+//         });
+//     };
+
+//     const handleSubmit = async (e) => {
+//         e.preventDefault();
+//         try {
+//             let res = await editAcadSession(formData.newTerm, formData.newSession);
+//             if (res.success) {
+//                 showSuccess(res.message);
+//             } else {
+//                 showError(res.message);
+//             }
+//         } catch (_error) {
+//             console.log(_error);
+//         }
+//     };
+
+//     // Migration state and handlers
+//     const [showModal, setShowModal] = useState({ term: false, session: false });
+//     const handleMigrate = (type) => {
+//         setShowModal({ ...showModal, [type]: true });
+//     };
+//     const confirmMigrate = async (type) => {
+//         // Placeholder for actual migration logic (e.g., call migrateToNextTerm or migrateToNextSession)
+//         console.log(`Confirmed migration to ${type}`);
+//         setShowModal({ term: false, session: false });
+//         // Add actual migration API call here if available
+//         showSuccess(`Successfully migrated to ${type}`);
+//     };
+//     const cancelMigrate = (type) => {
+//         setShowModal({ ...showModal, [type]: false });
+//     };
+
+//     return (
+//         <div className="min-h-screen bg-gray-100 py-6 px-4 md:px-6 relative z-0">
+//             <div className="max-w-2xl mx-auto">
+//                 <h1 className="text-2xl font-bold text-gray-800 mb-6">Edit Academic Session</h1>
+//                 <div className="bg-white shadow-lg rounded-lg p-6 space-y-8">
+//                     {/* Update Session Section */}
+//                     <div>
+//                         <h2 className="text-lg font-semibold text-gray-700 mb-4">Update Academic Session</h2>
+//                         <form onSubmit={handleSubmit} className="space-y-6">
+//                             <InputField
+//                                 type="number"
+//                                 name="newTerm"
+//                                 label="Enter term in digits"
+//                                 value={formData.newTerm}
+//                                 placeholder="New Term"
+//                                 handleChange={handleInputChange}
+//                                 width="100%"
+//                             />
+//                             <InputField
+//                                 type="text"
+//                                 name="newSession"
+//                                 value={formData.newSession}
+//                                 placeholder="New Session"
+//                                 handleChange={handleInputChange}
+//                                 width="100%"
+//                             />
+//                             <div className="flex justify-end">
+//                                 <Submit
+//                                     className="w-full md:w-auto"
+//                                     loading={loading}
+//                                     isNotLoading="Update Session"
+//                                     isloading="Updating..."
+//                                 />
+//                             </div>
+//                         </form>
+//                     </div>
+
+//                     {/* Migration Section */}
+//                     <div>
+//                         <h2 className="text-lg font-semibold text-gray-700 mb-4">Migrate to New Term or Session</h2>
+//                         <p className="text-gray-600 mb-4">
+//                             Click the buttons below to migrate to the next term or session. Note: Migrating to a new session will automatically promote all students to the next class.
+//                         </p>
+//                         <div className="flex flex-col md:flex-row gap-4">
+//                             <button
+//                                 onClick={() => handleMigrate("term")}
+//                                 className="w-full md:w-auto px-6 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-200 shadow-sm"
+//                             >
+//                                 Next Term
+//                             </button>
+//                             <button
+//                                 onClick={() => handleMigrate("session")}
+//                                 className="w-full md:w-auto px-6 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-200 shadow-sm"
+//                             >
+//                                 Next Session
+//                             </button>
+//                         </div>
+//                     </div>
+
+//                     {/* Confirmation Modals */}
+//                     {showModal.term && (
+//                         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+//                             <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+//                                 <h3 className="text-lg font-semibold text-gray-800 mb-4">Confirm Migration</h3>
+//                                 <p className="text-gray-600 mb-4">Are you sure you want to migrate to the next term?</p>
+//                                 <div className="flex justify-end gap-4">
+//                                     <button
+//                                         onClick={() => cancelMigrate("term")}
+//                                         className="px-4 py-2 bg-gray-300 text-gray-800 font-semibold rounded-md hover:bg-gray-400 transition-colors duration-200"
+//                                     >
+//                                         Cancel
+//                                     </button>
+//                                     <button
+//                                         onClick={() => confirmMigrate("term")}
+//                                         className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-200"
+//                                     >
+//                                         Confirm
+//                                     </button>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     )}
+//                     {showModal.session && (
+//                         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+//                             <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+//                                 <h3 className="text-lg font-semibold text-gray-800 mb-4">Confirm Migration</h3>
+//                                 <p className="text-gray-600 mb-4">Are you sure you want to migrate to the next session? This will promote all students to the next class.</p>
+//                                 <div className="flex justify-end gap-4">
+//                                     <button
+//                                         onClick={() => cancelMigrate("session")}
+//                                         className="px-4 py-2 bg-gray-300 text-gray-800 font-semibold rounded-md hover:bg-gray-400 transition-colors duration-200"
+//                                     >
+//                                         Cancel
+//                                     </button>
+//                                     <button
+//                                         onClick={() => confirmMigrate("session")}
+//                                         className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-200"
+//                                     >
+//                                         Confirm
+//                                     </button>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     )}
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useState } from "react";
 import { useAcad } from "../../Zustand/acad_session";
-import { InputField } from "../../Component/ReUsableComponents/input";
-import { Submit } from "../../Component/ReUsableComponents/input";
-import { useState } from "react";
+import { InputField, Submit } from "../../Component/ReUsableComponents/input";
+import { ImageUploader } from "../../Component/ReUsableComponents/file";
 import { useNotification } from "../../Context/notificationContext";
 
+export default function AcademicSettings() {
+    const { acad, addNameAndLogo, editAcadSession } = useAcad();
+    const { loading, message } = acad;
+    const { showSuccess, showError } = useNotification();
 
-export default function Edit_Acad_Session() {
-     const { acad, editAcadSession } = useAcad();
-     const { loading, message } = acad;
-     const [formData, setFormData] = useState({
-          newTerm: 0,
-          newSession: "",
-     });
+    // State for Name and Logo Form
+    const [nameLogoFormData, setNameLogoFormData] = useState({
+        name: "",
+        logo: null,
+    });
 
-     const { showSuccess, showError } = useNotification();
+    // State for Academic Session Form
+    const [sessionFormData, setSessionFormData] = useState({
+        newTerm: 0,
+        newSession: "",
+    });
 
-     const handleInputChange = (event) => {
-          const { name, value } = event.target;
-          let parsedValue = value;
-          setFormData({
-               ...formData,
-               [name]: parsedValue
-          });
-     };
-     const handleSubmit = async (e) => {
-          e.preventDefault();
-          try {
-               let res = await editAcadSession(formData.newTerm, formData.newSession);
-               if (res.success) {
-                    showSuccess(res.message);
-               } else {
-                    showError(res.message);
-               }
-          } catch (_error) {
-               console.log(_error);
-          }
-     };
-     return (
-          <div>
-               <div style={{ width: '100%', height: '80vh', display: 'flex', placeItems: 'center', placeContent: 'center', gap: '30px' }}>
-                    <div style={{ width: '40%', padding: '50px' }} className="box-shadow">
-                         <form onSubmit={handleSubmit} className="">
-                              <InputField type={`number`} name={`newTerm`} label={`Enter term in digits`} value={formData.newTerm} placeholder={`New Term`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
-                              <InputField type={`text`} name={`newSession`} value={formData.newSession} placeholder={`New Session`} className={`register-long-field`} handleChange={handleInputChange} width={`97.5%`} />
-                              <div className="">
-                                   <Submit className={`submit-button text-center color-light`} loading={loading} isNotLoading={`submit`} isloading={`please wait...`} />
-                              </div>
-                         </form>
+    // State for Collapsible Sections
+    const [isNameLogoOpen, setIsNameLogoOpen] = useState(true);
+    const [isSessionOpen, setIsSessionOpen] = useState(false);
+
+    // State for Modals
+    const [showModal, setShowModal] = useState({
+        nameLogo: false,
+        term: false,
+        session: false,
+    });
+
+    // Handlers for Name and Logo Form
+    const handleNameLogoInputChange = (event) => {
+        const { name, value, files } = event.target;
+        let parsedValue = value;
+        if (name === "logo") {
+            setNameLogoFormData({
+                ...nameLogoFormData,
+                [name]: files[0],
+            });
+        } else {
+            setNameLogoFormData({
+                ...nameLogoFormData,
+                [name]: parsedValue,
+            });
+        }
+    };
+
+    const handleNameLogoSubmit = (e) => {
+        e.preventDefault();
+        setShowModal({ ...showModal, nameLogo: true });
+    };
+
+    const confirmNameLogoSubmit = async () => {
+        try {
+            let res = await addNameAndLogo(nameLogoFormData);
+            if (res.success) {
+                showSuccess(res.message);
+            } else {
+                showError(res.message);
+            }
+        } catch (_error) {
+            console.error(_error);
+        }
+        setShowModal({ ...showModal, nameLogo: false });
+    };
+
+    // Handlers for Academic Session Form
+    const handleSessionInputChange = (event) => {
+        const { name, value } = event.target;
+        let parsedValue = value;
+        setSessionFormData({
+            ...sessionFormData,
+            [name]: parsedValue,
+        });
+    };
+
+    const handleSessionSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            let res = await editAcadSession(sessionFormData.newTerm, sessionFormData.newSession);
+            if (res.success) {
+                showSuccess(res.message);
+            } else {
+                showError(res.message);
+            }
+        } catch (_error) {
+            console.log(_error);
+        }
+    };
+
+    // Migration Handlers
+    const handleMigrate = (type) => {
+        setShowModal({ ...showModal, [type]: true });
+    };
+
+    const confirmMigrate = async (type) => {
+        console.log(`Confirmed migration to ${type}`);
+        setShowModal({ ...showModal, [type]: false });
+        showSuccess(`Successfully migrated to ${type}`);
+    };
+
+    const cancelMigrate = (type) => {
+        setShowModal({ ...showModal, [type]: false });
+    };
+
+    return (
+        <div className="min-h-screen bg-gray-100 py-6 px-4 md:px-6 relative z-0">
+            <div className="max-w-2xl mx-auto">
+                <h1 className="text-2xl font-bold text-gray-800 mb-6">Academic Settings</h1>
+                {message && (
+                    <div className="bg-blue-100 text-blue-800 p-4 rounded-lg mb-6">
+                        {message}
                     </div>
-                    <div style={{ width: '40%', padding: '50px' }} className="box-shadow">
-                              <p>Migrate to new Term or session, click the button below to move to new term or session</p>
-                              <small className="color-mute bold ">Note: new session will automatically promote all student to the next class</small> <br /> <br />
-                         <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-                              <button style={{ padding: '10px 20px', border: 'none', backgroundColor:' var(--primary-color)', color: 'white', borderRadius: '5px', cursor: 'pointer' }}>
-                                   Next Term
-                              </button>
-                              <button style={{ padding: '10px 20px', border: 'none', backgroundColor: ' var(--primary-color)', color: 'white', borderRadius: '5px', cursor: 'pointer' }}>
-                                   Next Session
-                              </button>
-                         </div>
+                )}
+                <div className="bg-white shadow-lg rounded-lg p-6 space-y-6">
+                    {/* School Name and Logo Section */}
+                    <div>
+                        <div
+                            className="flex justify-between items-center cursor-pointer"
+                            onClick={() => setIsNameLogoOpen(!isNameLogoOpen)}
+                        >
+                            <h2 className="text-lg font-semibold text-gray-700">School Name & Logo</h2>
+                            <span className="text-gray-500">{isNameLogoOpen ? "−" : "+"}</span>
+                        </div>
+                        {isNameLogoOpen && (
+                            <div className="mt-4">
+                                <form onSubmit={handleNameLogoSubmit} className="space-y-6">
+                                    <InputField
+                                        type="text"
+                                        name="name"
+                                        label="Enter the name of the school"
+                                        value={nameLogoFormData.name}
+                                        placeholder="School Name"
+                                        handleChange={handleNameLogoInputChange}
+                                        width="100%"
+                                    />
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Upload School Logo
+                                        </label>
+                                        <ImageUploader
+                                            name="logo"
+                                            handleChange={handleNameLogoInputChange}
+                                            width="100%"
+                                        />
+                                    </div>
+                                    <div className="flex justify-end">
+                                        <Submit
+                                            className="w-full md:w-auto"
+                                            loading={loading}
+                                            isNotLoading="Save Name & Logo"
+                                            isloading="Saving..."
+                                        />
+                                    </div>
+                                </form>
+                            </div>
+                        )}
                     </div>
 
-               </div>
-          </div>
-     )
+                    {/* Academic Session Section */}
+                    <div>
+                        <div
+                            className="flex justify-between items-center cursor-pointer"
+                            onClick={() => setIsSessionOpen(!isSessionOpen)}
+                        >
+                            <h2 className="text-lg font-semibold text-gray-700">Academic Session</h2>
+                            <span className="text-gray-500">{isSessionOpen ? "−" : "+"}</span>
+                        </div>
+                        {isSessionOpen && (
+                            <div className="mt-4 space-y-8">
+                                {/* Update Session Subsection */}
+                                <div>
+                                    <h3 className="text-base font-semibold text-gray-600 mb-4">
+                                        Update Academic Session
+                                    </h3>
+                                    <form onSubmit={handleSessionSubmit} className="space-y-6">
+                                        <InputField
+                                            type="number"
+                                            name="newTerm"
+                                            label="Enter term in digits"
+                                            value={sessionFormData.newTerm}
+                                            placeholder="New Term"
+                                            handleChange={handleSessionInputChange}
+                                            width="100%"
+                                        />
+                                        <InputField
+                                            type="text"
+                                            name="newSession"
+                                            value={sessionFormData.newSession}
+                                            placeholder="New Session"
+                                            handleChange={handleSessionInputChange}
+                                            width="100%"
+                                        />
+                                        <div className="flex justify-end">
+                                            <Submit
+                                                className="w-full md:w-auto"
+                                                loading={loading}
+                                                isNotLoading="Update Session"
+                                                isloading="Updating..."
+                                            />
+                                        </div>
+                                    </form>
+                                </div>
+
+                                {/* Migration Subsection */}
+                                <div>
+                                    <h3 className="text-base font-semibold text-gray-600 mb-4">
+                                        Migrate to New Term or Session
+                                    </h3>
+                                    <p className="text-gray-600 mb-4">
+                                        Click the buttons below to migrate to the next term or session. Note:
+                                        Migrating to a new session will automatically promote all students to the
+                                        next class.
+                                    </p>
+                                    <div className="flex flex-col md:flex-row gap-4">
+                                        <button
+                                            onClick={() => handleMigrate("term")}
+                                            className="w-full md:w-auto px-6 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-200 shadow-sm"
+                                        >
+                                            Next Term
+                                        </button>
+                                        <button
+                                            onClick={() => handleMigrate("session")}
+                                            className="w-full md:w-auto px-6 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-200 shadow-sm"
+                                        >
+                                            Next Session
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {/* Confirmation Modals */}
+                {showModal.nameLogo && (
+                    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+                        <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                            <h3 className="text-lg font-semibold text-gray-800 mb-4">Confirm Changes</h3>
+                            <p className="text-gray-600 mb-4">
+                                Are you sure you want to update the school name and logo?
+                            </p>
+                            <div className="flex justify-end gap-4">
+                                <button
+                                    onClick={() => setShowModal({ ...showModal, nameLogo: false })}
+                                    className="px-4 py-2 bg-gray-300 text-gray-800 font-semibold rounded-md hover:bg-gray-400 transition-colors duration-200"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={confirmNameLogoSubmit}
+                                    className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-200"
+                                >
+                                    Confirm
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+                {showModal.term && (
+                    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+                        <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                            <h3 className="text-lg font-semibold text-gray-800 mb-4">Confirm Migration</h3>
+                            <p className="text-gray-600 mb-4">Are you sure you want to migrate to the next term?</p>
+                            <div className="flex justify-end gap-4">
+                                <button
+                                    onClick={() => cancelMigrate("term")}
+                                    className="px-4 py-2 bg-gray-300 text-gray-800 font-semibold rounded-md hover:bg-gray-400 transition-colors duration-200"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={() => confirmMigrate("term")}
+                                    className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-200"
+                                >
+                                    Confirm
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+                {showModal.session && (
+                    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+                        <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                            <h3 className="text-lg font-semibold text-gray-800 mb-4">Confirm Migration</h3>
+                            <p className="text-gray-600 mb-4">
+                                Are you sure you want to migrate to the next session? This will promote all students
+                                to the next class.
+                            </p>
+                            <div className="flex justify-end gap-4">
+                                <button
+                                    onClick={() => cancelMigrate("session")}
+                                    className="px-4 py-2 bg-gray-300 text-gray-800 font-semibold rounded-md hover:bg-gray-400 transition-colors duration-200"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={() => confirmMigrate("session")}
+                                    className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-200"
+                                >
+                                    Confirm
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
 }

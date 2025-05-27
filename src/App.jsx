@@ -31,8 +31,7 @@ import StaffExams from './Pages/Exam/staffExams';
 import UploadTheoryScore from './Pages/Result/uploadTheoryScore';
 import FeedbackForm from './Pages/Feedback/feedbackform';
 import Passage from './Pages/Passage/passage';
-import AddNameAndLogo from './Pages/Acad/add_name_and_logo';
-import NextTermOrSession from './Pages/Acad/next-term-or-session';
+// import AddNameAndLogo from './Pages/Acad/add_name_and_logo';
 import SchoolRegistration from './Pages/School/School-Registraton';
 import SchoolList from './Pages/School/School-list';
 import AdminUserCreation from './Pages/Admin/admin-user-creation';
@@ -91,8 +90,6 @@ function App() {
         { path: "/send-feedback", element: <FeedbackForm /> },
         { path: "*", element: <ErrorPage /> },
         { path: "/passage", element: <Passage /> },
-        { path: "/add-name-and-logo", element: <AddNameAndLogo /> },
-        { path: "/next-term-or-session", element: <NextTermOrSession /> },
         { path: "/create-school", element: <SchoolRegistration />},
         { path: "/school-list", element: <SchoolList /> },
         { path: "/admin/create", element: <AdminUserCreation /> },

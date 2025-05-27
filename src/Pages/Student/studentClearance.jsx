@@ -50,44 +50,54 @@ export default function StudentClearancePage() {
      const { studentsForClearnce, loading, message } = student;
      const { exams } = exam;
      return (
-          <div>
-               <div className="box-shadow header-crumbs">
-                    <form onSubmit={handleSubmit} className="header-crumbs-2">
-                         <div className="form-grouping">
-                              <Dropdown
-                                   name="examName"
-                                   value={examId}
-                                   handleChange={handleInputChange}
-                                   width="80%"
-                                   firstOption="Select exam name"
-                                   options={exams}
-                                   optionKey="id"
-                                   optionValue="id"
-                                   optionLabel="examName"
-                                   mb="0"
-                              />
+          <div className="min-h-screen bg-gray-100 py-6 px-4 md:px-6">
+               <div className="max-w-6xl mx-auto">
+                    <h1 className="text-2xl font-bold text-gray-800 mb-6">Student Clearance</h1>
+                    <div className="min-h-screen bg-gray-100 py-6 px-4 md:px-6 ">
+                         <div className="max-w-6xl mx-auto">
+                              <div className="bg-white shadow-lg rounded-lg p-6 relative z-0 mb-5">
+                                   <form onSubmit={handleSubmit} className="flex flex-col md:flex-row items-center gap-4">
+                                        <Dropdown
+                                             name="examName"
+                                             value={examId}
+                                             handleChange={handleInputChange}
+                                             firstOption="Select exam name"
+                                             options={exams}
+                                             optionKey="id"
+                                             optionValue="id"
+                                             optionLabel="examName"
+                                             mb="0"
+                                             width="100%" // optional
+                                        />
 
-                              <Submit className={`fetch-button text-center color-light`} loading={loading} isNotLoading={`fetch`} isloading={`fetching...`} />
-                         </div>
-                    </form>
-               </div>
+                                        <Submit
+                                             className="w-full md:w-auto px-6 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-200"
+                                             loading={loading}
+                                             isNotLoading="fetch"
+                                             isloading="fetching...."
+                                        />
+                                   </form>
 
-               <div>
-                    {showConfirmation && (
-                         <div className="modal-overlay">
-                              <div className="confirmation-dialog  box-shadow-3">
-                                   <p>{message}</p>
-                                   <div className='form-grouping'>
-                                        <button onClick={acknowledge} className="confirm-submit submit-button-2  text-center color-light bold">Ok</button>
-                                   </div>
                               </div>
                          </div>
 
-                    )}
-                    <ClearanceTableTemplate data={studentsForClearnce} loading={loading} handleClearance={handleClearance} />
+                         <div>
+                              {showConfirmation && (
+                                   <div className="modal-overlay">
+                                        <div className="confirmation-dialog  box-shadow-3">
+                                             <p>{message}</p>
+                                             <div className='form-grouping'>
+                                                  <button onClick={acknowledge} className="confirm-submit submit-button-2  text-center color-light bold">Ok</button>
+                                             </div>
+                                        </div>
+                                   </div>
+
+                              )}
+                              <ClearanceTableTemplate data={studentsForClearnce} loading={loading} handleClearance={handleClearance} />
+                         </div>
+                    </div>
                </div>
           </div>
-
 
      )
 }

@@ -13,8 +13,8 @@ export default function StudentListTemplate({ data, loading, handleDelete }) {
           { key: 'studentName', header: 'Name' },
           { key: 'className', header: 'Class Name' },
           { key: 'gender', header: 'Gender' },
-          { key: 'more', header: '' },
-          { key: 'delete', header: '' },
+          { key: 'more', header: 'More' },
+          { key: 'delete', header: 'Delete' },
      ];
 
      const genderMap = {

@@ -1,21 +1,18 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import '../../Component/Layout/layout.css'
-import ColorPicker from '../../Component/Layout/colorPicker';
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 import StudentNavbar from '../../Component/Layout/StudentNavbar';
 
 const StudentLayout = () => {
   return (
-    <div className='root-container'>
-      <div className='navbar box-shadow-3'>
+    <div className="min-h-screen bg-gray-100 relative z-0">
+      <div className="sticky top-0 z-10 bg-white shadow-lg">
         <StudentNavbar />
       </div>
-      <div className='outlet-container'>
-          <Outlet />
-            {/* <ColorPicker /> */}
-        </div>
+      <div className="max-w-7xl mx-auto py-6 px-4 md:px-6">
+        <Outlet />
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default StudentLayout;

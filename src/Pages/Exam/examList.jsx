@@ -62,21 +62,24 @@ export default function ExamList() {
 
 
     return (
-        <div>
 
-            <div style={{width: '70%'}} className="box-shadow header-crumbs">
-                <div style={{ width: "90%", marginBottom: '-10px' }}>
-                    <SearchField
-                        type="search"
-                        placeholder="any word or letter that exist in the subject code or name and hit  enter"
-                        className="search register-field"
-                        handleChange={handleInputChange}
-                        handleSubmit={handleSubmit}
-                    />
+        <div className="min-h-screen bg-gray-100 py-6 px-4 md:px-6">
+            <div className="max-w-5xl mx-auto">
+                <h1 className="text-2xl font-bold text-gray-800 mb-6">Examination(s) List</h1>
+                <div className="mb-6">
+                    <div className="w-full bg-white p-6 max-w-5lg rounded-lg shadow-md">
+                        <h2 className="text-lg font-semibold mb-4">Search Exams</h2>
+                        <SearchField
+                            type="search"
+                            placeholder="any word that exist in the subject code or name and hit the enter key"
+                            handleChange={handleInputChange}
+                            handleSubmit={handleSubmit}
+                        />
+                    </div>
                 </div>
-            </div>
-            <div>
-                <ExamListTemplate1 data={exams} loading={loading} columns={columns} termMap={termMap} typeMap={typeMap} handleAvailability={handleAvailability} />
+                <div>
+                    <ExamListTemplate1 data={exams} loading={loading} columns={columns} termMap={termMap} typeMap={typeMap} handleAvailability={handleAvailability} />
+                </div>
             </div>
         </div>
     );

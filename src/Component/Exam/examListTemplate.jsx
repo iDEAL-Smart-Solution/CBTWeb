@@ -25,7 +25,6 @@ export function ExamListTemplate1({ data, loading, columns, termMap, typeMap, ha
       typeMap={typeMap}
       onMoreClick={handleMoreClick}
       emptyText={`No Exam `}
-      width={`100%`}
       makeAvailable={handleAvailability}
     />
   );

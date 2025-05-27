@@ -6,7 +6,7 @@ export default function ClearanceTableTemplate({data, loading, handleClearance})
           { key: 'studentName', header: 'Student Name' },
           { key: 'className', header: 'Class' },
           { key: 'uin', header: 'UIN' },
-          { key: 'clear', header: ''}
+          { key: 'clear', header: 'Clear'}
 
 
      ];
