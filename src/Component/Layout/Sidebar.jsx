@@ -74,8 +74,8 @@ const navLinksItem = [
   {
     name: "Administration",
     subLinks: [
-      { link: "/create-school", name: "Create", icon: <Plus size={20} /> },
-      { link: "/school-list", name: "List", icon: <School size={20} /> },
+      { link: "/create-school", name: "Create School", icon: <Plus size={20} /> },
+      { link: "/school-list", name: "List Schools", icon: <School size={20} /> },
       { link: "/admin/create", name: "Create Admin", icon: <UserPlus size={20} /> },
       { link: "/admin/users", name: "Admin Users", icon: <Users size={20} /> }
     ]
@@ -90,13 +90,13 @@ export default function Sidebar({ isOpen, setIsOpen }) {
   const roleRoutes = {
     1: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list", "/question/create", "/subject-result", "/student-result", "/upload-thoery-score", "/student-clearance", "/edit-academic-session", "/send-feedback", "/passage",],
     2: ["/dashboard", "/staff/list", "/student/registration", "/student/list", "/staff/subjects", "/exam/create", "/question/create", "/staff/exams", "/subject-result", "/send-feedback"],
-    4: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list", "/question/create", "/subject-result", "/student-result", "/upload-thoery-score", "/student-clearance", "/send-feedback", "/passage", "/add-name-and-logo", "/create-school", "/school-list", "/admin/create", "/admin/users"]
+    4: ["/create-school", "/school-list", "/admin/create", "/admin/users"]
   };
 
   const routeNames = {
     1: ["Class", "Staff", "Student", "Subject", "Questions", "Examination", "Result", "Setting", "Feedback"],
     2: ["Subject", "Questions", "Examination", "Result", "Feedback"],
-    4: ["Class", "Staff", "Student", "Subject", "Questions", "Examination", "Result", "Setting", "Feedback", "Administration"]
+    4: ["Administration"]
   };
 
   const allowedRoutes = roleRoutes[user?.role] || [];
