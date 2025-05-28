@@ -3,7 +3,7 @@ import { ImageUploader } from "../ReUsableComponents/file";
 import genderOptions from "../../lib/genderOptions";
 import { Dropdown } from "../ReUsableComponents/dropDown";
 
-export default function StudentRegistrationForm({ formData, handleInputChange, handleSubmit, handleReset, loading, allschClass }) {
+export default function StudentRegistrationForm({ formData, handleInputChange, handleSubmit, loading, allschClass }) {
      return (
 
           <div className="bg-white shadow-lg rounded-lg p-6">
@@ -100,13 +100,6 @@ export default function StudentRegistrationForm({ formData, handleInputChange, h
                          </div>
                     </div>
                     <div className="flex flex-col md:flex-row gap-4">
-                         <button
-                              type="reset"
-                              onClick={handleReset}
-                              className="w-full md:w-auto px-6 py-2 bg-gray-300 text-gray-800 font-semibold rounded-md hover:bg-gray-400 transition-colors duration-200 shadow-sm"
-                         >
-                              Reset
-                         </button>
                          <Submit
                               className="w-full md:w-auto"
                               loading={loading}
