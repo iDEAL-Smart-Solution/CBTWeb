@@ -14,6 +14,7 @@ export default function AdminUserListTemplate({ data, loading, handleDelete }) {
           { key: 'uin', header: 'UIN' },
           { key: 'phoneNumber', header: 'Phone Number' },
           { key: 'email', header: 'Email' },
+          { key: 'password', header: 'Password'},
           { key: 'more', header: 'More' },
           { key: 'delete', header: 'Delete' },
 

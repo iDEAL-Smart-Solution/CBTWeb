@@ -52,12 +52,22 @@ export default function StudentRegistration() {
 
      const handleSubmit = async (e) => {
           e.preventDefault();
-
           try {
                let res = await createStudent(formData);
                if(res.success)
                     {
+
                          showSuccess(res.message);
+                         setFormData({
+                                        registrationNumber: "",
+                                        className: "",
+                                        firstName: "",
+                                        lastName: "",
+                                        email: "",
+                                        phoneNumber: "",
+                                        profilePicture: null,
+                                        gender: 0,
+                                   })
                     } else {
                          showError(res.message);
                     }
@@ -66,18 +76,7 @@ export default function StudentRegistration() {
           }
      };
 
-     const handleReset = async () => {
-          setFormData({
-               registrationNumber: "",
-               className: "",
-               firstName: "",
-               lastName: "",
-               email: "",
-               phoneNumber: "",
-               profilePicture: null,
-               gender: 0,
-          })
-     }
+    
      return (
           <div className="min-h-screen bg-gray-100 py-6 px-4 md:px-6">
           <div className="max-w-2xl mx-auto">
@@ -85,7 +84,6 @@ export default function StudentRegistration() {
                <StudentRegistrationForm 
                formData={formData} 
                handleInputChange={handleInputChange} 
-               handleReset={handleReset} 
                handleSubmit={handleSubmit} 
                loading={loading} 
                allschClass={allschClass} />

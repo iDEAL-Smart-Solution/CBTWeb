@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { BASE_URL } from '../../Constant';
 import { MdDelete, MdMoreVert } from 'react-icons/md';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { Eye, EyeOff, Copy } from 'lucide-react';
+
+
 
 export function Table({
   data,
@@ -22,6 +25,24 @@ export function Table({
 }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [visiblePasswords, setVisiblePasswords] = useState({});
+  const [copiedField, setCopiedField] = useState(null);
+
+
+  const togglePasswordVisibility = (rowId) => {
+    setVisiblePasswords((prev) => ({
+      ...prev,
+      [rowId]: !prev[rowId],
+    }));
+  };
+
+  const copyToClipboard = (text, fieldKey) => {
+    navigator.clipboard.writeText(text);
+    setCopiedField(fieldKey);
+    setTimeout(() => setCopiedField(null), 1500); 
+  };
+  
+
 
   const handlePageChange = (page) => setCurrentPage(page);
   const handleRowsPerPageChange = (e) => {
@@ -102,6 +123,59 @@ export function Table({
           </button>
         );
         break;
+        case 'password': {
+          const isVisible = visiblePasswords[item.id];
+          const fieldKey = `${item.id}-password`;
+        
+          cellContent = (
+            <div className="flex items-center gap-2 max-w-[150px]">
+              <input
+                type={isVisible ? 'text' : 'password'}
+                value={item[column.key]}
+                readOnly
+                title="Click to copy"
+                onClick={() => copyToClipboard(item[column.key], fieldKey)}
+                className="bg-transparent outline-none w-full overflow-hidden text-ellipsis whitespace-nowrap cursor-pointer"
+              />
+              <button onClick={() => togglePasswordVisibility(item.id)} className="text-blue-600">
+                {isVisible ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+              <button onClick={() => copyToClipboard(item[column.key], fieldKey)} className="text-blue-600 relative">
+                <Copy size={18} />
+                {copiedField === fieldKey && (
+                  <span className="absolute -top-6 left-1/2 -translate-x-1/2 bg-black text-white text-xs px-2 py-0.5 rounded">
+                    Copied!
+                  </span>
+                )}
+              </button>
+            </div>
+          );
+          break;
+        }
+        case 'uin': {
+          const fieldKey = `${item.id}-uin`;
+        
+          cellContent = (
+            <div className="flex items-center gap-2 max-w-[150px]">
+              <span
+                onClick={() => copyToClipboard(item[column.key], fieldKey)}
+                title="Click to copy"
+                className="block overflow-hidden text-ellipsis whitespace-nowrap cursor-pointer"
+              >
+                {item[column.key]}
+              </span>
+              <button onClick={() => copyToClipboard(item[column.key], fieldKey)} className="text-blue-600 relative">
+                <Copy size={18} />
+                {copiedField === fieldKey && (
+                  <span className="absolute -top-6 left-1/2 -translate-x-1/2 bg-black text-white text-xs px-2 py-0.5 rounded">
+                    Copied!
+                  </span>
+                )}
+              </button>
+            </div>
+          );
+          break;
+        }        
       default:
         cellContent = (
           <span
@@ -134,10 +208,10 @@ export function Table({
                 <th
                   key={index}
                   className={`pl-4 text-left text-sm font-semibold ${index === 0
-                      ? 'rounded-tl-lg'
-                      : index === columns.length - 1
-                        ? 'rounded-tr-lg'
-                        : ''
+                    ? 'rounded-tl-lg'
+                    : index === columns.length - 1
+                      ? 'rounded-tr-lg'
+                      : ''
                     }`}
                 >
                   {column.header}
