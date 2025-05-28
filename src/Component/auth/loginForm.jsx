@@ -46,11 +46,11 @@ export default function LoginForm() {
     <div className="relative min-h-screen flex flex-col items-center justify-center">
       <form className="w-full sm:w-96 md:w-1/3 bg-white shadow-lg rounded-lg p-6" onSubmit={handleSubmit}>
         <div className="w-full">
-          <h1 className="font-inter text-primary-600  text-2xl sm:text-3xl text-center mb-6">Welcome Back</h1>
+          <h1 className="font-inter text-blue-600  text-2xl sm:text-3xl text-center mb-6">Welcome Back</h1>
           <div>
             <input
               type="text"
-              className="w-full p-3 border-b-4 border-primary focus:outline-none text-lg mb-6 font-inter placeholder-muted"
+              className="w-full p-3 border-b-4 border-blue-600 focus:outline-none text-lg mb-6 font-inter placeholder-muted"
               name="email"
               placeholder="UIN Number"
               value={formData.email}
@@ -60,7 +60,7 @@ export default function LoginForm() {
           <div>
             <input
               type="password"
-              className="w-full p-3 border-b-4 border-primary focus:outline-none text-lg mb-6 font-inter placeholder-muted"
+              className="w-full p-3 border-b-4 border-blue-600 focus:outline-none text-lg mb-6 font-inter placeholder-muted"
               name="password"
               placeholder="Password"
               value={formData.password}
@@ -69,7 +69,7 @@ export default function LoginForm() {
           </div>
           <button
             type="submit"
-            className="w-full py-3 bg-primary text-white rounded-lg text-lg font-inter font-bold hover:bg-blue-600 transition-colors"
+            className="w-full py-3 bg-blue-600 text-white rounded-lg text-lg font-inter font-bold hover:bg-blue-700 transition-colors"
             disabled={loading}
           >
             {!loading ? "Login" : "Please wait..."}

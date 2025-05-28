@@ -51,7 +51,7 @@ function App() {
             case 1: return redirect("/class");
             case 2: return redirect("/staff/subjects");
             case 3: return redirect("/my-exams");
-            case 4: return redirect("/dev");
+            case 4: return redirect("/school-list");
             default: return null;
           }
         }
