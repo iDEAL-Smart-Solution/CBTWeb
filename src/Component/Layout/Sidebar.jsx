@@ -104,7 +104,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
 
   return (
 
-    <aside className={`w-64 bg-white shadow-lg h-[92.5vh] fixed md:static transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50 ${
+    <aside className={`w-64 bg-white h-[92.5vh] fixed md:static transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50 ${
       isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
     } flex flex-col`}>
         

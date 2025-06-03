@@ -5,6 +5,7 @@ import axiosInstance from "../Constant/axiosInstance";
 const useSchoolStore = create((set, get) => ({
      schools: [],
      loading: false,
+     schoolDetails: {},
      createSchool: async (formData) => {
           set({ loading: true });
           try{
@@ -40,6 +41,30 @@ const useSchoolStore = create((set, get) => ({
                set({ loading : false })
           }
      },
+     fetchSchoolDetails: async (id) => {
+          set({ loading: true })
+          try {
+               const res = await axiosInstance.get(`${BASE_URL}/api/v1/School/get-school-detail?id=${id}`);
+               set({ schoolDetails: res.data.data})
+          } catch (error) {
+               console.error("Error fetching school details:", error);
+          } finally {
+               set({ loading : false })
+          }
+     },
+     updateSubscription: async (formData) => {
+          console.log(formData)
+          set({ loading: true })
+          try {
+               const res = await axiosInstance.put(`${BASE_URL}/api/v1/Subscription/update-subscriptions`, formData)
+               return { success: res.data.success, message: res.data.message}
+          } catch (error) {
+               console.error("Error updating school subscription:", error);
+               return { success: false, message:`Error updating school subscription` || error.data.message}
+          } finally {
+               set({ loading : false })
+          }
+     }
 }))
 
 export default useSchoolStore;

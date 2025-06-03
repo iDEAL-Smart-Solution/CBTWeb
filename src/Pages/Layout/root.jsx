@@ -13,7 +13,7 @@ export default function Root() {
   return (
     <div className="h-screen flex bg-gray-100 flex-col overflow-hidden">
       {/* Navbar */}
-      <header className="fixed top-0 left-0 w-full bg-white shadow p-2 z-70">
+      <header className="fixed top-0 left-0 w-full bg-white p-2 z-70">
         <div className="flex justify-between items-center">
           <button
             onClick={toggleSidebar}

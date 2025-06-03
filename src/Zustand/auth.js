@@ -14,7 +14,7 @@ const Auth = (set, get) => ({
         setLoading: (value) => set((state) => ({ ...state, auth: { ...state.auth, loading: value } })),
         clearError: () => set((state) => ({ ...state, auth: { ...state.auth, error: null } })),
         setMessage: (value) => set((state) => ({ ...state, auth: { ...state.auth, message: value } })),
-        clearMessage: () => set((state) => ({ ...state, auth: { ...state.auth, message: null } })),
+        clearMessage: () => set((state) => ({ ...state, auth:  { ...state.auth, message: null } })),
     },
     login: async (formData) => {
         const { setLoading } = get().auth;
