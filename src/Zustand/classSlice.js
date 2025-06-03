@@ -67,8 +67,7 @@ const Class = (set, get) => ({
           setLoading(true);
           try {
                const res = await axiosInstance.post(`${BASE_URL}/api/v1/Class/Create?name=${name}`);
-               const messg = res.data.message;
-               return {success: true, message: messg};
+               return {success: res.data.success, message: res.data.message};
           } catch (error) {
                console.error(`Error occured while creating class ${name}.`, error);
                return {success: true, message: error.response?.data?.message || 'An error occurred'};

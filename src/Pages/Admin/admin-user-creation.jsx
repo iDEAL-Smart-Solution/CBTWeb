@@ -152,9 +152,6 @@ export default function AdminUserCreation() {
     return (
         <div className="min-h-[calc(100vh-200px)] p-4 sm:p-6 lg:p-8 flex items-center justify-center">
             <div className="w-full max-w-7xl mx-auto">
-                {/* <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">
-                    Admin User Creation
-                </h1> */}
                 <AdminUserCreationForm 
                     loading={loading} 
                     formData={formData} 
