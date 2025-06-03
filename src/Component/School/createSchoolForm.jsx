@@ -1,5 +1,5 @@
 import { InputField, Submit } from "../ReUsableComponents/input";
-import { Dropdown } from "../ReUsableComponents/dropdown";
+import { Dropdown } from "../ReUsableComponents/dropDown";
 
 export default function SchoolCreateForm({ loading, formData, handleInputChange, handleSubmit, handleReset, planType }) {
     return (
