@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import useSchoolStore from "../../Zustand/schoolSlice";
 
 export default function SchoolProfileScreen() {
-    const { loading, schoolDetails, error, fetchSchoolDetails, updateSubscription } = useSchoolStore();
+    const { loading, schoolDetails, error, fetchSchoolDetails, updateSubscription, generateUpdateToken } = useSchoolStore();
     const { id } = useParams();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -12,6 +12,8 @@ export default function SchoolProfileScreen() {
         allowedStudentCount: "",
         amountPaid: "",
         createdAt: "",
+        token: "",
+        subscriptionType: "",
     });
     const [errors, setErrors] = useState({});
     const [successMessage, setSuccessMessage] = useState("");
@@ -28,6 +30,7 @@ export default function SchoolProfileScreen() {
                 allowedStudentCount: schoolDetails.schoolSubscription.allowedStudentCount.toString(),
                 amountPaid: schoolDetails.schoolSubscription.amountPaid.toString(),
                 createdAt: createdAt.toISOString().split("T")[0], // Format as YYYY-MM-DD
+                subscriptionType: schoolDetails.schoolSubscription.subscriptionType?.toString() || "",
             });
             setErrors({});
             setSuccessMessage("");
@@ -37,9 +40,22 @@ export default function SchoolProfileScreen() {
 
     const closeModal = () => {
         setIsModalOpen(false);
-        setFormData({ id: "", allowedStudentCount: "", amountPaid: "", createdAt: "" });
+        setFormData({ id: "", allowedStudentCount: "", amountPaid: "", createdAt: "", token: "", subscriptionType: "" });
         setErrors({});
         setSuccessMessage("");
+    };
+
+    const handleGenerateToken = async () => {
+        try {
+            const response = await generateUpdateToken(schoolDetails.schoolName);
+            if (response.success) {
+                setSuccessMessage(response.message);
+            } else {
+                setErrors({ general: response.message });
+            }
+        } catch (error) {
+            setErrors({ general: "Error generating token. Please try again." });
+        }
     };
 
     const handleInputChange = (e) => {
@@ -65,6 +81,12 @@ export default function SchoolProfileScreen() {
                 newErrors.createdAt = "Created date cannot be in the future";
             }
         }
+        if (!formData.token || formData.token.trim() === "") {
+            newErrors.token = "Token is required";
+        }
+        if (!formData.subscriptionType) {
+            newErrors.subscriptionType = "Subscription type is required";
+        }
         return newErrors;
     };
 
@@ -82,6 +104,8 @@ export default function SchoolProfileScreen() {
                 allowedStudentCount: Number(formData.allowedStudentCount),
                 amountPaid: Number(formData.amountPaid),
                 createdAt: new Date(formData.createdAt).toISOString(),
+                token: formData.token,
+                subscriptionType: Number(formData.subscriptionType),
             };
             const response = await updateSubscription(subscriptionData);
 
@@ -281,6 +305,49 @@ export default function SchoolProfileScreen() {
                                 />
                                 {errors.createdAt && (
                                     <p className="text-sm text-red-600 mt-1">{errors.createdAt}</p>
+                                )}
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                    Subscription Type
+                                </label>
+                                <select
+                                    name="subscriptionType"
+                                    value={formData.subscriptionType}
+                                    onChange={handleInputChange}
+                                    className="w-full px-4 py-2 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                    <option value="">Select subscription type</option>
+                                    <option value="1">OneTime</option>
+                                    <option value="2">PerTerm</option>
+                                </select>
+                                {errors.subscriptionType && (
+                                    <p className="text-sm text-red-600 mt-1">{errors.subscriptionType}</p>
+                                )}
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                    Token
+                                </label>
+                                <div className="flex gap-2">
+                                    <input
+                                        type="text"
+                                        name="token"
+                                        value={formData.token}
+                                        onChange={handleInputChange}
+                                        className="flex-1 px-4 py-2 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        placeholder="Enter update token"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={handleGenerateToken}
+                                        className="px-4 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition-colors whitespace-nowrap"
+                                    >
+                                        Generate Token
+                                    </button>
+                                </div>
+                                {errors.token && (
+                                    <p className="text-sm text-red-600 mt-1">{errors.token}</p>
                                 )}
                             </div>
                             {errors.general && (

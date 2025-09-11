@@ -1,7 +1,7 @@
 import { InputField, Submit } from "../ReUsableComponents/input";
 import { Dropdown } from "../ReUsableComponents/dropDown";
 
-export default function SchoolCreateForm({ loading, formData, handleInputChange, handleSubmit, handleReset, planType }) {
+export default function SchoolCreateForm({ loading, formData, handleInputChange, handleSubmit, handleReset, planType, subscriptionType }) {
     return (
         <div className="min-h-[calc(100vh-200px)] flex items-center justify-center p-4 sm:p-6 lg:p-8">
             <div className="w-full max-w-lg bg-white p-6 sm:p-8 rounded-lg shadow-md">
@@ -20,6 +20,20 @@ export default function SchoolCreateForm({ loading, formData, handleInputChange,
                             optionValue="value"
                             optionLabel="label"
                             firstOption="Select plan type"
+                            mb="0"
+                        />
+                    </div>
+                    <div>
+                        <Dropdown
+                            name="subscriptionType"
+                            value={formData.subscriptionType}
+                            handleChange={handleInputChange}
+                            className="w-full px-4 py-2 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            options={subscriptionType}
+                            optionKey="value"
+                            optionValue="value"
+                            optionLabel="label"
+                            firstOption="Select subscription type"
                             mb="0"
                         />
                     </div>

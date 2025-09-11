@@ -64,6 +64,18 @@ const useSchoolStore = create((set, get) => ({
           } finally {
                set({ loading : false })
           }
+     },
+     generateUpdateToken: async (schoolName) => {
+          set({ loading: true })
+          try {
+               const res = await axiosInstance.get(`${BASE_URL}/api/v1/Subscription/generate-update-token?schoolName=${encodeURIComponent(schoolName)}`)
+               return { success: res.data.success, message: res.data.message}
+          } catch (error) {
+               console.error("Error generating update token:", error);
+               return { success: false, message: "Error generating update token"}
+          } finally {
+               set({ loading : false })
+          }
      }
 }))
 

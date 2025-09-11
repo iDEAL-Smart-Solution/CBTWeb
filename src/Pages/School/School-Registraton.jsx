@@ -14,6 +14,7 @@ export default function SchoolRegistration() {
           phoneNumber: "",
           email: "",
           planType: "",
+          subscriptionType: "",
      });
 
      const PlanType = [
@@ -21,10 +22,15 @@ export default function SchoolRegistration() {
           { value: 2, label: 'Remote' },
      ];
 
+     const SubscriptionType = [
+          { value: 1, label: 'OneTime' },
+          { value: 2, label: 'PerTerm' },
+     ];
+
      const handleInputChange = (event) => {
           const { name, value } = event.target;
           let parsedValue = value;
-          if (name === "planType") {
+          if (name === "planType" || name === "subscriptionType") {
               parsedValue = parseInt(value);
           }
       
@@ -57,6 +63,7 @@ export default function SchoolRegistration() {
                phoneNumber: "",
                email: "",
                planType: 0,
+               subscriptionType: 0,
           })
      }
      return (
@@ -68,6 +75,7 @@ export default function SchoolRegistration() {
                     handleSubmit={handleSubmit}
                     handleReset={handleReset}
                     planType={PlanType}
+                    subscriptionType={SubscriptionType}
                />
           </div>
      )
