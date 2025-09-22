@@ -1,70 +1,8 @@
-// import { defineConfig } from 'vite';
-// import react from '@vitejs/plugin-react-swc';
-// import { resolve } from 'path';
-// import { copyFileSync } from 'fs';
-
-// const isIIS = process.env.IS_IIS === 'true';
-
-// export default defineConfig({
-//   plugins: [
-//     react(),
-//     {
-//       name: 'copy-web-config',
-//       generateBundle() {
-//         if (isIIS) {
-//           const webConfigPath = resolve(__dirname, 'web.config');
-//           const distPath = resolve(__dirname, 'dist/web.config');
-//           try {
-//             copyFileSync(webConfigPath, distPath);
-//             console.log('web.config copied to dist folder');
-//           } catch (error) {
-//             console.error('Error copying web.config:', error);
-//           }
-//         }
-//       },
-//     },
-//   ],
-//   base: isIIS ? './' : '/', 
-//   build: {
-//     outDir: 'dist',
-//     assetsDir: 'assets',
-//     rollupOptions: {
-//       output: {
-//         entryFileNames: 'assets/[name]-[hash].js',
-//         chunkFileNames: 'assets/[name]-[hash].js',
-//         assetFileNames: 'assets/[name]-[hash].[ext]',
-//       },
-//       treeshake: false,
-//     },
-//     emptyOutDir: true,
-//     minify: false,
-//   },
-//   server: {
-//     hmr: {
-//       overlay: false,
-//     },
-//     fs: {
-//       allow: ['.'],
-//     },
-//   },
-// });
-
-
-
-
-
-
-
-
-
-
-
-
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
+import tailwindcss from '@tailwindcss/vite';
 import { resolve } from 'path';
 import { copyFileSync } from 'fs';
-import tailwindcss from '@tailwindcss/vite'
 
 const isIIS = process.env.IS_IIS === 'true';
 
@@ -80,15 +18,16 @@ export default defineConfig({
           const distPath = resolve(__dirname, 'dist/web.config');
           try {
             copyFileSync(webConfigPath, distPath);
-            console.log('web.config copied to dist folder');
+            console.log('✅ web.config copied to dist folder');
           } catch (error) {
-            console.error('Error copying web.config:', error);
+            console.error('❌ Error copying web.config:', error);
           }
         }
       },
     },
   ],
-  base: isIIS ? './' : '/', 
+  // 👇 IMPORTANT: use './' for IIS so assets load correctly
+  base: isIIS ? './' : '/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
@@ -101,14 +40,11 @@ export default defineConfig({
       treeshake: false,
     },
     emptyOutDir: true,
-    minify: false,
+    minify: true,
+    sourcemap: false,
   },
   server: {
-    hmr: {
-      overlay: false,
-    },
-    fs: {
-      allow: ['.'],
-    },
+    hmr: { overlay: false },
+    fs: { allow: ['.'] },
   },
 });

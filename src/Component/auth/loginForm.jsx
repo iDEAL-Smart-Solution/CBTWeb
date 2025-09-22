@@ -12,7 +12,7 @@ export default function LoginForm() {
     email: "",
     password: "",
   });
-  const [localLoading, setLocalLoading] = useState(false); // Local loading state
+  const [localLoading, setLocalLoading] = useState(false); 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +24,7 @@ export default function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLocalLoading(true); // Start loading
+    setLocalLoading(true); 
     try {
       let res = await login(formData);
       if (res.success) {

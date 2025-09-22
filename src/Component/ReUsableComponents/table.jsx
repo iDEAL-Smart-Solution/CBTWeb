@@ -64,7 +64,7 @@ export function Table({
       case 'profilePicture':
         cellContent = (
           <img
-            src={`${BASE_URL}/ProfilePictures/${item[column.key]}`}
+            src={`${BASE_URL}/ProfilePicture/${item[column.key]}`}
             alt="Profile"
             className="w-12 h-12 rounded-full object-cover"
           />

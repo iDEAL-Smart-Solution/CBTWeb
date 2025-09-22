@@ -38,8 +38,6 @@ export default function SchoolList() {
         // }
     };
 
-    console.log(schools);
-
     return (
         <div className="min-h-screen bg-gray-100 py-6 px-4 md:px-6">
             <div className="max-w-5xl mx-auto">
