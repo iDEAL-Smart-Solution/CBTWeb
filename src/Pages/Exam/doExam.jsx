@@ -213,7 +213,7 @@ const DoExam = () => {
                   <p className="mt-2 font-semibold">{index + 1}. {item.question}</p>
                   {item.questionImage && (
                     <img
-                      src={`${BASE_URL}/ProfilePictures/${item.questionImage}`}
+                      src={`${BASE_URL}/ProfilePicture/${item.questionImage}`}
                       className="mt-4 max-w-full sm:max-w-md rounded-md shadow-sm"
                       alt="Theory Image"
                     />
@@ -256,7 +256,7 @@ const DoExam = () => {
             </p>
             {currentQuestion.questionImage && (
               <img
-                src={`${BASE_URL}/ProfilePictures/${currentQuestion.questionImage}`}
+                src={`${BASE_URL}/ProfilePicture/${currentQuestion.questionImage}`}
                 className="mt-4 max-w-full sm:max-w-md rounded-md shadow-sm mb-4"
                 alt="Question Image"
               />

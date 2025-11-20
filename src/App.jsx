@@ -36,6 +36,7 @@ import SchoolList from './Pages/School/School-list';
 import AdminUserCreation from './Pages/Admin/admin-user-creation';
 import AdminUserList from './Pages/Admin/admin-user-list';
 import SchoolProfileScreen from './Pages/School/school-profile';
+import StudentPromotion from './Pages/Student/studentPromotion';
 
 function App() {
   const getUser = () => JSON.parse(sessionStorage.getItem("user"));
@@ -83,6 +84,7 @@ function App() {
         { path: "/subject-result", element: <SubjectResult /> },
         { path: "/student-result", element: <StudentResult /> },
         { path: "/student-clearance", element: <StudentClearancePage /> },
+        { path: "/student-promotion", element: <StudentPromotion /> },
         { path: "/edit-academic-session", element: <Edit_Acad_Session/> },
         { path: "/staff/subjects", element: <StaffSubjects /> },
         { path: "/staff/exams", element: <StaffExams /> },

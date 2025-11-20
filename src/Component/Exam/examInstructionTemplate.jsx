@@ -41,7 +41,7 @@ export default function ExamInstructionTemplate({ data }) {
             </div>
             <div className="flex-shrink-0">
                 <img
-                    src={`${BASE_URL}/ProfilePictures/${data.profilePicture}`}
+                    src={`${BASE_URL}/ProfilePicture/${data.profilePicture}`}
                     alt={`${data.studentName}'s profile`}
                     className="w-40 h-40 md:w-52 md:h-52 rounded-full object-cover border-4 border-blue-100 shadow-md"
                     onError={(e) => (e.target.src = "https://via.placeholder.com/150?text=No+Image")}

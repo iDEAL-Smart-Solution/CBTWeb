@@ -21,7 +21,7 @@ export default function Navbar() {
     3: "3rd Term",
   };
 
-  const myLogoUrl = logoUrl ? `${BASE_URL}/ProfilePictures/${logoUrl}` : defaultLogo;
+  const myLogoUrl = logoUrl ? `${BASE_URL}/ProfilePicture/${logoUrl}` : defaultLogo;
 
   return (
     <nav className="flex items-center justify-between w-full">

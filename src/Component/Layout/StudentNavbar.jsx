@@ -23,7 +23,7 @@ export default function StudentNavbar() {
         3: "3rd Term",
     };
 
-    const myLogoUrl = logoUrl ? `${BASE_URL}/ProfilePictures/${logoUrl}` : defaultLogo;
+    const myLogoUrl = logoUrl ? `${BASE_URL}/ProfilePicture/${logoUrl}` : defaultLogo;
 
     return (
         <nav className="bg-white shadow-lg p-2 z-10">
@@ -59,7 +59,7 @@ export default function StudentNavbar() {
                     )}
                     {profilePicture && (
                         <img
-                            src={`${BASE_URL}/ProfilePictures/${profilePicture}`}
+                            src={`${BASE_URL}/ProfilePicture/${profilePicture}`}
                             alt={`${firstName}'s profile`}
                             className="h-8 w-8 md:h-10 md:w-10 rounded-full object-cover"
                             onError={(e) => (e.target.src = defaultLogo)}

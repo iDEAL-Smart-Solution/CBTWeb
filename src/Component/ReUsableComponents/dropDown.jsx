@@ -58,7 +58,7 @@ export function Dropdown({ name, value, handleChange, options, width, firstOptio
                         >
                             {option[optionImage] && (
                                 <img
-                                    src={`${BASE_URL}/ProfilePictures/${option[optionImage]}`}
+                                    src={`${BASE_URL}/ProfilePicture/${option[optionImage]}`}
                                     alt=""
                                     className="w-6 h-6 rounded-full mr-2"
                                 />

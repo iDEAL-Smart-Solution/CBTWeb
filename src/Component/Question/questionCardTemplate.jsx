@@ -208,7 +208,7 @@ export default function QuestionCard({ data, index, loading, handleDelele, handl
                             )}
                             {data.questionImage && (
                                 <img
-                                    src={`${BASE_URL}/ProfilePictures/${data.questionImage}`}
+                                    src={`${BASE_URL}/ProfilePicture/${data.questionImage}`}
                                     alt="Question Image"
                                     className="w-full max-w-xs rounded-lg shadow-md mb-3"
                                     onError={(e) => (e.target.src = "https://via.placeholder.com/150?text=No+Image")}

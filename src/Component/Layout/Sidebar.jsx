@@ -62,6 +62,7 @@ const navLinksItem = [
   {
     name: "Setting",
     subLinks: [
+      { link: "/student-promotion", name: "Promote / Demote", icon: <Settings size={20} /> },
       { link: "/edit-academic-session", name: "Academic Settings", icon: <Settings size={20} /> },
     ]
   },
@@ -88,7 +89,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
   const location = useLocation();
 
   const roleRoutes = {
-    1: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list", "/question/create", "/subject-result", "/student-result", "/upload-thoery-score", "/student-clearance", "/edit-academic-session", "/send-feedback", "/passage",],
+    1: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list", "/question/create", "/subject-result", "/student-result", "/upload-thoery-score", "/student-clearance", "/edit-academic-session", "/send-feedback", "/passage", "/student-promotion"],
     2: ["/dashboard", "/staff/list", "/student/registration", "/student/list", "/staff/subjects", "/exam/create", "/question/create", "/staff/exams", "/subject-result", "/send-feedback"],
     4: ["/create-school", "/school-list", "/admin/create", "/admin/users"]
   };
@@ -149,7 +150,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       </div>
 
       <div className="bg-gray-200 text-center">
-        <small className="text-gray-500 font-bold">Version 1.5</small>
+        <small className="text-gray-500 font-bold">Version 2.0</small>
       </div>
     </aside>
   );
