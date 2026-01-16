@@ -1,4 +1,6 @@
 import { useSubject } from "../../Zustand/subjectSlice";
+import { useClass } from "../../Zustand/classSlice";
+import { useStaff } from "../../Zustand/staffSlice";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import SingleSubjectTemplate from "../../Component/Subject/singleSubjectTemplate";
@@ -9,13 +11,19 @@ import { useNotification } from "../../Context/notificationContext";
 export default function SingleSubject() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { subject, fetchSingleSubject, deleteSubject, editSubject } = useSubject();
+    const { subject, fetchSingleSubject, deleteSubject, editSubject, updateSubjectStaff } = useSubject();
+    const { schClass, fetchClassList } = useClass();
+    const { staff, fetchAllStaffsUsername } = useStaff();
     const { errorMessage, singleSubject, loading, message } = subject;
+    const { allschClass } = schClass;
+    const { staffsUsernames } = staff;
     const { showSuccess, showError } = useNotification();
 
     useEffect(() => {
         fetchSingleSubject(id);
-    }, [id, fetchSingleSubject]);
+        fetchClassList();
+        fetchAllStaffsUsername();
+    }, [id, fetchSingleSubject, fetchClassList, fetchAllStaffsUsername]);
 
     const columns = [
         { key: 'examName', header: 'Name' },
@@ -51,6 +59,22 @@ export default function SingleSubject() {
             }
         } catch (error) {
             console.log(error);
+            showError(error.message || "An error occurred");
+        }
+    };
+
+    const handleStaffUpdate = async (formData) => {
+        try {
+            const res = await updateSubjectStaff(formData.subjectId, formData.staffId);
+            if (res.success) {
+                fetchSingleSubject(id);
+                showSuccess(res.message);
+            } else {
+                showError(res.message);
+            }
+        } catch (error) {
+            console.log(error);
+            showError(error.message || "An error occurred");
         }
     };
 
@@ -66,6 +90,9 @@ export default function SingleSubject() {
                     errorMessage={errorMessage}
                     handleDelele={handleDelele}
                     handleEdit={handleEdit}
+                    handleStaffUpdate={handleStaffUpdate}
+                    classList={allschClass}
+                    staffList={staffsUsernames}
                 />
                 <div className="bg-white shadow-lg rounded-lg p-6 mt-6">
                     <h2 className="text-xl font-semibold text-gray-800 mb-4">Examinations</h2>

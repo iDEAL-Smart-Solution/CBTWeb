@@ -50,7 +50,7 @@ const Acad = (set, get) => ({
           const { setLoading } = get().acad;
           setLoading(true);
           try {
-               var res = await axiosInstance.post('');
+               var res = await axiosInstance.post(`${BASE_URL}/api/v1/Academic_Session/next-session`);
                return { success: true, message: res.data.message}
           } catch (error) {
                console.error(`An error occurred: ${error}`)

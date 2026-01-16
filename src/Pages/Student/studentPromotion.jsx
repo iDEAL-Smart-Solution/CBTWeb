@@ -49,17 +49,14 @@ export default function StudentPromotion() {
     const studentKey = selectedStudent.id || selectedStudent.uin || selectedStudent.studentId;
 
     try {
-      const res = await axiosInstance.put(
-        `${BASE_URL}/api/v1/Student/update-class?studentKey=${encodeURIComponent(studentKey)}&newClass=${encodeURIComponent(newClassName)}&newClassId=${encodeURIComponent(selectedClassId)}`
-      );
-      const data = res.data;
-      if (data?.success || res.status === 200) {
-        showSuccess(data?.message || "Student class updated successfully");
-        // refresh students list
+      const { updateStudentClass } = useStudent.getState();
+      const result = await updateStudentClass(studentKey, selectedClassId);
+      if (result.success) {
+        showSuccess(result.message);
         if (searchParam) await fetchStudents(searchParam);
         setSelectedStudent(null);
       } else {
-        showError(data?.message || "Could not update student class");
+        showError(result.message);
       }
     } catch (error) {
       console.error("Error updating student class:", error);

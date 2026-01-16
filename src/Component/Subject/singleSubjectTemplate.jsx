@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, UserCog } from "lucide-react";
 
-function Modal({ isOpen, onClose, onSubmit, formData, handleInputChange }) {
+function Modal({ isOpen, onClose, onSubmit, formData, handleInputChange, classList }) {
     if (!isOpen) return null;
 
     return (
@@ -39,14 +39,20 @@ function Modal({ isOpen, onClose, onSubmit, formData, handleInputChange }) {
                         <label htmlFor="subjectClass" className="block text-sm font-medium text-gray-700 mb-1">
                             Subject Class
                         </label>
-                        <input
-                            type="text"
+                        <select
                             id="subjectClass"
                             name="subjectClass"
                             value={formData.subjectClass}
                             onChange={handleInputChange}
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
+                        >
+                            <option value="">Select a class</option>
+                            {classList && classList.map((cls) => (
+                                <option key={cls.classId} value={cls.className}>
+                                    {cls.className}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div className="flex justify-end gap-4">
                         <button
@@ -69,14 +75,68 @@ function Modal({ isOpen, onClose, onSubmit, formData, handleInputChange }) {
     );
 }
 
+function StaffModal({ isOpen, onClose, onSubmit, formData, handleInputChange, staffList }) {
+    if (!isOpen) return null;
 
-export default function SingleSubjectTemplate({ loading, singleSubject, errorMessage, handleDelele, handleEdit, message }) {
+    return (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">Change Subject Teacher</h3>
+                <form onSubmit={onSubmit} className="space-y-4">
+                    <div>
+                        <label htmlFor="staffId" className="block text-sm font-medium text-gray-700 mb-1">
+                            Select Teacher
+                        </label>
+                        <select
+                            id="staffId"
+                            name="staffId"
+                            value={formData.staffId}
+                            onChange={handleInputChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                            required
+                        >
+                            <option value="">Select a teacher</option>
+                            {staffList && staffList.map((staff) => (
+                                <option key={staff.id} value={staff.id}>
+                                    {staff.userName}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="flex justify-end gap-4">
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            className="px-4 py-2 bg-gray-300 text-gray-800 font-semibold rounded-md hover:bg-gray-400 transition-colors duration-200"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            className="px-4 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition-colors duration-200"
+                        >
+                            Update Teacher
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+}
+
+
+export default function SingleSubjectTemplate({ loading, singleSubject, errorMessage, handleDelele, handleEdit, handleStaffUpdate, message, classList, staffList }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isStaffModalOpen, setIsStaffModalOpen] = useState(false);
     const [formData, setFormData] = useState({
         subjectName: '',
         subjectCode: '',
         subjectClass: '',
         id: '',
+    });
+    const [staffFormData, setStaffFormData] = useState({
+        subjectId: '',
+        staffId: '',
     });
 
     const handleEditClick = (id) => {
@@ -89,9 +149,24 @@ export default function SingleSubjectTemplate({ loading, singleSubject, errorMes
         setIsModalOpen(true);
     };
 
+    const handleStaffEditClick = (id) => {
+        setStaffFormData({
+            subjectId: id,
+            staffId: singleSubject.staffId || '',
+        });
+        setIsStaffModalOpen(true);
+    };
+
     const handleInputChange = (e) => {
         setFormData({
             ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleStaffInputChange = (e) => {
+        setStaffFormData({
+            ...staffFormData,
             [e.target.name]: e.target.value
         });
     };
@@ -100,6 +175,12 @@ export default function SingleSubjectTemplate({ loading, singleSubject, errorMes
         e.preventDefault();
         handleEdit(formData);
         setIsModalOpen(false);
+    };
+
+    const handleStaffFormSubmit = (e) => {
+        e.preventDefault();
+        handleStaffUpdate(staffFormData);
+        setIsStaffModalOpen(false);
     };
 
     return (
@@ -147,6 +228,13 @@ export default function SingleSubjectTemplate({ loading, singleSubject, errorMes
                     </div>
                     <div className="absolute top-4 right-4 flex space-x-3">
                         <button
+                            onClick={() => handleStaffEditClick(singleSubject.id)}
+                            className="p-2.5 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors duration-200 shadow-md"
+                            aria-label="Change Teacher"
+                        >
+                            <UserCog className="w-5 h-5" />
+                        </button>
+                        <button
                             onClick={() => handleEditClick(singleSubject.id)}
                             className="p-2.5 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-200 shadow-md"
                             aria-label="Edit Subject"
@@ -170,6 +258,16 @@ export default function SingleSubjectTemplate({ loading, singleSubject, errorMes
                 onSubmit={handleFormSubmit}
                 formData={formData}
                 handleInputChange={handleInputChange}
+                classList={classList}
+            />
+            
+            <StaffModal
+                isOpen={isStaffModalOpen}
+                onClose={() => setIsStaffModalOpen(false)}
+                onSubmit={handleStaffFormSubmit}
+                formData={staffFormData}
+                handleInputChange={handleStaffInputChange}
+                staffList={staffList}
             />
         </div>
     );

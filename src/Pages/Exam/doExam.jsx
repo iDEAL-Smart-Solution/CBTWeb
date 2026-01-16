@@ -142,30 +142,26 @@ const DoExam = () => {
   };
 
   const renderQuestionButtons = () => {
-    const rows = [];
-    for (let i = 0; i < totalOBJQuestion; i += 3) {
-      const rowButtons = [];
-      for (let j = i; j < i + 3 && j < totalOBJQuestion; j++) {
-        rowButtons.push(
-          <button
-            key={j}
-            onClick={() => handleQuestionClick(j)}
-            className={`w-10 h-10 text-sm font-bold rounded-md border border-gray-300 shadow-sm transition-colors ${
-              userAnswers[questions[j]?.id] ? 'bg-blue-600 text-white' : 'bg-white text-blue-600 hover:bg-blue-100'
-            }`}
-          >
-            {j + 1}
-          </button>
-        );
-      }
-      rows.push(
-        <div key={i} className="flex justify-center gap-2 my-2">
-          {rowButtons}
-        </div>
+    const buttons = [];
+    for (let j = 0; j < totalOBJQuestion; j++) {
+      buttons.push(
+        <button
+          key={j}
+          onClick={() => handleQuestionClick(j)}
+          className={`w-10 h-10 text-sm font-bold rounded-md border border-gray-300 shadow-sm transition-colors ${
+            userAnswers[questions[j]?.id] ? 'bg-blue-600 text-white' : 'bg-white text-blue-600 hover:bg-blue-100'
+          }`}
+        >
+          {j + 1}
+        </button>
       );
     }
 
-    return <div>{rows}</div>;
+    return (
+      <div className="grid grid-cols-5 gap-2 justify-items-center">
+        {buttons}
+      </div>
+    );
   };
 
   if (loading) {
@@ -183,45 +179,48 @@ const DoExam = () => {
 
   const currentQuestion = questions[currentIndex];
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col p-4 sm:p-6 lg:p-8">
-      {theory.length > 0 && !showTheory && (
-        <button
-          onClick={() => setShowTheory(true)}
-          className="mb-4 w-full sm:w-40 py-2 text-blue-600 font-semibold border-2 border-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
-        >
-          Show Theory
-        </button>
+    <div className="h-[90vh] bg-gray-100 flex flex-col overflow-hidden">
+      {/* Header with Theory Toggle Button */}
+      {theory.length > 0 && (
+        <div className="flex-shrink-0 p-4 sm:p-6 lg:px-8 lg:pt-6 lg:pb-2">
+          <button
+            onClick={() => setShowTheory(!showTheory)}
+            className="w-full sm:w-40 py-2 text-blue-600 font-semibold border-2 border-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
+          >
+            {showTheory ? 'Show OBJ' : 'Show Theory'}
+          </button>
+        </div>
       )}
 
-      {/* Theory Section */}
-      {showTheory && (
-        <>
-          <button
-            onClick={() => setShowTheory(false)}
-            className="mb-4 w-full sm:w-40 py-2 text-blue-600 font-semibold border-2 border-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
-          >
-            Show OBJ
-          </button>
-          <div className="flex flex-col lg:flex-row gap-6">
-            <div className="flex-1 bg-white p-6 rounded-lg shadow-md max-h-[calc(100vh-200px)] overflow-y-auto">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">Theory Section</h2>
-              {theory.map((item, index) => (
-                <div key={index} className="mb-6 text-lg text-gray-700 border-b border-gray-200 pb-4 last:border-b-0">
-                  {item.questionInstruction && item.questionInstruction !== '--' && (
-                    <p className="font-medium text-gray-600">{item.questionInstruction}</p>
-                  )}
-                  <p className="mt-2 font-semibold">{index + 1}. {item.question}</p>
-                  {item.questionImage && (
-                    <img
-                      src={`${BASE_URL}/ProfilePicture/${item.questionImage}`}
-                      className="mt-4 max-w-full sm:max-w-md rounded-md shadow-sm"
-                      alt="Theory Image"
-                    />
-                  )}
-                </div>
-              ))}
+      {/* Main Content Area - Fixed Height */}
+      <div className="flex-1 flex flex-col lg:flex-row gap-4 sm:gap-6 px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6 overflow-hidden">
+        {/* Theory Section */}
+        {showTheory && (
+          <>
+            {/* Theory Content - Scrollable */}
+            <div className="flex-1 bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+              <div className="flex-1 overflow-y-auto p-6">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">Theory Section</h2>
+                {theory.map((item, index) => (
+                  <div key={index} className="mb-6 text-lg text-gray-700 border-b border-gray-200 pb-4 last:border-b-0">
+                    {item.questionInstruction && item.questionInstruction !== '--' && (
+                      <p className="font-medium text-gray-600">{item.questionInstruction}</p>
+                    )}
+                    <p className="mt-2 font-semibold">{index + 1}. {item.question}</p>
+                    {item.questionImage && (
+                      <img
+                        src={`${BASE_URL}/ProfilePicture/${item.questionImage}`}
+                        className="mt-4 max-w-full sm:max-w-md rounded-md shadow-sm"
+                        alt="Theory Image"
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="lg:w-80 bg-white p-6 rounded-lg shadow-md lg:sticky lg:top-4">
+            
+            {/* Theory Sidebar - Timer and Submit */}
+            <div className="lg:w-80 bg-white rounded-lg shadow-md p-6 flex flex-col flex-shrink-0">
               {timeLeft !== null && (
                 <p className="text-center text-xl font-mono text-gray-800 bg-gray-200 py-2 rounded-md mb-4">
                   {formatTime(timeLeft)}
@@ -234,94 +233,108 @@ const DoExam = () => {
                 Submit Exam
               </button>
             </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
 
-      {/* Objective Section */}
-      {!showTheory && (
-        <div className="flex flex-col lg:flex-row gap-6">
-          <div className="flex-1 bg-white p-6 rounded-lg shadow-md max-h-[calc(100vh-200px)] overflow-y-auto">
-            {currentQuestion.isPassageQuestion ? (
-              <>
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">{passage.passageTitle}</h2>
-                <p className="text-gray-700 mb-6 p-4 bg-gray-50 rounded-md">{passage.passageContent}</p>
-              </>
-            ) : null}
-            {currentQuestion.questionInstruction?.trim() && currentQuestion.questionInstruction !== '--' && (
-              <p className="text-sm font-medium text-gray-600 mb-3">{currentQuestion.questionInstruction}</p>
-            )}
-            <p className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
-              {currentIndex + 1}. {currentQuestion.question}
-            </p>
-            {currentQuestion.questionImage && (
-              <img
-                src={`${BASE_URL}/ProfilePicture/${currentQuestion.questionImage}`}
-                className="mt-4 max-w-full sm:max-w-md rounded-md shadow-sm mb-4"
-                alt="Question Image"
-              />
-            )}
-            {currentQuestion.options.map((option, index) => (
-              <div key={index} className="mb-3">
-                <label className="flex items-center text-lg text-gray-700">
-                  <input
-                    type="radio"
-                    name={`question_${currentQuestion.id}`}
-                    value={option}
-                    checked={userAnswers[currentQuestion.id] === option}
-                    onChange={() => setAnswer(currentQuestion.id, option)}
-                    className="mr-2 h-5 w-5 text-blue-600"
+        {/* Objective Section */}
+        {!showTheory && (
+          <>
+            {/* Question Content - Scrollable */}
+            <div className="flex-1 bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+              <div className="flex-1 overflow-y-auto p-6">
+                {currentQuestion.isPassageQuestion ? (
+                  <>
+                    <h2 className="text-2xl font-bold text-gray-800 mb-4">{passage.passageTitle}</h2>
+                    <p className="text-gray-700 mb-6 p-4 bg-gray-50 rounded-md">{passage.passageContent}</p>
+                  </>
+                ) : null}
+                {currentQuestion.questionInstruction?.trim() && currentQuestion.questionInstruction !== '--' && (
+                  <p className="text-sm font-medium text-gray-600 mb-3">{currentQuestion.questionInstruction}</p>
+                )}
+                <p className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
+                  {currentIndex + 1}. {currentQuestion.question}
+                </p>
+                {currentQuestion.questionImage && (
+                  <img
+                    src={`${BASE_URL}/ProfilePicture/${currentQuestion.questionImage}`}
+                    className="mt-4 max-w-full sm:max-w-md rounded-md shadow-sm mb-4"
+                    alt="Question Image"
                   />
-                  {String.fromCharCode(97 + index)}. {option}
-                </label>
+                )}
+                {currentQuestion.options.map((option, index) => (
+                  <div key={index} className="mb-3">
+                    <label className="flex items-center text-lg text-gray-700">
+                      <input
+                        type="radio"
+                        name={`question_${currentQuestion.id}`}
+                        value={option}
+                        checked={userAnswers[currentQuestion.id] === option}
+                        onChange={() => setAnswer(currentQuestion.id, option)}
+                        className="mr-2 h-5 w-5 text-blue-600"
+                      />
+                      {String.fromCharCode(97 + index)}. {option}
+                    </label>
+                  </div>
+                ))}
+                <p className="text-sm text-gray-500 mt-4">
+                  Press 'a', 'b', 'c', or 'd' to select an option, 'n' for next, 'p' for previous
+                </p>
               </div>
-            ))}
-            <p className="text-sm text-gray-500 mt-4">
-              Press 'a', 'b', 'c', or 'd' to select an option, 'n' for next, 'p' for previous
-            </p>
-          </div>
-
-          <div className="lg:w-80 bg-white p-6 rounded-lg shadow-md lg:sticky lg:top-4">
-            {timeLeft !== null && (
-              <p className="text-center text-xl font-mono text-gray-800 bg-gray-200 py-2 rounded-md mb-4">
-                {formatTime(timeLeft)}
-              </p>
-            )}
-            <div className="mb-6">{totalOBJQuestion > 0 && renderQuestionButtons()}</div>
-            <div className="flex gap-2 mb-4">
-              <button
-                onClick={prevQuestion}
-                disabled={currentIndex === 0}
-                className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-colors ${
-                  currentIndex === 0
-                    ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
-                    : 'bg-blue-600 text-white hover:bg-blue-700'
-                }`}
-              >
-                Previous (p)
-              </button>
-              <button
-                onClick={nextQuestion}
-                disabled={currentIndex === questions.length - 1}
-                className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-colors ${
-                  currentIndex === questions.length - 1
-                    ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
-                    : 'bg-blue-600 text-white hover:bg-blue-700'
-                }`}
-              >
-                Next (n)
-              </button>
             </div>
-            <button
-              onClick={handleExamSubmit}
-              className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Submit Exam
-            </button>
-          </div>
-        </div>
-      )}
 
+            {/* Right Sidebar - Timer, Question Numbers, and Controls */}
+            <div className="lg:w-80 bg-white rounded-lg shadow-md p-6 flex flex-col flex-shrink-0 overflow-hidden">
+              {/* Timer - Fixed at Top */}
+              {timeLeft !== null && (
+                <p className="text-center text-xl font-mono text-gray-800 bg-gray-200 py-2 rounded-md mb-4 flex-shrink-0">
+                  {formatTime(timeLeft)}
+                </p>
+              )}
+              
+              {/* Question Numbers - Scrollable Container */}
+              <div className="flex-1 mb-4 overflow-y-auto">
+                {totalOBJQuestion > 0 && renderQuestionButtons()}
+              </div>
+              
+              {/* Navigation and Submit Buttons - Fixed at Bottom */}
+              <div className="flex-shrink-0">
+                <div className="flex gap-2 mb-4">
+                  <button
+                    onClick={prevQuestion}
+                    disabled={currentIndex === 0}
+                    className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-colors ${
+                      currentIndex === 0
+                        ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
+                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                    }`}
+                  >
+                    Previous (p)
+                  </button>
+                  <button
+                    onClick={nextQuestion}
+                    disabled={currentIndex === questions.length - 1}
+                    className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-colors ${
+                      currentIndex === questions.length - 1
+                        ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
+                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                    }`}
+                  >
+                    Next (n)
+                  </button>
+                </div>
+                <button
+                  onClick={handleExamSubmit}
+                  className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Submit Exam
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Confirmation Modal */}
       {showConfirmation && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
           <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">

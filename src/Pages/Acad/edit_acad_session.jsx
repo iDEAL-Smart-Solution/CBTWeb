@@ -5,7 +5,7 @@ import { ImageUploader } from "../../Component/ReUsableComponents/file";
 import { useNotification } from "../../Context/notificationContext";
 
 export default function AcademicSettings() {
-    const { acad, addNameAndLogo, editAcadSession } = useAcad();
+    const { acad, addNameAndLogo, editAcadSession, nextTerm, nextSession } = useAcad();
     const { loading, message } = acad;
     const { showSuccess, showError } = useNotification();
 
@@ -98,9 +98,29 @@ export default function AcademicSettings() {
     };
 
     const confirmMigrate = async (type) => {
-        console.log(`Confirmed migration to ${type}`);
         setShowModal({ ...showModal, [type]: false });
-        showSuccess(`Successfully migrated to ${type}`);
+        try {
+            if (type === 'term') {
+                const res = await nextTerm();
+                if (res.success) {
+                    showSuccess(res.message || 'Migrated to next term successfully');
+                } else {
+                    showError(res.message || 'Failed to migrate to next term');
+                }
+            } else if (type === 'session') {
+                const res = await nextSession();
+                if (res.success) {
+                    showSuccess(res.message || 'Migrated to next session successfully');
+                } else {
+                    showError(res.message || 'Failed to migrate to next session');
+                }
+            } else {
+                showError('Unknown migration type');
+            }
+        } catch (error) {
+            console.error('Migration error:', error);
+            showError(error?.response?.data?.message || error.message || 'An error occurred during migration');
+        }
     };
 
     const cancelMigrate = (type) => {
