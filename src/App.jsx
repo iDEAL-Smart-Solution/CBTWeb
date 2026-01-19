@@ -37,6 +37,7 @@ import AdminUserCreation from './Pages/Admin/admin-user-creation';
 import AdminUserList from './Pages/Admin/admin-user-list';
 import SchoolProfileScreen from './Pages/School/school-profile';
 import StudentPromotion from './Pages/Student/studentPromotion';
+import BackupSettings from './Pages/Admin/backup-settings';
 
 function App() {
   const getUser = () => JSON.parse(sessionStorage.getItem("user"));
@@ -97,6 +98,7 @@ function App() {
         { path: "/admin/create", element: <AdminUserCreation /> },
         { path: "/admin/users", element: <AdminUserList /> },
         { path: "/school/:id", element: <SchoolProfileScreen /> },
+        { path: "/backup-settings", element: <BackupSettings /> },
       ]
     },
     {
