@@ -233,8 +233,8 @@ export function Table({
                 </td>
               </tr>
             ) : (
-              paginatedData.map((item) => (
-                <tr key={item.id} className="border-b border-gray-200 hover:bg-gray-50">
+              paginatedData.map((item, index) => (
+                <tr key={item.id || item.userId || item.classId || item.studentId || item.examId || index} className="border-b border-gray-200 hover:bg-gray-50">
                   {columns.map((column) => (
                     <td key={column.key} className="px-4 py-3 text-sm text-gray-600">
                       {renderCell(item, column)}

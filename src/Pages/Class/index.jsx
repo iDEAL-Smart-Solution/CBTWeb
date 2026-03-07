@@ -51,17 +51,19 @@ export default function Class() {
     const allschClass = schClass?.allschClass || [];
 
     return (
-        <div className="container mx-auto py-6 px-4 md:px-6">
-            <h1 className="text-2xl font-bold text-gray-800 mb-6">Manage Classes</h1>
-            <div className="space-y-8">
-                <CreateClass
-                    handleSubmit={handleSubmit}
-                    fieldName="name"
-                    fieldvalue={name}
-                    handleInputChange={handleInputChange}
-                    loading={loading}
-                />
-                <ListClass classes={allschClass} loading={loading} handleDelete={handleDelete} />
+        <div className="w-full">
+            <div className="max-w-7xl mx-auto">
+                <h1 className="text-2xl font-bold text-gray-800 mb-6">Manage Classes</h1>
+                <div className="space-y-8">
+                    <CreateClass
+                        handleSubmit={handleSubmit}
+                        fieldName="name"
+                        fieldvalue={name}
+                        handleInputChange={handleInputChange}
+                        loading={loading}
+                    />
+                    <ListClass classes={allschClass} loading={loading} handleDelete={handleDelete} />
+                </div>
             </div>
         </div>
     );

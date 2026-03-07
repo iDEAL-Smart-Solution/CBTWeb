@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../Zustand/auth';
 import { useNavigate, Link } from 'react-router-dom';
 import { BASE_URL } from '../../Constant';
@@ -6,9 +6,21 @@ import defaultLogo from '../../assets/iDEAL-logo.jpg';
 
 export default function Navbar() {
   const { logout, auth } = useAuth();
-  const { academicSession } = auth || {};
+  const { academicSession, user } = auth || {};
   const { current_Session, current_Term, logoUrl, schoolName } = academicSession || {};
   const navigate = useNavigate();
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
+  
+  const isDevRole = user?.role === 4;
+
+  useEffect(() => {
+    if (isDevRole) {
+      const timer = setInterval(() => {
+        setCurrentDateTime(new Date());
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [isDevRole]);
 
   function handleSignOut() {
     logout();
@@ -21,7 +33,17 @@ export default function Navbar() {
     3: "3rd Term",
   };
 
-  const myLogoUrl = logoUrl ? `${BASE_URL}/ProfilePictures/${logoUrl}` : defaultLogo;
+  const formatDate = (date) => {
+    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
+
+  const formatTime = (date) => {
+    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  };
+
+  const myLogoUrl = logoUrl ? `${BASE_URL}/ProfilePicture/${logoUrl}` : defaultLogo;
+  const displaySchoolName = isDevRole ? 'Hi, Bigboss' : (schoolName || 'School Name');
 
   return (
     <nav className="flex items-center justify-between w-full">
@@ -35,19 +57,30 @@ export default function Navbar() {
           }}
         />
         <span className="text-lg font-bold text-blue-600 md:block hidden">
-          {schoolName || 'School Name'}
+          {displaySchoolName}
         </span>
       </div>
 
       <div className="text-center text-sm md:text-base mt-2 md:mt-0">
-        <Link to="/edit-academic-session" className="no-underline">
-          <small className="text-blue-600 font-semibold block text-sm md:text-base">
-            {current_Session || 'N/A'}
-          </small>
-          <small className="text-blue-600 font-semibold block text-sm md:text-base">
-            {termMap[current_Term] || 'N/A'}
-          </small>
-        </Link>
+        {isDevRole ? (
+          <div className="text-blue-600 font-semibold">
+            <small className="block text-sm md:text-base">
+              {formatDate(currentDateTime)}
+            </small>
+            <small className="block text-sm md:text-base">
+              {formatTime(currentDateTime)}
+            </small>
+          </div>
+        ) : (
+          <Link to="/edit-academic-session" className="no-underline">
+            <small className="text-blue-600 font-semibold block text-sm md:text-base">
+              {current_Session || 'N/A'}
+            </small>
+            <small className="text-blue-600 font-semibold block text-sm md:text-base">
+              {termMap[current_Term] || 'N/A'}
+            </small>
+          </Link>
+        )}
       </div>
 
       <div className="flex items-center">

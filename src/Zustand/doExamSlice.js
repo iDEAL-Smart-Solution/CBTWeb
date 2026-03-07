@@ -83,7 +83,9 @@ export const useDoExam = create((set, get) => ({
         totalOBJQuestion: incoming.totalOBJQuestion + incoming.totalPassageQuestion,
         studentId: studentId,
         startTime: new Date().toISOString(),
-        maxDuration: incoming.duration
+        maxDuration: incoming.duration,
+        userAnswers: {}, 
+        currentIndex: 0 
       });
     } catch (error) {
       console.error("Error fetching questions", error);

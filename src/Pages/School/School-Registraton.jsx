@@ -25,6 +25,7 @@ export default function SchoolRegistration() {
      const SubscriptionType = [
           { value: 1, label: 'OneTime' },
           { value: 2, label: 'PerTerm' },
+          { value: 3, label: 'Demo' },
      ];
 
      const handleInputChange = (event) => {
@@ -43,7 +44,6 @@ export default function SchoolRegistration() {
 
      const handleSubmit = async (e) => {
           e.preventDefault();
-          console.log(formData);
           try {
                let res = await createSchool(formData);
                if (res.success) {

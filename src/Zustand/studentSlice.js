@@ -61,6 +61,26 @@ const Student = (set, get) => ({
                setLoading(false);
           }
      },
+     updateStudentClass: async (studentKey, newClassId) => {
+          const { setLoading, setErrorMessage, setMessage } = get().student;
+          setLoading(true);
+          try {
+               const res = await axiosInstance.put(`${BASE_URL}/api/v1/Student/update-class?studentKey=${encodeURIComponent(studentKey)}&newClass=${encodeURIComponent(newClassId)}`);
+               const data = res.data;
+               const success = data?.success ?? (res.status === 200);
+               const message = data?.message || (success ? 'Student class updated successfully' : 'Could not update student class');
+               if (success) setMessage(message);
+               else setErrorMessage(message);
+               return { success, message };
+          } catch (error) {
+               console.error("Error updating student class:", error);
+               const msg = error.response?.data?.message || error.message || 'An error occurred while updating student class';
+               setErrorMessage(msg);
+               return { success: false, message: msg };
+          } finally {
+               setLoading(false);
+          }
+     },
      fetchStuddentForClearance: async (examId) => {
           const { setLoading, setErrorMessage, setStudentsForClearnce } = get().student;
           setLoading(true);

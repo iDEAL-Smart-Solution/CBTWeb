@@ -29,7 +29,7 @@ export default function SchoolProfileScreen() {
                 id: schoolDetails.schoolSubscription.id,
                 allowedStudentCount: schoolDetails.schoolSubscription.allowedStudentCount.toString(),
                 amountPaid: schoolDetails.schoolSubscription.amountPaid.toString(),
-                createdAt: createdAt.toISOString().split("T")[0], // Format as YYYY-MM-DD
+                createdAt: createdAt.toISOString().split("T")[0], 
                 subscriptionType: schoolDetails.schoolSubscription.subscriptionType?.toString() || "",
             });
             setErrors({});
@@ -76,7 +76,7 @@ export default function SchoolProfileScreen() {
             newErrors.createdAt = "Created date is required";
         } else {
             const selectedDate = new Date(formData.createdAt);
-            const today = new Date(); // Current date (real-time)
+            const today = new Date(); 
             if (selectedDate > today) {
                 newErrors.createdAt = "Created date cannot be in the future";
             }
@@ -320,6 +320,7 @@ export default function SchoolProfileScreen() {
                                     <option value="">Select subscription type</option>
                                     <option value="1">OneTime</option>
                                     <option value="2">PerTerm</option>
+                                    <option value="3">Demo</option>
                                 </select>
                                 {errors.subscriptionType && (
                                     <p className="text-sm text-red-600 mt-1">{errors.subscriptionType}</p>

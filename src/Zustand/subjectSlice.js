@@ -189,8 +189,22 @@ const Subject = (set, get) => ({
                var mssg = res.data.message;
                return {success: true, message: mssg};
           } catch (error) {
-               console.error("Error occured when trying to edit question : ", error);
-               return {success: false, message: error.message };
+               console.error("Error occured when trying to edit subject : ", error);
+               return {success: false, message: error.response?.data?.message || error.message };
+          } finally {
+               setLoading(false);
+          }
+     },
+     updateSubjectStaff: async (subjectId, staffId) => {
+          const {setLoading } = get().subject;
+          setLoading(true);
+          try {
+               var res = await axiosInstance.patch(`${BASE_URL}/api/v1/Subject/change-subject-staff?subjectId=${subjectId}&staffId=${staffId}`);
+               var mssg = res.data.message;
+               return {success: true, message: mssg};
+          } catch (error) {
+               console.error("Error occured when trying to update subject staff : ", error);
+               return {success: false, message: error.response?.data?.message || error.message };
           } finally {
                setLoading(false);
           }
