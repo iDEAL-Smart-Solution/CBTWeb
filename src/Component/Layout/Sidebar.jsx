@@ -10,28 +10,25 @@ const navLinksItem = [
   {
     name: "Class",
     subLinks: [
-      { link: "/class", name: "List / Create", icon: <Clipboard size={20} /> }
+      { link: "/class", name: "Classes", icon: <Clipboard size={20} /> }
     ]
   },
   {
     name: "Staff",
     subLinks: [
-      { link: "/staff/registration", name: "Register", icon: <UserPlus size={20} /> },
-      { link: "/staff/list", name: "List", icon: <Users size={20} /> }
+      { link: "/staff", name: "Staff", icon: <Users size={20} /> }
     ]
   },
   {
     name: "Student",
     subLinks: [
-      { link: "/student/registration", name: "Register", icon: <UserPlus size={20} /> },
-      { link: "/student/list", name: "List", icon: <Users size={20} /> }
+      { link: "/students", name: "Students", icon: <Users size={20} /> }
     ]
   },
   {
     name: "Subject",
     subLinks: [
-      { link: "/subject/create", name: "Create", icon: <Plus size={20} /> },
-      { link: "/subject/list", name: "List", icon: <Clipboard size={20} /> },
+      { link: "/subjects", name: "Subjects", icon: <Book size={20} /> },
       { link: "/staff/subjects", name: "My Subjects", icon: <List size={20} /> }
     ]
   },
@@ -45,8 +42,7 @@ const navLinksItem = [
   {
     name: "Examination",
     subLinks: [
-      { link: "/exam/create", name: "Create", icon: <Plus size={20} /> },
-      { link: "/exam/list", name: "List", icon: <Clipboard size={20} /> },
+      { link: "/exams", name: "Exams", icon: <Clipboard size={20} /> },
       { link: "/staff/exams", name: "My Exams", icon: <List size={20} /> },
       { link: "/student-clearance", name: "Exam Clearance", icon: <Settings size={20} /> },
     ]
@@ -54,8 +50,7 @@ const navLinksItem = [
   {
     name: "Result",
     subLinks: [
-      { link: "/subject-result", name: "By Subject", icon: <Book size={20} /> },
-      { link: "/student-result", name: "By Student", icon: <BarChart2 size={20} /> },
+      { link: "/results", name: "Check Results", icon: <BarChart2 size={20} /> },
       { link: "/upload-thoery-score", name: "Upload Score", icon: <FileUp size={20} /> }
     ]
   },
@@ -75,16 +70,15 @@ const navLinksItem = [
   {
     name: "Administration",
     subLinks: [
-      { link: "/create-school", name: "Create School", icon: <Plus size={20} /> },
-      { link: "/school-list", name: "List Schools", icon: <School size={20} /> },
-      { link: "/admin/create", name: "Create Admin", icon: <UserPlus size={20} /> },
-      { link: "/admin/users", name: "Admin Users", icon: <Users size={20} /> }
+      { link: "/schools", name: "Schools", icon: <School size={20} /> },
+      { link: "/admin-users", name: "Admin Users", icon: <Users size={20} /> }
     ]
   },
   {
     name: "System",
     subLinks: [
-      { link: "/backup-settings", name: "Database Backup", icon: <HardDrive size={20} /> }
+      { link: "/backup-settings", name: "Database Backup", icon: <HardDrive size={20} /> },
+      { link: "/migrate-students", name: "Migrate Students", icon: <Users size={20} /> }
     ]
   }
 ];
@@ -95,9 +89,9 @@ export default function Sidebar({ isOpen, setIsOpen }) {
   const location = useLocation();
 
   const roleRoutes = {
-    1: ["/dashboard", "/class", "/staff/registration", "/staff/edit", "/staff/list", "/student/registration", "/student/list", "/subject/create", "/subject/list", "/exam/create", "/exam/list", "/question/create", "/subject-result", "/student-result", "/upload-thoery-score", "/student-clearance", "/edit-academic-session", "/send-feedback", "/passage", "/student-promotion", "/backup-settings"],
-    2: ["/dashboard", "/staff/list", "/student/registration", "/student/list", "/staff/subjects", "/exam/create", "/question/create", "/staff/exams", "/subject-result", "/send-feedback"],
-    4: ["/create-school", "/school-list", "/admin/create", "/admin/users", "/backup-settings"]
+    1: ["/dashboard", "/class", "/staff", "/students", "/subjects", "/exams", "/question/create", "/results", "/upload-thoery-score", "/student-clearance", "/edit-academic-session", "/send-feedback", "/passage", "/student-promotion", "/backup-settings", "/migrate-students"],
+    2: ["/dashboard", "/staff", "/students", "/staff/subjects", "/exams", "/question/create", "/staff/exams", "/results", "/send-feedback"],
+    4: ["/schools", "/admin-users", "/backup-settings"]
   };
 
   const routeNames = {
@@ -111,7 +105,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
 
   return (
 
-    <aside className={`w-64 bg-white h-[92.5vh] fixed md:static transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50 ${
+    <aside className={`w-64 bg-white h-[92.5vh] fixed md:static transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50 shadow-lg border-r border-gray-200 ${
       isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
     } flex flex-col`}>
         
@@ -156,7 +150,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       </div>
 
       <div className="bg-gray-200 text-center">
-        <small className="text-gray-500 font-bold">Version 2.1</small>
+        <small className="text-gray-500 font-bold">Version 2.2</small>
       </div>
     </aside>
   );

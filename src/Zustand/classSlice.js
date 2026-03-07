@@ -28,6 +28,7 @@ const Class = (set, get) => ({
                setAllschClass(schClassList);
           } catch (error) {
                console.error("Error fetching schClass list:", error);
+               setAllschClass([]); // Clear data on error
           } finally {
                setLoading(false);
           }
