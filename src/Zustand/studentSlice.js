@@ -81,6 +81,29 @@ const Student = (set, get) => ({
                setLoading(false);
           }
      },
+     bulkUpdateStudentsClass: async (fromClassId, toClassId) => {
+          const { setLoading, setErrorMessage, setMessage } = get().student;
+          setLoading(true);
+          try {
+               const res = await axiosInstance.post(`${BASE_URL}/api/v1/Student/bulk-update-class`, {
+                    fromClassId,
+                    toClassId,
+               });
+               const data = res.data;
+               const success = data?.success ?? (res.status === 200);
+               const message = data?.message || (success ? 'Students class updated successfully' : 'Could not update students class');
+               if (success) setMessage(message);
+               else setErrorMessage(message);
+               return { success, message };
+          } catch (error) {
+               console.error("Error bulk updating students class:", error);
+               const msg = error.response?.data?.message || error.response?.data || error.message || 'An error occurred while bulk updating students class';
+               setErrorMessage(msg);
+               return { success: false, message: msg };
+          } finally {
+               setLoading(false);
+          }
+     },
      fetchStuddentForClearance: async (examId) => {
           const { setLoading, setErrorMessage, setStudentsForClearnce } = get().student;
           setLoading(true);
