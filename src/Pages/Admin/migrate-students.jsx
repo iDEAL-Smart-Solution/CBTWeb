@@ -7,7 +7,19 @@ export default function MigrateStudents() {
   const result = useSuitMigrationStore((s) => s.result);
   const error = useSuitMigrationStore((s) => s.error);
   const migrateStudents = useSuitMigrationStore((s) => s.migrateStudents);
-  const successfulUins = Array.isArray(result?.successfulUins) ? result.successfulUins : [];
+  const total = Number(result?.total ?? result?.Total ?? 0);
+  const successful = Number(result?.successful ?? result?.Successful ?? 0);
+  const failed = Number(result?.failed ?? result?.Failed ?? 0);
+  const successfulUins = Array.isArray(result?.successfulUins)
+    ? result.successfulUins
+    : Array.isArray(result?.SuccessfulUins)
+      ? result.SuccessfulUins
+      : [];
+  const errors = Array.isArray(result?.errors)
+    ? result.errors
+    : Array.isArray(result?.Errors)
+      ? result.Errors
+      : [];
 
   const handleMigrate = async () => {
     await migrateStudents();
@@ -100,13 +112,32 @@ export default function MigrateStudents() {
           </div>
         )}
 
-        {/* Success Result */}
+        {/* Migration Result */}
         {result && !error && (
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-              <CheckCircle className="text-green-600" size={24} />
-              Migration Completed Successfully
+            <h2 className="text-xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+              {failed > 0 ? (
+                <XCircle className="text-red-600" size={24} />
+              ) : (
+                <CheckCircle className="text-green-600" size={24} />
+              )}
+              Migration Result
             </h2>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+              <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+                <p className="text-sm text-blue-900">Total</p>
+                <p className="text-2xl font-bold text-blue-700">{total}</p>
+              </div>
+              <div className="rounded-lg border border-green-200 bg-green-50 p-4">
+                <p className="text-sm text-green-900">Successful</p>
+                <p className="text-2xl font-bold text-green-700">{successful}</p>
+              </div>
+              <div className="rounded-lg border border-red-200 bg-red-50 p-4">
+                <p className="text-sm text-red-900">Failed</p>
+                <p className="text-2xl font-bold text-red-700">{failed}</p>
+              </div>
+            </div>
 
             <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
               <p className="text-green-800 font-medium mb-3">Successfully Migrated Student UINs</p>
@@ -118,6 +149,19 @@ export default function MigrateStudents() {
                 </ul>
               ) : (
                 <p className="text-sm text-gray-700">No successful UIN list was returned.</p>
+              )}
+            </div>
+
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+              <p className="text-red-800 font-medium mb-3">Unsuccessful/Failed Records</p>
+              {errors.length > 0 ? (
+                <ul className="bg-white p-4 rounded border border-red-200 max-h-96 overflow-auto space-y-2">
+                  {errors.map((item, index) => (
+                    <li key={`${item}-${index}`} className="text-sm text-gray-800">• {item}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-sm text-gray-700">No failed details were returned.</p>
               )}
             </div>
           </div>
