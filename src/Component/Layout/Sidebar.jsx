@@ -78,7 +78,7 @@ const navLinksItem = [
     name: "System",
     subLinks: [
       { link: "/backup-settings", name: "Database Backup", icon: <HardDrive size={20} /> },
-      { link: "/migrate-students", name: "Migrate Students", icon: <Users size={20} /> }
+      { link: "/migrate-students", name: "Migration", icon: <Users size={20} /> }
     ]
   }
 ];
