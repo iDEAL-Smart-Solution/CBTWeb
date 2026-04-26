@@ -150,7 +150,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       </div>
 
       <div className="bg-gray-200 text-center">
-        <small className="text-gray-500 font-bold">Version 2.3</small>
+        <small className="text-gray-500 font-bold">Version 2.4</small>
       </div>
     </aside>
   );
