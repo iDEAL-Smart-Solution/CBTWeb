@@ -167,6 +167,32 @@ const Student = (set, get) => ({
                setLoading(false);
           }
 
+     },
+     deactivateStudent: async (id) => {
+          const { setLoading } = get().student;
+          setLoading(true);
+          try {
+               const res = await axiosInstance.post(`${BASE_URL}/api/v1/Student/deactivate-student-account?id=${encodeURIComponent(id)}`);
+               return { success: res.data.success, message: res.data.message };
+          } catch (error) {
+               console.error('Error deactivating student:', error);
+               return { success: false, message: error.response?.data?.message || 'An error occurred while deactivating the student account' };
+          } finally {
+               setLoading(false);
+          }
+     },
+     reactivateStudent: async (id) => {
+          const { setLoading } = get().student;
+          setLoading(true);
+          try {
+               const res = await axiosInstance.post(`${BASE_URL}/api/v1/Student/reactivate-student-account?id=${encodeURIComponent(id)}`);
+               return { success: res.data.success, message: res.data.message };
+          } catch (error) {
+               console.error('Error reactivating student:', error);
+               return { success: false, message: error.response?.data?.message || 'An error occurred while reactivating the student account' };
+          } finally {
+               setLoading(false);
+          }
      }
 })
 

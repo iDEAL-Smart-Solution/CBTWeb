@@ -27,7 +27,7 @@ export default function SingleClass() {
                         <p className="text-gray-600">Class details not found.</p>
                     </div>
                 ) : (
-                    <SingleClassTemplate students={singleClass} />
+                    <SingleClassTemplate students={singleClass} onDeactivated={() => fetchSingleClass(id)} />
                 )}
             </div>
         </div>

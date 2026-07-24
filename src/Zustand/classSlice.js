@@ -52,7 +52,8 @@ const Class = (set, get) => ({
                          studentName: list.studentName,
                          uin: list.uin,
                          gender: list.gender,
-                         profilePicture: list.imageUrl
+                         profilePicture: list.imageUrl,
+                         isActive: list.isActive,
                     })),
                };
                setSingleClass(data);
