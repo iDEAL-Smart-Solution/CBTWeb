@@ -37,7 +37,7 @@ export default defineConfig({
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]',
       },
-      treeshake: false,
+      treeshake: true,
     },
     emptyOutDir: true,
     minify: true,
