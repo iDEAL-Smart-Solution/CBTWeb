@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../Zustand/auth';
 import { useNavigate, Link } from 'react-router-dom';
 import { BASE_URL } from '../../Constant';
-import defaultLogo from '../../assets/iDEAL-logo.jpg';
+import defaultLogo from '../../assets/iDEAL-logo.png';
 
 export default function Navbar() {
   const { logout, auth } = useAuth();
