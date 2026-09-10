@@ -3,7 +3,7 @@ import { useAuth } from '../../Zustand/auth';
 import { BASE_URL } from '../../Constant';
 import { SCHOOL_NAME } from '../../Constant';
 import { useNavigate } from 'react-router-dom';
-import defaultLogo from '../../assets/iDEAL-logo.jpg';
+import defaultLogo from '../../assets/iDEAL-logo.png';
 
 export default function StudentNavbar() {
     const { logout, auth } = useAuth();

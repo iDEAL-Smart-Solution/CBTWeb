@@ -1,4 +1,4 @@
-import logo from "./src/assets/iDEAL-logo.jpg"
+import logo from "./src/assets/iDEAL-logo.png"
 const ErrorPage = () => {
      return (
           <div style={{ width: '70vw', height: '60vh' }}>
