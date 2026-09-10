@@ -7,10 +7,14 @@ import SingleSubjectTemplate from "../../Component/Subject/singleSubjectTemplate
 import { ExamListTemplate1 } from "../../Component/Exam/examListTemplate";
 import { useNavigate } from "react-router-dom";
 import { useNotification } from "../../Context/notificationContext";
+import { useAuth } from "../../Zustand/auth";
 
 export default function SingleSubject() {
     const { id } = useParams();
     const navigate = useNavigate();
+    const { auth } = useAuth();
+    const { user } = auth;
+    const isSuperAdmin = user?.role === 1;
     const { subject, fetchSingleSubject, deleteSubject, editSubject, updateSubjectStaff } = useSubject();
     const { schClass, fetchClassList } = useClass();
     const { staff, fetchAllStaffsUsername } = useStaff();
@@ -64,6 +68,10 @@ export default function SingleSubject() {
     };
 
     const handleStaffUpdate = async (formData) => {
+        if (!isSuperAdmin) {
+            showError("Only superadmins can update subject staff");
+            return;
+        }
         try {
             const res = await updateSubjectStaff(formData.subjectId, formData.staffId);
             if (res.success) {
@@ -93,6 +101,7 @@ export default function SingleSubject() {
                     handleStaffUpdate={handleStaffUpdate}
                     classList={allschClass}
                     staffList={staffsUsernames}
+                    isSuperAdmin={isSuperAdmin}
                 />
                 <div className="bg-white shadow-lg rounded-lg p-6 mt-6">
                     <h2 className="text-xl font-semibold text-gray-800 mb-4">Examinations</h2>

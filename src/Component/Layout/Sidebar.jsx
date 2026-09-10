@@ -78,7 +78,7 @@ const navLinksItem = [
     name: "System",
     subLinks: [
       { link: "/backup-settings", name: "Database Backup", icon: <HardDrive size={20} /> },
-      { link: "/migrate-students", name: "Migrate Students", icon: <Users size={20} /> }
+      { link: "/migrate-students", name: "Migration", icon: <Users size={20} /> }
     ]
   }
 ];
@@ -90,7 +90,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
 
   const roleRoutes = {
     1: ["/dashboard", "/class", "/staff", "/students", "/subjects", "/exams", "/question/create", "/results", "/upload-thoery-score", "/student-clearance", "/edit-academic-session", "/send-feedback", "/passage", "/student-promotion", "/backup-settings", "/migrate-students"],
-    2: ["/dashboard", "/staff", "/students", "/staff/subjects", "/exams", "/question/create", "/staff/exams", "/results", "/send-feedback"],
+    2: ["/dashboard", "/staff", "/students", "/staff/subjects", "/exams", "/question/create", "/staff/exams", "/results", "/send-feedback", "/passage"],
     4: ["/schools", "/admin-users", "/backup-settings"]
   };
 
@@ -150,7 +150,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       </div>
 
       <div className="bg-gray-200 text-center">
-        <small className="text-gray-500 font-bold">Version 2.2</small>
+        <small className="text-gray-500 font-bold">Version 2.4</small>
       </div>
     </aside>
   );

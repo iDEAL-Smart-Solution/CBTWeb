@@ -2,6 +2,7 @@ import { Pencil, Trash2, Upload } from "lucide-react";
 import { InputField } from "../ReUsableComponents/input";
 import { useState, useRef } from "react";
 import { BASE_URL } from "../../Constant";
+import { renderQuestionText } from "./questionTextFormatter";
 
 function ModalEdit({ isOpen, onClose, onSubmit, formData, handleInputChange }) {
     if (!isOpen) return null;
@@ -180,7 +181,7 @@ export default function QuestionCard({ data, index, loading, handleDelele, handl
                         className="w-full flex items-center justify-between p-4 text-left hover:bg-blue-100 transition-colors duration-200"
                     >
                         <span className="font-sans font-semibold text-gray-800 text-lg">
-                            {index + 1}. {data.question}
+                            {index + 1}. <span dangerouslySetInnerHTML={renderQuestionText(data.question)} />
                         </span>
                         <svg
                             className={`w-6 h-6 transform transition-transform duration-300 ${
@@ -203,7 +204,7 @@ export default function QuestionCard({ data, index, loading, handleDelele, handl
                         <div className="p-4 border-t border-gray-200">
                             {data.questionInstruction?.trim() && (
                                 <p className="font-sans text-gray-700 italic mb-3">
-                                    <span className="font-medium">Instruction:</span> {data.questionInstruction}
+                                    <span className="font-medium">Instruction:</span> <span dangerouslySetInnerHTML={renderQuestionText(data.questionInstruction)} />
                                 </p>
                             )}
                             {data.questionImage && (
@@ -217,22 +218,22 @@ export default function QuestionCard({ data, index, loading, handleDelele, handl
                             <div className="space-y-2 mb-3">
                                 {data.optionA?.trim() && (
                                     <p className="font-sans text-gray-900">
-                                        <span className="font-medium">A.</span> {data.optionA}
+                                        <span className="font-medium">A.</span> <span dangerouslySetInnerHTML={renderQuestionText(data.optionA)} />
                                     </p>
                                 )}
                                 {data.optionB?.trim() && (
                                     <p className="font-sans text-gray-900">
-                                        <span className="font-medium">B.</span> {data.optionB}
+                                        <span className="font-medium">B.</span> <span dangerouslySetInnerHTML={renderQuestionText(data.optionB)} />
                                     </p>
                                 )}
                                 {data.optionC?.trim() && (
                                     <p className="font-sans text-gray-900">
-                                        <span className="font-medium">C.</span> {data.optionC}
+                                        <span className="font-medium">C.</span> <span dangerouslySetInnerHTML={renderQuestionText(data.optionC)} />
                                     </p>
                                 )}
                                 {data.optionD?.trim() && (
                                     <p className="font-sans text-gray-900">
-                                        <span className="font-medium">D.</span> {data.optionD}
+                                        <span className="font-medium">D.</span> <span dangerouslySetInnerHTML={renderQuestionText(data.optionD)} />
                                     </p>
                                 )}
                             </div>
@@ -241,7 +242,7 @@ export default function QuestionCard({ data, index, loading, handleDelele, handl
                             </p>
                             {data.answer?.trim() && (
                                 <p className="font-sans text-green-600">
-                                    <span className="font-medium">Correct Answer:</span> {data.answer}
+                                    <span className="font-medium">Correct Answer:</span> <span dangerouslySetInnerHTML={renderQuestionText(data.answer)} />
                                 </p>
                             )}
                             <div className="flex space-x-3 mt-4">

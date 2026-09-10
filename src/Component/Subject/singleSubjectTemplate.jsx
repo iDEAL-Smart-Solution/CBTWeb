@@ -125,7 +125,7 @@ function StaffModal({ isOpen, onClose, onSubmit, formData, handleInputChange, st
 }
 
 
-export default function SingleSubjectTemplate({ loading, singleSubject, errorMessage, handleDelele, handleEdit, handleStaffUpdate, message, classList, staffList }) {
+export default function SingleSubjectTemplate({ loading, singleSubject, errorMessage, handleDelele, handleEdit, handleStaffUpdate, message, classList, staffList, isSuperAdmin }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isStaffModalOpen, setIsStaffModalOpen] = useState(false);
     const [formData, setFormData] = useState({
@@ -227,13 +227,15 @@ export default function SingleSubjectTemplate({ loading, singleSubject, errorMes
                         </div>
                     </div>
                     <div className="absolute top-4 right-4 flex space-x-3">
-                        <button
-                            onClick={() => handleStaffEditClick(singleSubject.id)}
-                            className="p-2.5 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors duration-200 shadow-md"
-                            aria-label="Change Teacher"
-                        >
-                            <UserCog className="w-5 h-5" />
-                        </button>
+                        {isSuperAdmin && (
+                            <button
+                                onClick={() => handleStaffEditClick(singleSubject.id)}
+                                className="p-2.5 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors duration-200 shadow-md"
+                                aria-label="Change Teacher"
+                            >
+                                <UserCog className="w-5 h-5" />
+                            </button>
+                        )}
                         <button
                             onClick={() => handleEditClick(singleSubject.id)}
                             className="p-2.5 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-200 shadow-md"
@@ -261,14 +263,16 @@ export default function SingleSubjectTemplate({ loading, singleSubject, errorMes
                 classList={classList}
             />
             
-            <StaffModal
-                isOpen={isStaffModalOpen}
-                onClose={() => setIsStaffModalOpen(false)}
-                onSubmit={handleStaffFormSubmit}
-                formData={staffFormData}
-                handleInputChange={handleStaffInputChange}
-                staffList={staffList}
-            />
+            {isSuperAdmin && (
+                <StaffModal
+                    isOpen={isStaffModalOpen}
+                    onClose={() => setIsStaffModalOpen(false)}
+                    onSubmit={handleStaffFormSubmit}
+                    formData={staffFormData}
+                    handleInputChange={handleStaffInputChange}
+                    staffList={staffList}
+                />
+            )}
         </div>
     );
 }

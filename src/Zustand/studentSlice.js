@@ -81,6 +81,29 @@ const Student = (set, get) => ({
                setLoading(false);
           }
      },
+     bulkUpdateStudentsClass: async (fromClassId, toClassId) => {
+          const { setLoading, setErrorMessage, setMessage } = get().student;
+          setLoading(true);
+          try {
+               const res = await axiosInstance.post(`${BASE_URL}/api/v1/Student/bulk-update-class`, {
+                    fromClassId,
+                    toClassId,
+               });
+               const data = res.data;
+               const success = data?.success ?? (res.status === 200);
+               const message = data?.message || (success ? 'Students class updated successfully' : 'Could not update students class');
+               if (success) setMessage(message);
+               else setErrorMessage(message);
+               return { success, message };
+          } catch (error) {
+               console.error("Error bulk updating students class:", error);
+               const msg = error.response?.data?.message || error.response?.data || error.message || 'An error occurred while bulk updating students class';
+               setErrorMessage(msg);
+               return { success: false, message: msg };
+          } finally {
+               setLoading(false);
+          }
+     },
      fetchStuddentForClearance: async (examId) => {
           const { setLoading, setErrorMessage, setStudentsForClearnce } = get().student;
           setLoading(true);
@@ -144,6 +167,32 @@ const Student = (set, get) => ({
                setLoading(false);
           }
 
+     },
+     deactivateStudent: async (id) => {
+          const { setLoading } = get().student;
+          setLoading(true);
+          try {
+               const res = await axiosInstance.post(`${BASE_URL}/api/v1/Student/deactivate-student-account?id=${encodeURIComponent(id)}`);
+               return { success: res.data.success, message: res.data.message };
+          } catch (error) {
+               console.error('Error deactivating student:', error);
+               return { success: false, message: error.response?.data?.message || 'An error occurred while deactivating the student account' };
+          } finally {
+               setLoading(false);
+          }
+     },
+     reactivateStudent: async (id) => {
+          const { setLoading } = get().student;
+          setLoading(true);
+          try {
+               const res = await axiosInstance.post(`${BASE_URL}/api/v1/Student/reactivate-student-account?id=${encodeURIComponent(id)}`);
+               return { success: res.data.success, message: res.data.message };
+          } catch (error) {
+               console.error('Error reactivating student:', error);
+               return { success: false, message: error.response?.data?.message || 'An error occurred while reactivating the student account' };
+          } finally {
+               setLoading(false);
+          }
      }
 })
 

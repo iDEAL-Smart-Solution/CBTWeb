@@ -1,4 +1,3 @@
-import axios from "axios";
 import { BASE_URL } from '../Constant/index';
 import { create } from "zustand";
 import axiosInstance from "../Constant/axiosInstance";
@@ -61,6 +60,37 @@ const Question = (set, get) => ({
           } catch (error) {
                console.error(`Error occured uploading bulk question.`, error);
                return{success: false, message: error.response.data.message || 'An error occurred uploading the questions'};
+          } finally {
+               setLoading(false);
+          }
+     },
+     previewBulkQuestion: async (formData) => {
+          const { setLoading } = get().question;
+          setLoading(true);
+          try {
+               const formDataToSend = new FormData();
+               Object.entries(formData).forEach(([key, value]) => {
+                    if (Array.isArray(value)) {
+                         formDataToSend.append(key, value[0]);
+                    } else {
+                         formDataToSend.append(key, value);
+                    }
+               });
+
+               const res = await axiosInstance.post(`${BASE_URL}/api/v1/Question/preview-bulk`, formDataToSend);
+
+               return {
+                    success: !!res.data.success,
+                    message: res.data.message,
+                    questions: res.data.questions || []
+               };
+          } catch (error) {
+               console.error("Error occured generating bulk question preview.", error);
+               return {
+                    success: false,
+                    message: error.response?.data?.message || "Error generating preview",
+                    questions: []
+               };
           } finally {
                setLoading(false);
           }

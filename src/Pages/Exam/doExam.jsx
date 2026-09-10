@@ -3,6 +3,7 @@ import { useDoExam } from '../../Zustand/doExamSlice';
 import { useParams, useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../../Constant';
 import { useNotification } from '../../Context/notificationContext';
+import { renderQuestionText } from '../../Component/Question/questionTextFormatter';
 
 const DoExam = () => {
   const { examKey } = useParams();
@@ -23,6 +24,7 @@ const DoExam = () => {
     setCurrentIndex,
     submitExam,
     startTime,
+    subjectCode,
   } = useDoExam();
 
   const [timeLeft, setTimeLeft] = useState(null);
@@ -204,9 +206,11 @@ const DoExam = () => {
                 {theory.map((item, index) => (
                   <div key={index} className="mb-6 text-lg text-gray-700 border-b border-gray-200 pb-4 last:border-b-0">
                     {item.questionInstruction && item.questionInstruction !== '--' && (
-                      <p className="font-medium text-gray-600">{item.questionInstruction}</p>
+                      <p className="font-medium text-gray-600" dangerouslySetInnerHTML={renderQuestionText(item.questionInstruction)} />
                     )}
-                    <p className="mt-2 font-semibold">{index + 1}. {item.question}</p>
+                    <p className="mt-2 font-semibold">
+                      {index + 1}. <span dangerouslySetInnerHTML={renderQuestionText(item.question)} />
+                    </p>
                     {item.questionImage && (
                       <img
                         src={`${BASE_URL}/ProfilePicture/${item.questionImage}`}
@@ -221,6 +225,11 @@ const DoExam = () => {
             
             {/* Theory Sidebar - Timer and Submit */}
             <div className="lg:w-80 bg-white rounded-lg shadow-md p-6 flex flex-col flex-shrink-0">
+              {subjectCode && (
+                <p className="text-center text-sm font-semibold text-blue-700 uppercase tracking-wide mb-3">
+                  Subject Code: {subjectCode}
+                </p>
+              )}
               {timeLeft !== null && (
                 <p className="text-center text-xl font-mono text-gray-800 bg-gray-200 py-2 rounded-md mb-4">
                   {formatTime(timeLeft)}
@@ -249,10 +258,10 @@ const DoExam = () => {
                   </>
                 ) : null}
                 {currentQuestion.questionInstruction?.trim() && currentQuestion.questionInstruction !== '--' && (
-                  <p className="text-sm font-medium text-gray-600 mb-3">{currentQuestion.questionInstruction}</p>
+                  <p className="text-sm font-medium text-gray-600 mb-3" dangerouslySetInnerHTML={renderQuestionText(currentQuestion.questionInstruction)} />
                 )}
                 <p className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
-                  {currentIndex + 1}. {currentQuestion.question}
+                  {currentIndex + 1}. <span dangerouslySetInnerHTML={renderQuestionText(currentQuestion.question)} />
                 </p>
                 {currentQuestion.questionImage && (
                   <img
@@ -272,7 +281,7 @@ const DoExam = () => {
                         onChange={() => setAnswer(currentQuestion.id, option)}
                         className="mr-2 h-5 w-5 text-blue-600"
                       />
-                      {String.fromCharCode(97 + index)}. {option}
+                      {String.fromCharCode(97 + index)}. <span dangerouslySetInnerHTML={renderQuestionText(option)} />
                     </label>
                   </div>
                 ))}
@@ -284,6 +293,11 @@ const DoExam = () => {
 
             {/* Right Sidebar - Timer, Question Numbers, and Controls */}
             <div className="lg:w-80 bg-white rounded-lg shadow-md p-6 flex flex-col flex-shrink-0 overflow-hidden">
+              {subjectCode && (
+                <p className="text-center text-sm font-semibold text-blue-700 uppercase tracking-wide mb-3 flex-shrink-0">
+                  Subject Code: {subjectCode}
+                </p>
+              )}
               {/* Timer - Fixed at Top */}
               {timeLeft !== null && (
                 <p className="text-center text-xl font-mono text-gray-800 bg-gray-200 py-2 rounded-md mb-4 flex-shrink-0">

@@ -7,6 +7,7 @@ export default function SchoolProfileScreen() {
     const { id } = useParams();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [tokenRecipientEmail, setTokenRecipientEmail] = useState("");
     const [formData, setFormData] = useState({
         id: "",
         allowedStudentCount: "",
@@ -46,15 +47,20 @@ export default function SchoolProfileScreen() {
     };
 
     const handleGenerateToken = async () => {
+        if (!tokenRecipientEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(tokenRecipientEmail)) {
+            setErrors((prev) => ({ ...prev, tokenRecipientEmail: "Enter a valid email address to receive the token." }));
+            return;
+        }
+        setErrors((prev) => ({ ...prev, tokenRecipientEmail: "" }));
         try {
-            const response = await generateUpdateToken(schoolDetails.schoolName);
+            const response = await generateUpdateToken(schoolDetails.schoolName, tokenRecipientEmail);
             if (response.success) {
                 setSuccessMessage(response.message);
             } else {
-                setErrors({ general: response.message });
+                setErrors((prev) => ({ ...prev, general: response.message }));
             }
         } catch (error) {
-            setErrors({ general: "Error generating token. Please try again." });
+            setErrors((prev) => ({ ...prev, general: "Error generating token. Please try again." }));
         }
     };
 
@@ -330,6 +336,21 @@ export default function SchoolProfileScreen() {
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
                                     Token
                                 </label>
+                                <div className="mb-2">
+                                    <input
+                                        type="email"
+                                        value={tokenRecipientEmail}
+                                        onChange={(e) => {
+                                            setTokenRecipientEmail(e.target.value);
+                                            setErrors((prev) => ({ ...prev, tokenRecipientEmail: "" }));
+                                        }}
+                                        className="w-full px-4 py-2 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        placeholder="Enter the email address to receive the token"
+                                    />
+                                    {errors.tokenRecipientEmail && (
+                                        <p className="text-sm text-red-600 mt-1">{errors.tokenRecipientEmail}</p>
+                                    )}
+                                </div>
                                 <div className="flex gap-2">
                                     <input
                                         type="text"
