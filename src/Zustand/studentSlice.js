@@ -7,6 +7,10 @@ const Student = (set, get) => ({
      student: {
           students: [],
           studentsForClearnce: [],
+          profile: null,
+          profileLoading: false,
+          uploadingProfilePicture: false,
+          profileError: "",
           message: "",
           errorMessage: "",
           loading: false,
@@ -59,6 +63,37 @@ const Student = (set, get) => ({
                return {success: false, message: `${error.response?.status} ${error.response?.statusText}` || error.message}
           } finally {
                setLoading(false);
+          }
+     },
+     fetchStudentProfile: async (studentKey) => {
+          set((state) => ({ student: { ...state.student, profileLoading: true, profileError: "", profile: null } }));
+          try {
+               const res = await axiosInstance.get(`${BASE_URL}/api/v1/Student/get?UIN=${encodeURIComponent(studentKey)}`);
+               set((state) => ({ student: { ...state.student, profile: res.data.data, profileError: "" } }));
+               return { success: true, data: res.data.data };
+          } catch (error) {
+               const message = error.response?.data?.message || error.message || "Could not load the student profile.";
+               set((state) => ({ student: { ...state.student, profile: null, profileError: message } }));
+               return { success: false, message };
+          } finally {
+               set((state) => ({ student: { ...state.student, profileLoading: false } }));
+          }
+     },
+     uploadStudentProfilePicture: async (userId, image) => {
+          set((state) => ({ student: { ...state.student, uploadingProfilePicture: true } }));
+          try {
+               const formData = new FormData();
+               formData.append("Id", userId);
+               formData.append("NewDp", image);
+               const res = await axiosInstance.put(`${BASE_URL}/api/v1/User/update-profile-picture`, formData);
+               return { success: Boolean(res.data?.success), message: res.data?.message || "Profile picture updated." };
+          } catch (error) {
+               return {
+                    success: false,
+                    message: error.response?.data?.message || error.message || "Could not update the profile picture."
+               };
+          } finally {
+               set((state) => ({ student: { ...state.student, uploadingProfilePicture: false } }));
           }
      },
      updateStudentClass: async (studentKey, newClassId) => {
