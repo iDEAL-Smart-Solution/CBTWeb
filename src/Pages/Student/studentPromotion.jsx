@@ -8,7 +8,7 @@ import { useNotification } from "../../Context/notificationContext";
 
 export default function StudentPromotion() {
   const { student, fetchStudents } = useStudent();
-  const { schClass, fetchClassList } = useClass();
+  const { schClass, fetchClassListWithGraduated } = useClass();
   const { students, loading } = student;
   const { allschClass, loading: classLoading } = schClass;
   const { showSuccess, showError } = useNotification();
@@ -22,8 +22,8 @@ export default function StudentPromotion() {
   const [showBulkConfirmModal, setShowBulkConfirmModal] = useState(false);
 
   useEffect(() => {
-    fetchClassList();
-  }, [fetchClassList]);
+    fetchClassListWithGraduated();
+  }, [fetchClassListWithGraduated]);
 
   const handleSearchChange = (e) => setSearchParam(e.target.value);
   const handleSearchSubmit = async (e) => {

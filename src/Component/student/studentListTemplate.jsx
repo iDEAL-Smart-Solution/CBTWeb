@@ -23,7 +23,7 @@ export default function StudentListTemplate({ data, loading, handleDelete }) {
      };
 
      const handleMoreClick = (id) => {
-          navigate(`/student/${id}`);
+          navigate(`/student/${encodeURIComponent(id)}`);
      };
 
 

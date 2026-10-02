@@ -3,6 +3,7 @@ import { useAuth } from "../../Zustand/auth";
 import { useStudent } from "../../Zustand/studentSlice";
 import { useNotification } from "../../Context/notificationContext";
 import { BASE_URL } from "../../Constant";
+import defaultAvatar from "../../assets/avatar.jpeg";
 
 const genderMap = { 1: "Male", 2: "Female" };
 
@@ -83,13 +84,15 @@ export default function SingleClassTemplate({ students, onDeactivated }) {
                                         </td>
                                         <td className="px-4 py-3 border border-gray-200">
                                             <img
-                                                src={`${BASE_URL}/ProfilePictures/${stu.profilePicture}`}
+                                                src={stu.profilePicture
+                                                    ? `${BASE_URL}/ProfilePicture/${stu.profilePicture}`
+                                                    : defaultAvatar}
                                                 alt={stu.studentName}
                                                 className="w-10 h-10 rounded-full object-cover"
-                                                onError={(e) =>
-                                                    (e.target.src =
-                                                        "https://via.placeholder.com/40?text=N/A")
-                                                }
+                                                onError={(e) => {
+                                                    e.currentTarget.onerror = null;
+                                                    e.currentTarget.src = defaultAvatar;
+                                                }}
                                             />
                                         </td>
                                         <td className={`px-4 py-3 border border-gray-200 font-medium ${stu.isActive ? "text-gray-800" : "text-gray-400 line-through"}`}>

@@ -19,7 +19,16 @@ const useSuitMigrationStore = create((set) => ({
       set({ result: payload });
       return { success: true, data: payload };
     } catch (err) {
-      const errorPayload = err.response?.data?.message || err.message || 'Error migrating students';
+      const responseData = err.response?.data;
+      const errorPayload =
+        (typeof responseData === 'string' && responseData) ||
+        responseData?.message ||
+        responseData?.Message ||
+        responseData?.data?.message ||
+        responseData?.data?.Message ||
+        responseData?.data?.errors?.[0] ||
+        err.message ||
+        'Error migrating students';
       set({ error: errorPayload });
       return { success: false, error: errorPayload };
     } finally {

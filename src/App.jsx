@@ -8,6 +8,7 @@ import Class from './Pages/Class';
 import SingleClass from './Pages/Class/singleClass';
 import StaffList from './Pages/Staff/StaffList';
 import StudentList from './Pages/Student/studentList';
+import StudentProfile from './Pages/Student/studentProfile';
 import SubjectList from './Pages/Subject/subjectList';
 import ExamList from './Pages/Exam/examList';
 import SingleExam from './Pages/Exam/singleExam';
@@ -66,6 +67,7 @@ function App() {
         { path: "class/:id", element: <SingleClass /> },
         { path: "staff", element: <StaffList /> },
         { path: "students", element: <StudentList /> },
+        { path: "student/:id", element: <StudentProfile /> },
         { path: "subjects", element: <SubjectList /> },
         { path: "exams", element: <ExamList /> },
         { path: "exam/:id", element: <SingleExam /> },

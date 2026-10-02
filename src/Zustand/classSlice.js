@@ -33,6 +33,25 @@ const Class = (set, get) => ({
                setLoading(false);
           }
      },
+     fetchClassListWithGraduated: async () => {
+          const { setLoading, setAllschClass } = get().schClass;
+          setLoading(true);
+          try {
+               const res = await axiosInstance.get(`${BASE_URL}/api/v1/Class/get-all-with-graduated`);
+               const schClassList = res.data.map((list) => ({
+                    className: list.cLassName,
+                    classId: list.classId,
+                    numberOfSubjects: list.numberOfSubjects,
+                    numberOfStudents: list.numberOfStudents,
+               }));
+               setAllschClass(schClassList);
+          } catch (error) {
+               console.error("Error fetching schClass list (with graduated):", error);
+               setAllschClass([]);
+          } finally {
+               setLoading(false);
+          }
+     },
      fetchSingleClass: async (param) => {
           const { setLoading, setSingleClass } = get().schClass;
           setLoading(true);
