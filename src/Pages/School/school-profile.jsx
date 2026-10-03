@@ -12,6 +12,8 @@ export default function SchoolProfileScreen() {
         id: "",
         allowedStudentCount: "",
         amountPaid: "",
+        targetAmount: "",
+        termPaymentPercentage: "",
         createdAt: "",
         token: "",
         subscriptionType: "",
@@ -30,6 +32,8 @@ export default function SchoolProfileScreen() {
                 id: schoolDetails.schoolSubscription.id,
                 allowedStudentCount: schoolDetails.schoolSubscription.allowedStudentCount.toString(),
                 amountPaid: schoolDetails.schoolSubscription.amountPaid.toString(),
+                targetAmount: (schoolDetails.schoolSubscription.targetAmount ?? 0).toString(),
+                termPaymentPercentage: (schoolDetails.schoolSubscription.termPaymentPercentage ?? 0).toString(),
                 createdAt: createdAt.toISOString().split("T")[0], 
                 subscriptionType: schoolDetails.schoolSubscription.subscriptionType?.toString() || "",
             });
@@ -41,7 +45,7 @@ export default function SchoolProfileScreen() {
 
     const closeModal = () => {
         setIsModalOpen(false);
-        setFormData({ id: "", allowedStudentCount: "", amountPaid: "", createdAt: "", token: "", subscriptionType: "" });
+        setFormData({ id: "", allowedStudentCount: "", amountPaid: "", targetAmount: "", termPaymentPercentage: "", createdAt: "", token: "", subscriptionType: "" });
         setErrors({});
         setSuccessMessage("");
     };
@@ -78,6 +82,13 @@ export default function SchoolProfileScreen() {
         if (!formData.amountPaid || isNaN(formData.amountPaid) || Number(formData.amountPaid) < 0) {
             newErrors.amountPaid = "Amount paid must be a non-negative number";
         }
+        if (Number(formData.targetAmount) < 0) newErrors.targetAmount = "Target amount cannot be negative";
+        if (Number(formData.termPaymentPercentage) < 0 || Number(formData.termPaymentPercentage) > 100) {
+            newErrors.termPaymentPercentage = "Enter a percentage from 0 to 100";
+        }
+        if (Number(formData.subscriptionType) === 1 && Number(formData.targetAmount) > Number(formData.amountPaid) && Number(formData.termPaymentPercentage) <= 0) {
+            newErrors.termPaymentPercentage = "An unpaid premium target needs a term payment percentage";
+        }
         if (!formData.createdAt) {
             newErrors.createdAt = "Created date is required";
         } else {
@@ -109,6 +120,8 @@ export default function SchoolProfileScreen() {
                 id: formData.id,
                 allowedStudentCount: Number(formData.allowedStudentCount),
                 amountPaid: Number(formData.amountPaid),
+                targetAmount: Number(formData.targetAmount) || 0,
+                termPaymentPercentage: Number(formData.termPaymentPercentage) || 0,
                 createdAt: new Date(formData.createdAt).toISOString(),
                 token: formData.token,
                 subscriptionType: Number(formData.subscriptionType),
@@ -240,6 +253,12 @@ export default function SchoolProfileScreen() {
                             <p className="text-base text-gray-700">
                                 <span className="font-medium">Amount Paid:</span> {formatNaira(schoolDetails.schoolSubscription.amountPaid)}
                             </p>
+                            {schoolDetails.schoolSubscription.targetAmount > 0 && <>
+                                <p className="text-base text-gray-700"><span className="font-medium">Premium Target:</span> {formatNaira(schoolDetails.schoolSubscription.targetAmount)}</p>
+                                <p className="text-base text-gray-700"><span className="font-medium">Remaining:</span> {formatNaira(schoolDetails.schoolSubscription.remainingTargetAmount)}</p>
+                                <p className="text-base text-gray-700"><span className="font-medium">Due each four-month cycle:</span> {formatNaira(schoolDetails.schoolSubscription.termAmountDue)} ({schoolDetails.schoolSubscription.termPaymentPercentage}%)</p>
+                                <p className="text-base text-gray-700"><span className="font-medium">Next payment due:</span> {schoolDetails.schoolSubscription.amountPaid >= schoolDetails.schoolSubscription.targetAmount ? "Target reached" : new Date(schoolDetails.schoolSubscription.expiryDate).toLocaleDateString()}</p>
+                            </>}
                             <p className="text-base text-gray-700">
                                 <span className="font-medium">Created At:</span>{" "}
                                 {new Date(schoolDetails.schoolSubscription.createdAt).toLocaleDateString()}
@@ -298,8 +317,19 @@ export default function SchoolProfileScreen() {
                                 )}
                             </div>
                             <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Premium Target Amount (NGN, 0 if not applicable)</label>
+                                <input type="number" name="targetAmount" value={formData.targetAmount} onChange={handleInputChange} min="0" step="0.01" className="w-full px-4 py-2 text-base border border-gray-300 rounded-md" placeholder="Enter total premium target" />
+                                {errors.targetAmount && <p className="text-sm text-red-600 mt-1">{errors.targetAmount}</p>}
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Premium payment percentage each four months</label>
+                                <input type="number" name="termPaymentPercentage" value={formData.termPaymentPercentage} onChange={handleInputChange} min="0" max="100" step="0.01" className="w-full px-4 py-2 text-base border border-gray-300 rounded-md" placeholder="For example, 20" />
+                                {errors.termPaymentPercentage && <p className="text-sm text-red-600 mt-1">{errors.termPaymentPercentage}</p>}
+                                {Number(formData.targetAmount) > 0 && Number(formData.termPaymentPercentage) > 0 && <p className="text-sm text-gray-600 mt-1">Estimated next instalment: {formatNaira(Math.min(Math.max(0, Number(formData.targetAmount) - Number(formData.amountPaid)), Number(formData.targetAmount) * Number(formData.termPaymentPercentage) / 100))}</p>}
+                            </div>
+                            <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Created At
+                                    Last Payment / Cycle Start Date
                                 </label>
                                 <input
                                     type="date"

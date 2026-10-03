@@ -3,7 +3,7 @@ import { useAuth } from "../../Zustand/auth";
 import { NavLink, useLocation } from "react-router-dom";
 import {
   Book, UserPlus, Users, Clipboard, Plus,
-  FileUp, List, BarChart2, Settings, MessageSquare, School, HardDrive
+  FileUp, List, BarChart2, Settings, MessageSquare, School, HardDrive, CreditCard
 } from 'lucide-react';
 
 const navLinksItem = [
@@ -68,10 +68,17 @@ const navLinksItem = [
     ]
   },
   {
+    name: "Billing",
+    subLinks: [
+      { link: "/payments", name: "Payments", icon: <CreditCard size={20} /> }
+    ]
+  },
+  {
     name: "Administration",
     subLinks: [
       { link: "/schools", name: "Schools", icon: <School size={20} /> },
-      { link: "/admin-users", name: "Admin Users", icon: <Users size={20} /> }
+      { link: "/admin-users", name: "Admin Users", icon: <Users size={20} /> },
+      { link: "/dev", name: "Premium Payments", icon: <CreditCard size={20} /> }
     ]
   },
   {
@@ -89,13 +96,13 @@ export default function Sidebar({ isOpen, setIsOpen }) {
   const location = useLocation();
 
   const roleRoutes = {
-    1: ["/dashboard", "/class", "/staff", "/students", "/subjects", "/exams", "/question/create", "/results", "/upload-thoery-score", "/student-clearance", "/edit-academic-session", "/send-feedback", "/passage", "/student-promotion", "/backup-settings", "/migrate-students"],
+    1: ["/dashboard", "/class", "/staff", "/students", "/subjects", "/exams", "/question/create", "/results", "/upload-thoery-score", "/student-clearance", "/edit-academic-session", "/send-feedback", "/passage", "/student-promotion", "/backup-settings", "/migrate-students", "/payments"],
     2: ["/dashboard", "/staff", "/students", "/staff/subjects", "/exams", "/question/create", "/staff/exams", "/results", "/send-feedback", "/passage"],
-    4: ["/schools", "/admin-users", "/backup-settings"]
+    4: ["/schools", "/admin-users", "/dev", "/backup-settings"]
   };
 
   const routeNames = {
-    1: ["Class", "Staff", "Student", "Subject", "Questions", "Examination", "Result", "Setting", "Feedback","System"],
+    1: ["Class", "Staff", "Student", "Subject", "Questions", "Examination", "Result", "Setting", "Feedback", "Billing", "System"],
     2: ["Subject", "Questions", "Examination", "Result", "Feedback"],
     4: ["Administration", "System"]
   };
@@ -150,7 +157,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       </div>
 
       <div className="bg-gray-200 text-center">
-        <small className="text-gray-500 font-bold">Version 2.4</small>
+        <small className="text-gray-500 font-bold">Version 3.0</small>
       </div>
     </aside>
   );
