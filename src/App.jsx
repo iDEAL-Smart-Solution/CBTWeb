@@ -33,6 +33,7 @@ import SchoolProfileScreen from './Pages/School/school-profile';
 import StudentPromotion from './Pages/Student/studentPromotion';
 import BackupSettings from './Pages/Admin/backup-settings';
 import MigrateStudents from './Pages/Admin/migrate-students';
+import Payments from './Pages/Admin/payments';
 
 function App() {
   const getUser = () => JSON.parse(sessionStorage.getItem("user"));
@@ -72,7 +73,7 @@ function App() {
         { path: "exams", element: <ExamList /> },
         { path: "exam/:id", element: <SingleExam /> },
         { path: "question/create", element: <QuestionUpload /> },
-        { path: "dev", element: <Dev /> },
+        { path: "dev", element: <Dev />, loader: () => getUser()?.role === 4 ? null : redirect("/") },
         { path: "/subject/:id", element: <SingleSubject /> },
         { path: "/results", element: <Results /> },
         { path: "/student-clearance", element: <StudentClearancePage /> },
@@ -89,6 +90,7 @@ function App() {
         { path: "/school/:id", element: <SchoolProfileScreen /> },
         { path: "/backup-settings", element: <BackupSettings /> },
         { path: "/migrate-students", element: <MigrateStudents /> },
+        { path: "/payments", element: <Payments /> },
       ]
     },
     {
