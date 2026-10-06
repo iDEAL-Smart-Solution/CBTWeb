@@ -6,4 +6,3 @@ export const BASE_URL = 'https://cbt.api.idealsmartsolutions.com';
 
 
 export const SCHOOL_NAME= 'iDEAL'
- 
