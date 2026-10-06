@@ -37,6 +37,12 @@ export default function Payments() {
       : calculatedTotal;
   }, [baseAmount, summary]);
 
+  const paymentHistory = useMemo(() => [...(summary?.payments ?? [])].sort((a, b) => {
+    const dateA = Date.parse(a.paidAt || a.dateCreated || '');
+    const dateB = Date.parse(b.paidAt || b.dateCreated || '');
+    return (Number.isFinite(dateB) ? dateB : 0) - (Number.isFinite(dateA) ? dateA : 0);
+  }), [summary?.payments]);
+
   const verifyReference = async (reference) => {
     const normalizedReference = reference.trim();
     if (!normalizedReference) {
@@ -212,12 +218,12 @@ export default function Payments() {
       )}
 
       <section className="mt-8 rounded-xl border bg-white p-5 shadow-sm">
-        <h2 className="font-semibold">Recent payments</h2>
-        {summary?.payments?.length ? (
+        <h2 className="font-semibold">Payment history</h2>
+        {paymentHistory.length ? (
           <div className="mt-4 overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead><tr className="border-b text-gray-500"><th className="py-2 pr-4">Paid</th><th className="py-2 pr-4">Payment</th><th className="py-2 pr-4">Seats</th><th className="py-2 pr-4">Charged (incl. fee)</th><th className="py-2 pr-4">Access period</th><th className="py-2">Status</th></tr></thead>
-              <tbody>{summary.payments.map(payment => <tr key={payment.reference} className="border-b last:border-0">
+              <tbody>{paymentHistory.map(payment => <tr key={payment.reference} className="border-b last:border-0">
                 <td className="py-3 pr-4">{new Date(payment.paidAt || payment.dateCreated).toLocaleDateString()}</td>
                 <td className="py-3 pr-4">{payment.paymentType === 'SeatUpgrade' ? 'Seat upgrade' : payment.paymentType === 'PremiumInstallment' ? 'Premium instalment' : 'Renewal'}</td>
                 <td className="py-3 pr-4">{payment.paymentType === 'SeatUpgrade' ? `+${payment.studentCapacity}` : payment.paymentType === 'PremiumInstallment' ? '—' : payment.studentCapacity}</td>
