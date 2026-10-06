@@ -2,6 +2,27 @@ import axios from "axios";
 import { BASE_URL } from '../Constant/index';   
 import { create } from "zustand";
 
+const getLoginErrorMessage = (error) => {
+    const responseData = error?.response?.data;
+    const responseMessage = typeof responseData === 'string'
+        ? responseData
+        : responseData?.message;
+
+    if (typeof responseMessage === 'string' && responseMessage.trim()) {
+        return responseMessage;
+    }
+
+    if (!error?.response) {
+        return 'Cannot connect to the school server. Check that the CBT Server is running and try again.';
+    }
+
+    if (error.response.status >= 500) {
+        return 'The school server encountered a problem. Please try again shortly.';
+    }
+
+    return error?.message || 'Login failed. Check your details and try again.';
+};
+
 const Auth = (set, get) => ({
     auth: {
         token: sessionStorage.getItem('token') || '',
@@ -44,6 +65,7 @@ const Auth = (set, get) => ({
             return { success: true, message: message }
 
         } catch (error) {
+            const message = getLoginErrorMessage(error);
             sessionStorage.removeItem('token');
             sessionStorage.removeItem('user');
             sessionStorage.removeItem('academicSession');
@@ -51,14 +73,14 @@ const Auth = (set, get) => ({
                 ...state,
                 auth: {
                     ...state.auth,
-                    error: error.response.data.message || 'Login failed',
+                    error: message,
                     isAuthenticated: false,
                     token: null,
                     user: null,
                     loading: false,
                 },
             }));
-            return { success: false, message: error.response.data.message || 'Login failed' }
+            return { success: false, message };
 
         }
     },
