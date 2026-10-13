@@ -8,7 +8,7 @@ import { BASE_URL } from "../../Constant";
 import defaultAvatar from "../../assets/avatar.jpeg";
 
 const genderNames = { 1: "Male", 2: "Female" };
-const termNames = { 1: "First term", 2: "Second term", 3: "Third term" };
+const termScoreFields = [1, 2, 3];
 
 function ProfileValue({ label, value }) {
     return (
@@ -27,6 +27,7 @@ export default function StudentProfile() {
     const { profile, profileLoading, uploadingProfilePicture, profileError } = student;
     const { showSuccess, showError } = useNotification();
     const [imageError, setImageError] = useState(false);
+    const [selectedSession, setSelectedSession] = useState("all");
 
     useEffect(() => {
         fetchStudentProfile(id);
@@ -70,6 +71,19 @@ export default function StudentProfile() {
     const pictureUrl = profile.profilePicture && !imageError
         ? `${BASE_URL}/ProfilePicture/${profile.profilePicture}`
         : defaultAvatar;
+    const sessions = [...new Set((profile.results || []).map((result) => result.session).filter(Boolean))]
+        .sort((a, b) => b.localeCompare(a));
+    const sessionResults = (profile.results || []).filter((result) =>
+        selectedSession === "all" || result.session === selectedSession
+    );
+    const subjectResults = Object.values(sessionResults.reduce((groups, result) => {
+        const key = `${result.session}|${result.subjectCode || result.subjectName}`;
+        if (!groups[key]) {
+            groups[key] = { session: result.session, subjectName: result.subjectName || result.subjectCode, terms: {} };
+        }
+        groups[key].terms[result.term] = result.totalScore;
+        return groups;
+    }, {}));
 
     return (
         <main className="mx-auto max-w-6xl space-y-6 p-4 md:p-8">
@@ -121,15 +135,28 @@ export default function StudentProfile() {
             </section>
 
             <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-                <h2 className="mb-4 text-lg font-bold text-gray-900">Results</h2>
-                {profile.results?.length ? (
+                <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                    <h2 className="text-lg font-bold text-gray-900">Results</h2>
+                    <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                        Session
+                        <select value={selectedSession} onChange={(event) => setSelectedSession(event.target.value)} className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm">
+                            <option value="all">All sessions</option>
+                            {sessions.map((session) => <option key={session} value={session}>{session}</option>)}
+                        </select>
+                    </label>
+                </div>
+                {subjectResults.length ? (
                     <div className="overflow-x-auto">
                         <table className="min-w-full text-left text-sm">
-                            <thead className="border-b text-xs uppercase text-gray-500"><tr><th className="px-3 py-3">Subject</th><th className="px-3 py-3">Session</th><th className="px-3 py-3">Term</th><th className="px-3 py-3">1st CA</th><th className="px-3 py-3">2nd CA</th><th className="px-3 py-3">3rd CA</th><th className="px-3 py-3">Exam</th><th className="px-3 py-3">Total</th></tr></thead>
-                            <tbody>{profile.results.map((result) => <tr key={result.id} className="border-b last:border-0"><td className="px-3 py-3 font-medium">{result.subjectName || result.subjectCode}</td><td className="px-3 py-3">{result.session}</td><td className="px-3 py-3">{termNames[result.term] || result.term}</td><td className="px-3 py-3">{result.firstCaScore}</td><td className="px-3 py-3">{result.secondCaScore}</td><td className="px-3 py-3">{result.thirdCaScore}</td><td className="px-3 py-3">{result.examScore}</td><td className="px-3 py-3 font-semibold">{result.totalScore}</td></tr>)}</tbody>
+                            <thead className="border-b text-xs uppercase text-gray-500"><tr><th className="px-3 py-3">Subject</th><th className="px-3 py-3">Session</th><th className="px-3 py-3">1st term</th><th className="px-3 py-3">2nd term</th><th className="px-3 py-3">3rd term</th><th className="px-3 py-3">Aggregate average</th></tr></thead>
+                            <tbody>{subjectResults.map((subject) => {
+                                const scores = termScoreFields.map((term) => subject.terms[term]).filter((score) => score !== undefined && score !== null);
+                                const aggregate = scores.length ? scores.reduce((sum, score) => sum + Number(score), 0) / scores.length : null;
+                                return <tr key={`${subject.session}-${subject.subjectName}`} className="border-b last:border-0"><td className="px-3 py-3 font-medium">{subject.subjectName}</td><td className="px-3 py-3">{subject.session}</td>{termScoreFields.map((term) => <td key={term} className="px-3 py-3">{subject.terms[term] ?? "—"}</td>)}<td className="px-3 py-3 font-semibold">{aggregate === null ? "—" : aggregate.toFixed(2)}</td></tr>;
+                            })}</tbody>
                         </table>
                     </div>
-                ) : <p className="text-sm text-gray-500">No results are available for this student.</p>}
+                ) : <p className="text-sm text-gray-500">{profile.results?.length ? "No results are available for the selected session." : "No results are available for this student."}</p>}
             </section>
         </main>
     );
